@@ -2,6 +2,7 @@ import { BellFilled, MailOutlined } from "@ant-design/icons";
 import { Badge, Drawer, Image, List, Space, Typography } from "antd";
 import { getComments, getOrders } from "../../API";
 import { useEffect, useState } from "react";
+import img1 from "../../Images/logo/RockVinh_Logo.jpg";
 
 function AppHeader(){
     const [comments, setComments] = useState([])
@@ -24,8 +25,8 @@ function AppHeader(){
     return (
         <div className="AppHeader">
             <Image
-                width={40}
-                src="https://www.google.com/search?q=rockvin+cafe&tbm=isch&ved=2ahUKEwiWqIisidP9AhVG3XMBHTjWCuYQ2-cCegQIABAA&oq=rockvin+cafe&gs_lcp=CgNpbWcQAzIJCAAQgAQQChAYOgQIIxAnOgQIABBDOggIABCABBCxAzoFCAAQgARQ4wtYqkRgwUhoAHAAeACAAdwBiAHaEZIBBjAuMTEuMpgBAKABAaoBC2d3cy13aXotaW1nwAEB&sclient=img&ei=BwgMZNaIFca6z7sPuKyrsA4&bih=746&biw=1536#imgrc=P-isEsOesa3gyM"
+                width={100}
+                src={img1}
             >
             </Image>
             <Typography.Title>RockVin Cafe and Surfer's Inn</Typography.Title>
