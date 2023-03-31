@@ -29,7 +29,7 @@ function AppHeader(){
                 src={img1}
             >
             </Image>
-            <Typography.Title>RockVin Cafe and Surfer's Inn</Typography.Title>
+            <Typography.Title type="success">RockVin Cafe and Surfer's Inn</Typography.Title>
             <Space>
                 <Badge count={comments.length} dot>
                     <MailOutlined style={{ fontSize: 24 }} 
