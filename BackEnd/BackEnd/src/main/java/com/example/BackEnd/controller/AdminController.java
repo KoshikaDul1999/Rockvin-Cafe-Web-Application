@@ -1,4 +1,4 @@
 package com.example.BackEnd.controller;
 
-public class UserController {
+public class AdminController {
 }
