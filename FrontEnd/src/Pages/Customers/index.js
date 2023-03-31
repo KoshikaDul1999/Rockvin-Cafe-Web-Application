@@ -1,6 +1,7 @@
 import { Avatar, Rate, Space, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { getCustomers } from "../../API";
+import { Link } from 'react-router-dom'
 
 function Customers() {
     const [loading, setLoading] = useState(false)
@@ -17,6 +18,7 @@ function Customers() {
     return (
         <Space size={20} direction='vertical'>
             <Typography.Title level={4}>Customer List</Typography.Title>
+            <Link className='btn btn-danger' to="/addnewcustomer">Add New Customer</Link>
             <Table 
                 loading={loading}
                 columns={[
