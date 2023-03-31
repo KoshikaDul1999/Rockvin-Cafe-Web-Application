@@ -1,6 +1,7 @@
 import { Space, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { getOrders } from "../../API";
+import { Link } from 'react-router-dom'
 
 function Orders() {
     const [loading, setLoading] = useState(false)
@@ -17,6 +18,7 @@ function Orders() {
     return (
         <Space size={20} direction='vertical'>
             <Typography.Title level={4}>Order List</Typography.Title>
+            <Link className='btn btn-success' to="/addneworder">Add New Order</Link>
             <Table 
                 loading={loading}
                 columns={[
