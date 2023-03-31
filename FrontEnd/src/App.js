@@ -4,6 +4,7 @@ import AppHeader from './Components/AppHeader';
 import SideMenu from './Components/SideMenu';
 import PageContent from './Components/PageContent';
 import AppFooter from './Components/AppFooter';
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (

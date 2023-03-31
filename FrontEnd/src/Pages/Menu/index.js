@@ -1,6 +1,7 @@
 import { Avatar, Rate, Space, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { getInventory } from "../../API";
+import { Link } from 'react-router-dom'
 
 function Menu() {
     const [loading, setLoading] = useState(false)
@@ -17,6 +18,7 @@ function Menu() {
     return (
         <Space size={20} direction='vertical'>
             <Typography.Title level={4}>Menu List</Typography.Title>
+            <Link className='btn btn-warning' to="/addnewmenu">Add New Menu</Link>
             <Table 
                 loading={loading}
                 columns={[
