@@ -55,7 +55,7 @@ export default function EditCategory() {
                         />
                     </div>
                     <div className='mb-3'>
-                        <label htmlFor="Username" className="form-label">
+                        <label htmlFor="category_desc" className="form-label">
                         Category Description
                         </label>
                         <input

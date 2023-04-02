@@ -19,7 +19,7 @@ function Category() {
     };
 
     const deleteCategory = async (id) => {
-        const result = await axios.delete(`http://localhost:8080/categoty/${category_id}`)
+        const result = await axios.delete(`http://localhost:8080/category/${category_id}`)
         loadCategories()
     }
 
