@@ -14,6 +14,9 @@ import AddChef from "../../Chef/AddChef";
 import EditChef from "../../Chef/EditChef";
 import ViewChef from "../../Chef/ViewChef";
 import Category from "../../Pages/Category";
+import AddCategory from "../../Categories/AddCategory";
+import EditCategory from "../../Categories/EditCategory";
+import ViewCategory from "../../Categories/ViewCategory";
 
 
 function AppRoutes(){
@@ -35,6 +38,11 @@ function AppRoutes(){
                 <Route exact path='/addnewchef' element={<AddChef />} />
                 <Route exact path='/editchef/:chef_id' element={<EditChef />} />
                 <Route exact path='/viewchef/:chef_id' element={<ViewChef />} />
+
+                <Route exact path="/addnewcategory" element={<AddCategory />} />
+                <Route exact path="/editcategory/:category_id" element={<EditCategory />} />
+                <Route exact path="/viewcategory/:category_id" element={<ViewCategory />} />
+
             </Routes>
     )
 }
