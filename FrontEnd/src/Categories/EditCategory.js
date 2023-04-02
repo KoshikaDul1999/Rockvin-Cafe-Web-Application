@@ -48,14 +48,14 @@ export default function EditCategory() {
                         <input
                             type={"text"}
                             className="form-control"
-                            placeholder="Enter category Name"
-                            name="name"
+                            placeholder="Enter Category Name"
+                            name="category_name"
                             value={category_name}
                             onChange={(e)=>onInputChange(e)}
                         />
                     </div>
                     <div className='mb-3'>
-                        <label htmlFor="Username" className="form-label">
+                        <label htmlFor="Description" className="form-label">
                         Category Description
                         </label>
                         <input
