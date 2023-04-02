@@ -8,18 +8,18 @@ import jakarta.persistence.Id;
 public class Chef {
     @Id
     @GeneratedValue
-    private int id;
+    private int chef_id;
     private String chef_username;
     private String chef_password;
     private String chef_name;
     private String chef_email;
 
-    public int getId() {
-        return id;
+    public int getChef_id() {
+        return chef_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setChef_id(int chef_id) {
+        this.chef_id = chef_id;
     }
 
     public String getChef_username() {

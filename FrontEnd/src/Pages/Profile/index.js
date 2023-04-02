@@ -23,6 +23,28 @@ function Profile() {
         loadAdmins()
     }
 
+
+
+    const [chefs,setChefs]=useState([]);
+
+    const {chef_id}=useParams()
+
+    useEffect(() => {
+        loadChefs();
+    },[]);
+
+    const loadChefs = async () => {
+        const result = await axios.get("http://localhost:8080/chefs");
+        setChefs(result.data);
+    };
+
+    const deleteChef = async (chef_id) => {
+        const result = await axios.delete(`http://localhost:8080/chef/${chef_id}`)
+        loadChefs()
+    }
+
+
+
     return (
         <div>
             <Typography.Title level={4}>Admin Profile</Typography.Title>
@@ -64,6 +86,56 @@ function Profile() {
 
                                     <button className='btn btn-danger mx-2'
                                         onClick={() => deleteAdmin(admin.id)}
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr> 
+                        ))
+    }
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+            <Typography.Title level={4}>Chef Profile</Typography.Title>
+            <Link className='btn btn-info' to="/addnewchef">Add New Chef</Link>
+            <div className="container">
+                <div className="py-4">
+                    <table className="table border shadow-inner, table-info">
+                    <thead className="thead-dark">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">User Name</th>
+                            <th scope="col">E-mail</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {
+                        chefs.map((chef,index)=>(
+                            <tr>
+                                <th scope="row" key={index}>{index+1}</th>
+                                <td>{chef.chef_name}</td>
+                                <td>{chef.chef_username}</td>
+                                <td>{chef.chef_email}</td>
+                                <td>{chef.chef_password}</td>
+                                <td>
+                                    <Link className='btn btn-primary mx-2'
+                                        to={`/viewchef/${chef.chef_id}`}
+                                    >
+                                        View
+                                    </Link>
+
+                                    <Link className='btn btn-outline-primary mx-2'
+                                    to={`/editchef/${chef.chef_id}`}
+                                    >
+                                        Edit
+                                    </Link>
+
+                                    <button className='btn btn-danger mx-2'
+                                        onClick={() => deleteChef(chef.chef_id)}
                                     >
                                         Delete
                                     </button>

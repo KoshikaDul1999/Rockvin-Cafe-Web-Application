@@ -28,31 +28,31 @@ public class ChefController {
         return chefRepository.findAll();
     }
 
-    @GetMapping("/chef/{id}")
-    Chef getChefById(@PathVariable int id){
-        return chefRepository.findById(id)
-                .orElseThrow(()->new ChefNotFoundException(id));
+    @GetMapping("/chef/{chef_id}")
+    Chef getChefById(@PathVariable int chef_id){
+        return chefRepository.findById(chef_id)
+                .orElseThrow(()->new ChefNotFoundException(chef_id));
     }
 
-    @PutMapping("/chef/{id}")
-    Chef updateChef(@RequestBody Chef newChef,@PathVariable int id){
-        return chefRepository.findById(id)
+    @PutMapping("/chef/{chef_id}")
+    Chef updateChef(@RequestBody Chef newChef,@PathVariable int chef_id){
+        return chefRepository.findById(chef_id)
                 .map(chef -> {
                     chef.setChef_username(newChef.getChef_username());
                     chef.setChef_name(newChef.getChef_name());
                     chef.setChef_password(newChef.getChef_password());
                     chef.setChef_email(newChef.getChef_email());
                     return chefRepository.save(chef);
-                }).orElseThrow(()->new ChefNotFoundException(id));
+                }).orElseThrow(()->new ChefNotFoundException(chef_id));
     }
 
-    @DeleteMapping("chef/{id}")
-    String deleteChef(@PathVariable int id){
-        if(!chefRepository.existsById(id)){
-            throw new ChefNotFoundException(id);
+    @DeleteMapping("chef/{chef_id}")
+    String deleteChef(@PathVariable int chef_id){
+        if(!chefRepository.existsById(chef_id)){
+            throw new ChefNotFoundException(chef_id);
         }
-        chefRepository.deleteById(id);
-        return "Chef with id "+id+" has been deleted successfully.";
+        chefRepository.deleteById(chef_id);
+        return "Chef with id "+chef_id+" has been deleted successfully.";
     }
 
 }

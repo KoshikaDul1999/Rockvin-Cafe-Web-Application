@@ -50,7 +50,7 @@ export default function EditAdmin() {
                         <input
                             type={"text"}
                             className="form-control"
-                            placeholder="Enter Your Name"
+                            placeholder="Enter Admin Name"
                             name="name"
                             value={admin_name}
                             onChange={(e)=>onInputChange(e)}
@@ -63,7 +63,7 @@ export default function EditAdmin() {
                         <input
                             type={"text"}
                             className="form-control"
-                            placeholder="Enter Your Username"
+                            placeholder="Enter Admin Username"
                             name="username"
                             value={admin_username}
                             onChange={(e)=>onInputChange(e)}
@@ -76,7 +76,7 @@ export default function EditAdmin() {
                         <input
                             type={"text"}
                             className="form-control"
-                            placeholder="Enter Email Address"
+                            placeholder="Enter Admin Email Address"
                             name="email"
                             value={admin_email}
                             onChange={(e)=>onInputChange(e)}
@@ -89,7 +89,7 @@ export default function EditAdmin() {
                         <input
                             type={"text"}
                             className="form-control"
-                            placeholder="Enter Password"
+                            placeholder="Enter Admin Password"
                             name="password"
                             value={admin_password}
                             onChange={(e)=>onInputChange(e)}
