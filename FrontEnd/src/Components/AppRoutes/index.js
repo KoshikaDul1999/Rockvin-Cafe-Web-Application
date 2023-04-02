@@ -13,6 +13,7 @@ import ViewAdmin from "../../Admins/ViewAdmin";
 import AddChef from "../../Chef/AddChef";
 import EditChef from "../../Chef/EditChef";
 import ViewChef from "../../Chef/ViewChef";
+import Category from "../../Pages/Category";
 
 
 function AppRoutes(){
@@ -20,6 +21,7 @@ function AppRoutes(){
             <Routes>
                 <Route path="/" element={<Dashboard />}></Route>
                 <Route path="/menu" element={<Menu />}></Route>
+                <Route path="/category" element={<Category />}></Route>
                 <Route path="/orders" element={<Orders />}></Route>
                 <Route path="/customers" element={<Customers />}></Route>
                 <Route path="/fos" element={<FOS />}></Route>
