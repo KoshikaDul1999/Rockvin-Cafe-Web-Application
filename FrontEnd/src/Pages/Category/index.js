@@ -18,7 +18,7 @@ function Category() {
         setCategories(result.data);
     };
 
-    const deleteCategory = async (id) => {
+    const deleteCategory = async (category_id) => {
         const result = await axios.delete(`http://localhost:8080/category/${category_id}`)
         loadCategories()
     }
@@ -47,19 +47,19 @@ function Category() {
                                 <td>{category.category_desc}</td>
                                 <td>
                                     <Link className='btn btn-primary mx-2'
-                                        to={`/viewcategory/${category.id}`}
+                                        to={`/viewcategory/${category.category_id}`}
                                     >
                                         View
                                     </Link>
 
                                     <Link className='btn btn-outline-primary mx-2'
-                                    to={`/editcategory/${category.id}`}
+                                    to={`/editcategory/${category.category_id}`}
                                     >
                                         Edit
                                     </Link>
 
                                     <button className='btn btn-danger mx-2'
-                                        onClick={() => deleteCategory(category.id)}
+                                        onClick={() => deleteCategory(category.category_id)}
                                     >
                                         Delete
                                     </button>

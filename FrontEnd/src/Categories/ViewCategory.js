@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 
 export default function Viewcategory() {
 
-    const [category,setcategory]=useState({
+    const [category,setCategory]=useState({
         category_name:"",
         category_desc:"",
     });
@@ -12,12 +12,12 @@ export default function Viewcategory() {
     const {category_id}=useParams();
 
     useEffect(()=>{
-        loadcategory()
+        loadCategory()
     },[])
 
-    const loadcategory = async () => {
+    const loadCategory = async () => {
         const result=await axios.get(`http://localhost:8080/category/${category_id}`)
-        setcategory(result.data)
+        setCategory(result.data)
     }
 
   return (
