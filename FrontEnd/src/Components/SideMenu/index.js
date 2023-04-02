@@ -1,5 +1,5 @@
 import { Menu } from "antd";
-import { AppstoreOutlined, MenuFoldOutlined, ShoppingCartOutlined, UserOutlined, DesktopOutlined, FileDoneOutlined, IdcardOutlined } from "@ant-design/icons";
+import { AppstoreOutlined, MenuFoldOutlined, ShoppingCartOutlined, UserOutlined, DesktopOutlined, FileDoneOutlined, IdcardOutlined, HolderOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -34,6 +34,11 @@ function SideMenu(){
                     label: "Menu",
                     icon: <MenuFoldOutlined />,
                     key:'/menu',
+                },
+                {
+                    label: "Category",
+                    icon: <HolderOutlined />,
+                    key:'/category',
                 },
                 {
                     label: "Orders",
