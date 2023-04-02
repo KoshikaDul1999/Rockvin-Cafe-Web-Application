@@ -1,35 +1,46 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
 
-export default function AddAdmin() {
+export default function EditChef() {
 
-    let navigate=useNavigate()
+    let navigate=useNavigate();
 
-    const [admin,setAdmin]=useState({
-        admin_name:"",
-        admin_username:"",
-        admin_email:"",
-        admin_password:"",
+    const {chef_id}=useParams()
+
+    const [chef,setChef]=useState({
+        chef_name:"",
+        chef_username:"",
+        chef_email:"",
+        chef_password:"",
     });
 
-    const{admin_name,admin_username,admin_email,admin_password} = admin;
+    const{chef_name,chef_username,chef_email,chef_password} = chef;
 
     const onInputChange = (e) => {
-        setAdmin({...admin, [e.target.name]: e.target.value});
+        setChef({...chef, [e.target.name]: e.target.value});
     };
+
+    useEffect(()=>{
+        loadChef()
+    },[]);
 
     const onSubmit=async (e) => {
         e.preventDefault();
-        await axios.post("http://localhost:8080/admin",admin)
-        navigate("/profile")
+        await axios.put(`http://localhost:8080/chef/${chef_id}`,chef);
+        navigate("/")
+    };
+
+    const loadChef =async ()=>{
+        const result=await axios.get(`http://localhost:8080/chef/${chef_id}`)
+        setChef(result.data)
     };
 
   return (
     <div className='container'>
         <div className='row'>
-            <div className='col-md-15 offset-md-3 border rounded p-4 mt-2 shadow p-3 mb-2 bg-dark text-white'>
-                <h2 className='text-center m-4'>Register Admin</h2>
+            <div className='col-md-16 offset-md-3 border rounded p-4 mt-2 shadow p-3 mb-2 bg-info text-white'>
+                <h2 className='text-center m-4'>Edit Chef</h2>
 
                 <form onSubmit={(e)=>onSubmit(e)}>
                     <div className='mb-3'>
@@ -39,9 +50,9 @@ export default function AddAdmin() {
                         <input
                             type={"text"}
                             className="form-control"
-                            placeholder="Enter Admin Name"
-                            name="admin_name"
-                            value={admin_name}
+                            placeholder="Enter Chef Name"
+                            name="name"
+                            value={chef_name}
                             onChange={(e)=>onInputChange(e)}
                         />
                     </div>
@@ -52,9 +63,9 @@ export default function AddAdmin() {
                         <input
                             type={"text"}
                             className="form-control"
-                            placeholder="Enter Admin Username"
-                            name="admin_username"
-                            value={admin_username}
+                            placeholder="Enter Chef Username"
+                            name="username"
+                            value={chef_username}
                             onChange={(e)=>onInputChange(e)}
                         />
                     </div>
@@ -65,9 +76,9 @@ export default function AddAdmin() {
                         <input
                             type={"text"}
                             className="form-control"
-                            placeholder="Enter Admin Email Address"
-                            name="admin_email"
-                            value={admin_email}
+                            placeholder="Enter Chef Email Address"
+                            name="email"
+                            value={chef_email}
                             onChange={(e)=>onInputChange(e)}
                         />
                     </div>
@@ -78,14 +89,14 @@ export default function AddAdmin() {
                         <input
                             type={"text"}
                             className="form-control"
-                            placeholder="Enter Admin Password"
-                            name="admin_password"
-                            value={admin_password}
+                            placeholder="Enter Chef Password"
+                            name="password"
+                            value={chef_password}
                             onChange={(e)=>onInputChange(e)}
                         />
                     </div>
                     <button type="submit" className="btn btn-outline-primary">
-                        Submit
+                        Update
                     </button>
                     <Link className="btn btn-outline-danger mx-2" to="/profile">
                         Cancel
