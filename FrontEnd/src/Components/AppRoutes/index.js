@@ -22,7 +22,7 @@ import ViewCategory from "../../Categories/ViewCategory";
 function AppRoutes(){
     return(
             <Routes>
-                <Route path="/" element={<Dashboard />}></Route>
+                <Route path="/dashboard" element={<Dashboard />}></Route>
                 <Route path="/menu" element={<Menu />}></Route>
                 <Route path="/category" element={<Category />}></Route>
                 <Route path="/orders" element={<Orders />}></Route>
