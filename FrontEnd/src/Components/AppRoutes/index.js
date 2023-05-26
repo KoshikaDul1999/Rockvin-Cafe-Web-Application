@@ -1,5 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+import Login from "../../Login";
+
 import Dashboard from "../../Pages/Dashboard";
 import Menu from "../../Pages/Menu";
 import Orders from "../../Pages/Orders";
@@ -21,7 +24,11 @@ import ViewCategory from "../../Categories/ViewCategory";
 
 function AppRoutes(){
     return(
+        
             <Routes>
+
+                <Route path="/" element={<Login />}> </Route>
+
                 <Route path="/dashboard" element={<Dashboard />}></Route>
                 <Route path="/menu" element={<Menu />}></Route>
                 <Route path="/category" element={<Category />}></Route>
