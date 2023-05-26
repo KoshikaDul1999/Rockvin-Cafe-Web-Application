@@ -4,7 +4,7 @@ import Dashboard from "../../Pages/Dashboard";
 import Menu from "../../Pages/Menu";
 import Orders from "../../Pages/Orders";
 import Customers from "../../Pages/Customers";
-import FOS from "../../Pages/FOS";
+import POS from "../../Pages/POS";
 import Reports from "../../Pages/Reports";
 import Profile from "../../Pages/Profile";
 import AddAdmin from "../../Admins/AddAdmin";
@@ -27,7 +27,7 @@ function AppRoutes(){
                 <Route path="/category" element={<Category />}></Route>
                 <Route path="/orders" element={<Orders />}></Route>
                 <Route path="/customers" element={<Customers />}></Route>
-                <Route path="/fos" element={<FOS />}></Route>
+                <Route path="/pos" element={<POS />}></Route>
                 <Route path="/reports" element={<Reports />}></Route>
                 <Route path="/profile" element={<Profile />}></Route>
 
