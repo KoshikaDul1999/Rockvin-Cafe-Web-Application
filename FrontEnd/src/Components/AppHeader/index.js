@@ -2,7 +2,8 @@ import { BellFilled, MailOutlined } from "@ant-design/icons";
 import { Badge, Drawer, Image, List, Space, Typography } from "antd";
 import { getComments, getOrders } from "../../API";
 import { useEffect, useState } from "react";
-import img1 from "../../Images/logo/RockVinh_Logo.jpg";
+import img1 from "../../Images/logo/RockVinh_Logo.png";
+const { Text, Link } = Typography;
 
 function AppHeader(){
     const [comments, setComments] = useState([])
@@ -29,7 +30,7 @@ function AppHeader(){
                 src={img1}
             >
             </Image>
-            <Typography.Title type="success">RockVin Cafe and Surfer's Inn</Typography.Title>
+            <Typography.Title strong type="warning">RockVin Cafe and Surfer's Inn</Typography.Title>
             <Space>
                 <Badge count={comments.length} dot>
                     <MailOutlined style={{ fontSize: 24 }} 
