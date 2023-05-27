@@ -2,7 +2,7 @@ import { BellFilled, MailOutlined } from "@ant-design/icons";
 import { Badge, Drawer, Image, List, Space, Typography } from "antd";
 import { getComments, getOrders } from "../../API";
 import { useEffect, useState } from "react";
-import img1 from "../../Images/logo/RockVinh_Logo.png";
+import img1 from "../../Images/logo/res-logo.png";
 const { Text, Link } = Typography;
 
 function AppHeader(){
@@ -27,6 +27,7 @@ function AppHeader(){
         <div className="AppHeader">
             <Image
                 width={100}
+                height={80}
                 src={img1}
             >
             </Image>
