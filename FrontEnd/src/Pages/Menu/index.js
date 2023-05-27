@@ -26,7 +26,7 @@ function Product() {
     return (
         <div>
             <Typography.Title level={4}>Product</Typography.Title>
-            <Link className='btn btn-primary' to="/addnewcategory">Add New product</Link>
+            <Link className='btn btn-primary' to="/addnewproduct">Add New product</Link>
             <div className="container">
                 <div className="py-4">
                     <table className="table border shadow-inner, table-primary">
