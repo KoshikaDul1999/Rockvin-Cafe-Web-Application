@@ -11,6 +11,8 @@
   align-items: center;
   padding: 4px 20px 4px 12px;
   border-bottom: 1px solid rgba(0,0,0,0.15);
+  background: rgb(137,245,231);
+  background: linear-gradient(90deg, rgba(137,245,231,1) 0%, rgba(46,159,237,1) 35%, rgba(217,112,231,1) 100%);
 }
 .AppFooter{
   height: 50px;
