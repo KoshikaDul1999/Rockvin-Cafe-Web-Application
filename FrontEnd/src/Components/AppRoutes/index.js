@@ -1,10 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+import Login from "../../Login";
+
 import Dashboard from "../../Pages/Dashboard";
 import Menu from "../../Pages/Menu";
 import Orders from "../../Pages/Orders";
 import Customers from "../../Pages/Customers";
-import FOS from "../../Pages/FOS";
+import POS from "../../Pages/POS";
 import Reports from "../../Pages/Reports";
 import Profile from "../../Pages/Profile";
 import AddAdmin from "../../Admins/AddAdmin";
@@ -17,17 +20,22 @@ import Category from "../../Pages/Category";
 import AddCategory from "../../Categories/AddCategory";
 import EditCategory from "../../Categories/EditCategory";
 import ViewCategory from "../../Categories/ViewCategory";
+import AddProduct from "../../Products/AddProduct";
+import EditProduct from "../../Products/EditProduct";
+import ViewProduct from "../../Products/ViewProduct";
 
 
 function AppRoutes(){
     return(
+        
             <Routes>
-                <Route path="/" element={<Dashboard />}></Route>
+
+                <Route path="/dashboard" element={<Dashboard />}></Route>
                 <Route path="/menu" element={<Menu />}></Route>
                 <Route path="/category" element={<Category />}></Route>
                 <Route path="/orders" element={<Orders />}></Route>
                 <Route path="/customers" element={<Customers />}></Route>
-                <Route path="/fos" element={<FOS />}></Route>
+                <Route path="/pos" element={<POS />}></Route>
                 <Route path="/reports" element={<Reports />}></Route>
                 <Route path="/profile" element={<Profile />}></Route>
 
@@ -42,6 +50,10 @@ function AppRoutes(){
                 <Route exact path="/addnewcategory" element={<AddCategory />} />
                 <Route exact path="/editcategory/:category_id" element={<EditCategory />} />
                 <Route exact path="/viewcategory/:category_id" element={<ViewCategory />} />
+
+                <Route exact path="/addnewproduct" element={<AddProduct />} />
+                <Route exact path="/editproduct/:product_id" element={<EditProduct />} />
+                <Route exact path="/viewproduct/:product_id" element={<ViewProduct />} />
 
             </Routes>
     )
