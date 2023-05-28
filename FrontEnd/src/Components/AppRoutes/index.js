@@ -17,9 +17,6 @@ import Category from "../../Pages/Category";
 import AddCategory from "../../Categories/AddCategory";
 import EditCategory from "../../Categories/EditCategory";
 import ViewCategory from "../../Categories/ViewCategory";
-import AddProduct from "../../Products/AddProduct";
-import EditProduct from "../../Products/EditProduct";
-import ViewProduct from "../../Products/ViewProduct";
 
 
 function AppRoutes(){
@@ -45,10 +42,6 @@ function AppRoutes(){
                 <Route exact path="/addnewcategory" element={<AddCategory />} />
                 <Route exact path="/editcategory/:category_id" element={<EditCategory />} />
                 <Route exact path="/viewcategory/:category_id" element={<ViewCategory />} />
-
-                <Route exact path="/addnewproduct" element={<AddProduct />} />
-                <Route exact path="/editproduct/:product_id" element={<EditProduct />} />
-                <Route exact path="/viewproduct/:product_id" element={<ViewProduct />} />
 
             </Routes>
     )
