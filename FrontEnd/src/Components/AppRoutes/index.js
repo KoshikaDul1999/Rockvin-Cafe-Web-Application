@@ -30,8 +30,6 @@ function AppRoutes(){
         
             <Routes>
 
-                <Route path="/" element={<Login />}> </Route>
-
                 <Route path="/dashboard" element={<Dashboard />}></Route>
                 <Route path="/menu" element={<Menu />}></Route>
                 <Route path="/category" element={<Category />}></Route>
