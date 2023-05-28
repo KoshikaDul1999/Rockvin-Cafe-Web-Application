@@ -1,10 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+import Login from "../../Login";
+
 import Dashboard from "../../Pages/Dashboard";
 import Menu from "../../Pages/Menu";
 import Orders from "../../Pages/Orders";
 import Customers from "../../Pages/Customers";
-import FOS from "../../Pages/FOS";
+import POS from "../../Pages/POS";
 import Reports from "../../Pages/Reports";
 import Profile from "../../Pages/Profile";
 import AddAdmin from "../../Admins/AddAdmin";
@@ -21,13 +24,17 @@ import ViewCategory from "../../Categories/ViewCategory";
 
 function AppRoutes(){
     return(
+        
             <Routes>
-                <Route path="/" element={<Dashboard />}></Route>
+
+                <Route path="/" element={<Login />}> </Route>
+
+                <Route path="/dashboard" element={<Dashboard />}></Route>
                 <Route path="/menu" element={<Menu />}></Route>
                 <Route path="/category" element={<Category />}></Route>
                 <Route path="/orders" element={<Orders />}></Route>
                 <Route path="/customers" element={<Customers />}></Route>
-                <Route path="/fos" element={<FOS />}></Route>
+                <Route path="/pos" element={<POS />}></Route>
                 <Route path="/reports" element={<Reports />}></Route>
                 <Route path="/profile" element={<Profile />}></Route>
 

@@ -28,7 +28,7 @@ function SideMenu(){
                 {
                     label: "Dashboard",
                     icon: <AppstoreOutlined />,
-                    key:'/',
+                    key:'/dashboard',
                 }, 
                 {
                     label: "Menu",
