@@ -1,7 +1,7 @@
 package com.example.backend.Controller;
 
 import com.example.backend.Exception.ChefNotFoundException;
-import com.example.backend.Model.Chef;
+import com.example.backend.Entity.Chef;
 import com.example.backend.Repository.ChefRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
