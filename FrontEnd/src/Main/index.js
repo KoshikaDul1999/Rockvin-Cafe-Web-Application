@@ -9,12 +9,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function Main() {
   return (
     <div className='Main'>
-       <AppHeader/>
+       {/*<AppHeader/>*/}
        <div className="SideMenuAndPageContent">
         <SideMenu></SideMenu>
         <PageContent></PageContent>
        </div> 
-       <AppFooter />
+       {/*<AppFooter />*/}
     </div>
   );
 }
