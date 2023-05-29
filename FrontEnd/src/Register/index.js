@@ -18,7 +18,7 @@ function RegistrationForm() {
     setIsLoading(true);
 
     axios
-      .post("/api/auth/register", {
+      .post("http://localhost:8080/api/auth/register", {
         firstName,
         lastName,
         email,
