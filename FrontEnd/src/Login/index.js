@@ -40,7 +40,7 @@ export default function SignIn() {
         // Handle the response from the server
         if (response.status === 200){
           console.log("Success")
-          navigate('/home');
+          navigate('/dashboard');
         }
         console.log(response.data);
       })
