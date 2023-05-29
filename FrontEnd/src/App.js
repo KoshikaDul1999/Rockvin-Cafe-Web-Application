@@ -34,7 +34,7 @@ function App() {
 
 export default App;*/
 
-
+import {Routes, Route} from 'react-router-dom';
 import { Space } from "antd";
 import './App.css';
 import Login from './Login';
@@ -43,19 +43,25 @@ import SideMenu from './Components/SideMenu';
 import PageContent from './Components/PageContent';
 import AppFooter from './Components/AppFooter';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import Register from './Register'
+
 
 function App() {
   return (
     <div className='App'>
-      <Login />
        <AppHeader/>
-       <div className="SideMenuAndPageContent">
-        <SideMenu></SideMenu>
-        <PageContent></PageContent>
-       </div> 
+       {/* <div className="SideMenuAndPageContent"> */}
+        {/* <SideMenu/> */}
+       {/* </div> */}
+        <Routes>
+          <Route path='/' element={<Login/>}></Route>
+          <Route path='home' element={<PageContent/>}></Route>
+          <Route path='register' element={<Register/>}></Route>
+          {/* <Route path='*' element={<NoMatch/>}></Route> */}
+        </Routes>
        <AppFooter />
     </div>
   );
 }
 
-export default App; 
+export default App;
