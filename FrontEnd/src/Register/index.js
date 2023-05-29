@@ -15,6 +15,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import img1 from "../Images/logo/RockVinh_Logo.jpg";
 import { Image } from "antd";
+import {useNavigate} from 'react-router-dom';
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -24,13 +25,17 @@ function SignUp() {
     password: ''
   });
 
+  const navigate = useNavigate(); 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       // Send the form data to the Spring Boot endpoint
-      const response = await axios.post('/signup', formData);
-      console.log(response.data); // Display the response from the backend
+      const response = await axios.post("http://localhost:8080/api/auth/register", formData);
+        console.log("Success")
+        navigate('/home');
+        console.log(response.data); // Display the response from the backend
 
       // Handle any further actions or display success message to the user
     } catch (error) {
