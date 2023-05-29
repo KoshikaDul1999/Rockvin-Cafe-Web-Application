@@ -15,12 +15,15 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import img1 from "../Images/logo/RockVinh_Logo.jpg";
 import { Image } from "antd";
+import {useNavigate} from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -35,8 +38,9 @@ export default function SignIn() {
     axios.post("http://localhost:8080/api/auth/authenticate", formData)
       .then((response) => {
         // Handle the response from the server
-        if (response === 200){
-          window.location.href = 'https://docs.spring.io/spring-security/reference/reactive/integrations/cors.html'
+        if (response.status === 200){
+          console.log("Success")
+          navigate('/home');
         }
         console.log(response.data);
       })
@@ -112,7 +116,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
