@@ -2,6 +2,8 @@ import { Typography } from "antd";
 import { Link, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import SideMenu from '../../Components/SideMenu';
+import PageContent from '../../Components/PageContent';
 
 function Profile() {
 
@@ -46,105 +48,110 @@ function Profile() {
 
 
     return (
-        <div>
-            <Typography.Title level={4}>Admin Profile</Typography.Title>
-            <Link className='btn btn-dark' to="/addnewadmin">Add New Admin</Link>
-            <div className="container">
-                <div className="py-4">
-                    <table className="table border shadow-inner, table-dark">
-                    <thead className="thead-dark">
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">User Name</th>
-                            <th scope="col">E-mail</th>
-                            <th scope="col">Password</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        admins.map((admin,index)=>(
+        <div className="SideMenuAndPageContent">
+        <SideMenu></SideMenu>
+        <PageContent></PageContent>
+
+            <div>
+                <Typography.Title level={4}>Admin Profile</Typography.Title>
+                <Link className='btn btn-dark' to="/addnewadmin">Add New Admin</Link>
+                <div className="container">
+                    <div className="py-4">
+                        <table className="table border shadow-inner, table-dark">
+                        <thead className="thead-dark">
                             <tr>
-                                <th scope="row" key={index}>{index+1}</th>
-                                <td>{admin.admin_name}</td>
-                                <td>{admin.admin_username}</td>
-                                <td>{admin.admin_email}</td>
-                                <td>{admin.admin_password}</td>
-                                <td>
-                                    <Link className='btn btn-primary mx-2'
-                                        to={`/viewadmin/${admin.id}`}
-                                    >
-                                        View
-                                    </Link>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">User Name</th>
+                                <th scope="col">E-mail</th>
+                                <th scope="col">Password</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            admins.map((admin,index)=>(
+                                <tr>
+                                    <th scope="row" key={index}>{index+1}</th>
+                                    <td>{admin.admin_name}</td>
+                                    <td>{admin.admin_username}</td>
+                                    <td>{admin.admin_email}</td>
+                                    <td>{admin.admin_password}</td>
+                                    <td>
+                                        <Link className='btn btn-primary mx-2'
+                                            to={`/viewadmin/${admin.id}`}
+                                        >
+                                            View
+                                        </Link>
 
-                                    <Link className='btn btn-outline-primary mx-2'
-                                    to={`/editadmin/${admin.id}`}
-                                    >
-                                        Edit
-                                    </Link>
+                                        <Link className='btn btn-outline-primary mx-2'
+                                        to={`/editadmin/${admin.id}`}
+                                        >
+                                            Edit
+                                        </Link>
 
-                                    <button className='btn btn-danger mx-2'
-                                        onClick={() => deleteAdmin(admin.id)}
-                                    >
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr> 
-                        ))
-    }
-                    </tbody>
-                    </table>
+                                        <button className='btn btn-danger mx-2'
+                                            onClick={() => deleteAdmin(admin.id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr> 
+                            ))
+        }
+                        </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <Typography.Title level={4}>Chef Profile</Typography.Title>
-            <Link className='btn btn-info' to="/addnewchef">Add New Chef</Link>
-            <div className="container">
-                <div className="py-4">
-                    <table className="table border shadow-inner, table-info">
-                    <thead className="thead-dark">
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">User Name</th>
-                            <th scope="col">E-mail</th>
-                            <th scope="col">Password</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        chefs.map((chef,index)=>(
+                <Typography.Title level={4}>Chef Profile</Typography.Title>
+                <Link className='btn btn-info' to="/addnewchef">Add New Chef</Link>
+                <div className="container">
+                    <div className="py-4">
+                        <table className="table border shadow-inner, table-info">
+                        <thead className="thead-dark">
                             <tr>
-                                <th scope="row" key={index}>{index+1}</th>
-                                <td>{chef.chef_name}</td>
-                                <td>{chef.chef_username}</td>
-                                <td>{chef.chef_email}</td>
-                                <td>{chef.chef_password}</td>
-                                <td>
-                                    <Link className='btn btn-primary mx-2'
-                                        to={`/viewchef/${chef.chef_id}`}
-                                    >
-                                        View
-                                    </Link>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">User Name</th>
+                                <th scope="col">E-mail</th>
+                                <th scope="col">Password</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            chefs.map((chef,index)=>(
+                                <tr>
+                                    <th scope="row" key={index}>{index+1}</th>
+                                    <td>{chef.chef_name}</td>
+                                    <td>{chef.chef_username}</td>
+                                    <td>{chef.chef_email}</td>
+                                    <td>{chef.chef_password}</td>
+                                    <td>
+                                        <Link className='btn btn-primary mx-2'
+                                            to={`/viewchef/${chef.chef_id}`}
+                                        >
+                                            View
+                                        </Link>
 
-                                    <Link className='btn btn-outline-primary mx-2'
-                                    to={`/editchef/${chef.chef_id}`}
-                                    >
-                                        Edit
-                                    </Link>
+                                        <Link className='btn btn-outline-primary mx-2'
+                                        to={`/editchef/${chef.chef_id}`}
+                                        >
+                                            Edit
+                                        </Link>
 
-                                    <button className='btn btn-danger mx-2'
-                                        onClick={() => deleteChef(chef.chef_id)}
-                                    >
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr> 
-                        ))
-    }
-                    </tbody>
-                    </table>
+                                        <button className='btn btn-danger mx-2'
+                                            onClick={() => deleteChef(chef.chef_id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr> 
+                            ))
+                        }
+                        </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
