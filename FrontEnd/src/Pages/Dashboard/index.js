@@ -2,6 +2,8 @@ import { DollarCircleOutlined, ShoppingCartOutlined, ShoppingOutlined, UserOutli
 import { Card, Space, Statistic, Table, Typography } from "antd"
 import { useEffect, useState } from "react";
 import { getCustomers, getInventory, getOrders, getRevenue } from "../../API";
+import SideMenu from '../../Components/SideMenu';
+import PageContent from '../../Components/PageContent';
 
 import {
     Chart as ChartJS,
@@ -50,74 +52,80 @@ function Dashboard() {
     
 
     return (
-        <Space size={20} direction="vertical">
-            <Typography.Title level={4}>Dashboard</Typography.Title>
-            <Space direction="horizontal">
-                <DashboardCard icon={
-                    <ShoppingCartOutlined 
-                        style={{ 
-                            color: "green", 
-                            backgroundColor:"rgba(0,255,0,0.25",
-                            borderRadius: 20, 
-                            fontSize: 24,
-                            padding: 8,
-                        }}
+        <div className="SideMenuAndPageContent">
+        <SideMenu></SideMenu>
+        <PageContent></PageContent>
+       
+            <Space size={20} direction="vertical">
+                <Typography.Title level={4}>Admin Dashboard</Typography.Title>
+                <Space direction="horizontal">
+                    <DashboardCard icon={
+                        <ShoppingCartOutlined 
+                            style={{ 
+                                color: "green", 
+                                backgroundColor:"rgba(0,255,0,0.25",
+                                borderRadius: 20, 
+                                fontSize: 24,
+                                padding: 8,
+                            }}
+                        />
+                        } 
+                        title={"Orders"} 
+                        value={orders} 
                     />
+
+                    <DashboardCard icon={
+                        <ShoppingOutlined 
+                            style={{ 
+                                color: "purple", 
+                                backgroundColor:"rgba(0,255,255,0.25",
+                                borderRadius: 20, 
+                                fontSize: 24,
+                                padding: 8,
+                            }}
+                        />
                     } 
-                    title={"Orders"} 
-                    value={orders} 
-                />
-
-                <DashboardCard icon={
-                    <ShoppingOutlined 
-                        style={{ 
-                            color: "purple", 
-                            backgroundColor:"rgba(0,255,255,0.25",
-                            borderRadius: 20, 
-                            fontSize: 24,
-                            padding: 8,
-                        }}
+                        title={"Menus"} 
+                        value={menu} 
                     />
-                } 
-                    title={"Menus"} 
-                    value={menu} 
-                />
 
-                <DashboardCard icon={
-                    <UserOutlined 
-                        style={{ 
-                            color: "red", 
-                            backgroundColor:"rgba(255,0,0,0.25",
-                            borderRadius: 20, 
-                            fontSize: 24,
-                            padding: 8,
-                        }}
+                    <DashboardCard icon={
+                        <UserOutlined 
+                            style={{ 
+                                color: "red", 
+                                backgroundColor:"rgba(255,0,0,0.25",
+                                borderRadius: 20, 
+                                fontSize: 24,
+                                padding: 8,
+                            }}
+                        />
+                    } 
+                        title={"Customers"} 
+                        value={customers} 
                     />
-                } 
-                    title={"Customers"} 
-                    value={customers} 
-                />
 
-                <DashboardCard icon={
-                    <DollarCircleOutlined 
-                        style={{ 
-                            color: "blue", 
-                            backgroundColor:"rgba(0,0,255,0.25",
-                            borderRadius: 20, 
-                            fontSize: 24,
-                            padding: 8,
-                        }}
-                    />
-                } 
-                    title={"Revenue"} 
-                    value={revenue} 
-                />  
+                    <DashboardCard icon={
+                        <DollarCircleOutlined 
+                            style={{ 
+                                color: "blue", 
+                                backgroundColor:"rgba(0,0,255,0.25",
+                                borderRadius: 20, 
+                                fontSize: 24,
+                                padding: 8,
+                            }}
+                        />
+                    } 
+                        title={"Revenue"} 
+                        value={revenue} 
+                    />  
+                </Space>
+                <Space>
+                    <RecentOrders />
+                    <DashboardChart />
+                </Space>
             </Space>
-            <Space>
-                <RecentOrders />
-                <DashboardChart />
-            </Space>
-        </Space>
+
+        </div> 
     ); 
 }
 
