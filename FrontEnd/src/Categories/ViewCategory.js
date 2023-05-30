@@ -16,7 +16,7 @@ export default function Viewcategory() {
     },[])
 
     const loadCategory = async () => {
-        const result=await axios.get(`http://localhost:8080/category/${category_id}`)
+        const result=await axios.get(`http://localhost:5000/category/${category_id}`)
         setCategory(result.data)
     }
 
@@ -31,11 +31,11 @@ export default function Viewcategory() {
                         <ul className='list-group list-group-flush'>
                             <li className='list-group-item'>
                                 <b>Category Name : </b>
-                                {category.category_name}
+                                {category.title}
                             </li>
                             <li className='list-group-item'>
                                 <b>Category Description : </b>
-                                {category.category_desc}
+                                {category.description}
                             </li>
                         </ul>
                     </div>
