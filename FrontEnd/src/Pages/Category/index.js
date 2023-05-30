@@ -16,12 +16,12 @@ function Category() {
     },[]);
 
     const loadCategories = async () => {
-        const result = await axios.get("http://localhost:8080/categories");
+        const result = await axios.get("http://localhost:5000/categories");
         setCategories(result.data);
     };
 
     const deleteCategory = async (category_id) => {
-        const result = await axios.delete(`http://localhost:8080/category/${category_id}`)
+        const result = await axios.delete(`http://localhost:5000/category/${category_id}`)
         loadCategories()
     }
 
@@ -45,26 +45,26 @@ function Category() {
                         </thead>
                         <tbody>
                         {
-                            categories.map((category,index)=>(
+                            categories.map((food_types,index)=>(
                                 <tr>
                                     <th scope="row" key={index}>{index+1}</th>
-                                    <td>{category.category_name}</td>
-                                    <td>{category.category_desc}</td>
+                                    <td>{food_types.title}</td>
+                                    <td>{food_types.description}</td>
                                     <td>
                                         <Link className='btn btn-primary mx-2'
-                                            to={`/viewcategory/${category.category_id}`}
+                                            to={`/viewcategory/${food_types.id}`}
                                         >
                                             View
                                         </Link>
 
                                         <Link className='btn btn-outline-primary mx-2'
-                                        to={`/editcategory/${category.category_id}`}
+                                        to={`/editcategory/${food_types.id}`}
                                         >
                                             Edit
                                         </Link>
 
                                         <button className='btn btn-danger mx-2'
-                                            onClick={() => deleteCategory(category.category_id)}
+                                            onClick={() => deleteCategory(food_types.id)}
                                         >
                                             Delete
                                         </button>

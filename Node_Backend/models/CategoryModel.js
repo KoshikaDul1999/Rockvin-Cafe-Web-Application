@@ -16,7 +16,7 @@ const Category = db.define('food_types',{
     },
     parent_id: {
         type:DataTypes.INTEGER,
-        allowNull:false,
+        allowNull:true,
     },
     // created_at: {
     //     type: DataTypes.TIMESTAMP,
@@ -30,7 +30,7 @@ const Category = db.define('food_types',{
     // },
     order: {
         type: DataTypes.INTEGER,
-        allowNull:false,
+        allowNull:true,
     },
     description: {
         type:DataTypes.STRING,
