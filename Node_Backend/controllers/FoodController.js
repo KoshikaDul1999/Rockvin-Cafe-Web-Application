@@ -44,15 +44,15 @@ export const updateFood = async(req, res) =>{
     }
 }
  
-// export const deleteFood = async(req, res) =>{
-//     try {
-//         await User.destroy({
-//             where:{
-//                 id: req.params.id
-//             }
-//         });
-//         res.status(200).json({msg: "Food Deleted"});
-//     } catch (error) {
-//         console.log(error.message);
-//     }
-// }
+export const deleteFood = async(req, res) =>{
+    try {
+        await Foods.destroy({
+            where:{
+                id: req.params.id
+            }
+        });
+        res.status(200).json({msg: "Food Deleted"});
+    } catch (error) {
+        console.log(error.message);
+    }
+}
