@@ -1,4 +1,4 @@
-import {Sequelize} from "sequelize";
+/*import {Sequelize} from "sequelize";
 import db from "../config/Database.js";
  
 const {DataTypes} = Sequelize;
@@ -46,4 +46,4 @@ export default User;
  
 (async()=>{
     await db.sync();
-})();
+})();*/
