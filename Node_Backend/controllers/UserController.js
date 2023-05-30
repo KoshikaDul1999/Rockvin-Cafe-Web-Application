@@ -1,4 +1,4 @@
-import User from "../models/UserModel.js";
+/*import User from "../models/UserModel.js";
  
 export const getUsers = async(req, res) =>{
     try {
@@ -55,4 +55,4 @@ export const deleteUser = async(req, res) =>{
     } catch (error) {
         console.log(error.message);
     }
-}
+}*/
