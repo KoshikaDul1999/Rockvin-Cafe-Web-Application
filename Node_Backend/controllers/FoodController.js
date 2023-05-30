@@ -1,19 +1,19 @@
-/*import User from "../models/UserModel.js";
+import Foods from "../models/FoodModel.js";
  
-export const getUsers = async(req, res) =>{
+export const getFoods = async(req, res) =>{
     try {
-        const response = await User.findAll();
+        const response = await Foods.findAll();
         res.status(200).json(response);
     } catch (error) {
         console.log(error.message);
     }
 }
  
-export const getUserById = async(req, res) =>{
+export const getFoodById = async(req, res) =>{
     try {
-        const response = await User.findOne({
+        const response = await Foods.findOne({
             where:{
-                email: req.params.id
+                id: req.params.id
             }
         });
         res.status(200).json(response);
@@ -22,37 +22,37 @@ export const getUserById = async(req, res) =>{
     }
 }
  
-export const createUser = async(req, res) =>{
+export const createFood = async(req, res) =>{
     try {
-        await User.create(req.body);
-        res.status(201).json({msg: "User Created"});
+        await Foods.create(req.body);
+        res.status(201).json({msg: "Food Created"});
     } catch (error) {
         console.log(error.message);
     }
 }
  
-export const updateUser = async(req, res) =>{
+export const updateFood = async(req, res) =>{
     try {
-        await User.update(req.body,{
+        await Foods.update(req.body,{
             where:{
                 id: req.params.id
             }
         });
-        res.status(200).json({msg: "User Updated"});
+        res.status(200).json({msg: "Food Updated"});
     } catch (error) {
         console.log(error.message);
     }
 }
  
-export const deleteUser = async(req, res) =>{
+export const deleteFood = async(req, res) =>{
     try {
-        await User.destroy({
+        await Foods.destroy({
             where:{
                 id: req.params.id
             }
         });
-        res.status(200).json({msg: "User Deleted"});
+        res.status(200).json({msg: "Food Deleted"});
     } catch (error) {
         console.log(error.message);
     }
-}*/
+}
