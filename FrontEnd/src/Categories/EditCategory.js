@@ -25,12 +25,12 @@ export default function EditCategory() {
 
     const onSubmit=async (e) => {
         e.preventDefault();
-        await axios.put(`http://localhost:8080/category/${category_id}`,category);
+        await axios.put(`http://localhost:5000/category/${category_id}`,category);
         navigate("/category")
     };
 
     const loadCategory =async ()=>{
-        const result=await axios.get(`http://localhost:8080/category/${category_id}`)
+        const result=await axios.get(`http://localhost:5000/category/${category_id}`)
         setCategory(result.data)
     };
 

@@ -7,11 +7,12 @@ export default function AddCategory() {
     let navigate=useNavigate()
 
     const [category,setCategory]=useState({
-        category_name:"",
-        category_desc:"",
+        id:"",
+        title:"",
+        description:"",
     });
 
-    const{category_name,category_desc} = category;
+    const{id,title,description} = category;
 
     const onInputChange = (e) => {
         setCategory({...category, [e.target.name]: e.target.value});
@@ -19,7 +20,7 @@ export default function AddCategory() {
 
     const onSubmit=async (e) => {
         e.preventDefault();
-        await axios.post("http://localhost:8080/category",category)
+        await axios.post("http://localhost:5000/category",category)
         navigate("/category")
     };
 
@@ -27,9 +28,22 @@ export default function AddCategory() {
     <div className='container'>
         <div className='row'>
             <div className='col-md-15 offset-md-3 border rounded p-4 mt-2 shadow p-3 mb-2 bg-primary text-white'>
-                <h2 className='text-center m-4'>Register category</h2>
+                <h2 className='text-center m-4'>Add new Category</h2>
 
                 <form onSubmit={(e)=>onSubmit(e)}>
+                    <div className='mb-3'>
+                        <label htmlFor="ID" className="form-label">
+                            Category ID
+                        </label>
+                        <input
+                            type={"text"}
+                            className="form-control"
+                            placeholder="Enter category ID"
+                            name="id"
+                            value={id}
+                            onChange={(e)=>onInputChange(e)}
+                        />
+                    </div>
                     <div className='mb-3'>
                         <label htmlFor="Name" className="form-label">
                             Category Name
@@ -38,8 +52,8 @@ export default function AddCategory() {
                             type={"text"}
                             className="form-control"
                             placeholder="Enter category Name"
-                            name="category_name"
-                            value={category_name}
+                            name="title"
+                            value={title}
                             onChange={(e)=>onInputChange(e)}
                         />
                     </div>
@@ -51,8 +65,8 @@ export default function AddCategory() {
                             type={"text"}
                             className="form-control"
                             placeholder="Enter category Description"
-                            name="category_desc"
-                            value={category_desc}
+                            name="description"
+                            value={description}
                             onChange={(e)=>onInputChange(e)}
                         />
                     </div>
