@@ -51,7 +51,7 @@ function App() {
        {/* </div> */}
         <Routes>
           <Route path='/' element={<Login/>}></Route>
-          <Route path='home' element={<Main/>}></Route>
+          {/*<Route path='home' element={<Main/>}></Route>*/}
           <Route path='register' element={<Register/>}></Route>
           {/* <Route path='*' element={<NoMatch/>}></Route> */}
 

@@ -35,12 +35,12 @@ export default function SignIn() {
     };
 
     // Send a POST request to your Spring Boot endpoint
-    axios.post("http://localhost:8080/api/auth/authenticate", formData)
+    axios.post("http://localhost:8080/login", formData)
       .then((response) => {
         // Handle the response from the server
         if (response.status === 200){
           console.log("Success")
-          navigate('/home');
+          navigate('/dashboard');
         }
         console.log(response.data);
       })
