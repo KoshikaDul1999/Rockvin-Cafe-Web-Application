@@ -35,12 +35,12 @@ export default function SignIn() {
     };
 
     // Send a POST request to your Spring Boot endpoint
-    axios.post("http://localhost:8080/api/auth/authenticate", formData)
+    axios.post("http://localhost:8080/login", formData)
       .then((response) => {
         // Handle the response from the server
         if (response.status === 200){
           console.log("Success")
-          navigate('/home');
+          navigate('/dashboard');
         }
         console.log(response.data);
       })
@@ -97,10 +97,10 @@ export default function SignIn() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <FormControlLabel
+            {/*<FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+        />*/}
             <Button
               type="submit"
               fullWidth
@@ -110,11 +110,11 @@ export default function SignIn() {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
+              {/*<Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
                 </Link>
-              </Grid>
+        </Grid>*/}
               <Grid item>
                 <Link href="/register" variant="body2">
                   {"Don't have an account? Sign Up"}
