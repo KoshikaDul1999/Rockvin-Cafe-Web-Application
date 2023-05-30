@@ -7,6 +7,9 @@
 //     deleteUser
 // } from "../controllers/UserController.js";
 
+// import {
+//     getCategories,
+// } from "../controllers/CategoryController.js";
 
 // const router = express.Router();
  
@@ -16,7 +19,7 @@
 // router.patch('/users/:id', updateUser);
 // router.delete('/users/:id', deleteUser);
  
-
+// router.get('/categories', getCategories);
 
 
 // export default router;
