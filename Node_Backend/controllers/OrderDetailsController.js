@@ -44,15 +44,15 @@
 //     }
 // }
  
-// export const deleteOrderDetails = async(req, res) =>{
-//     try {
-//         await OrderDetails.destroy({
-//             where:{
-//                 id: req.params.id
-//             }
-//         });
-//         res.status(200).json({msg: "OrderDetails Deleted"});
-//     } catch (error) {
-//         console.log(error.message);
-//     }
-// }
+export const deleteOrderDetails = async(req, res) =>{
+    try {
+        await OrderDetails.destroy({
+            where:{
+                id: req.params.id
+            }
+        });
+        res.status(200).json({msg: "OrderDetails Deleted"});
+    } catch (error) {
+        console.log(error.message);
+    }
+}
