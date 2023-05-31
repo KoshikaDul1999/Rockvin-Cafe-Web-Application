@@ -23,7 +23,7 @@ function Product() {
     };
 
     const deleteProduct = async (product_id) => {
-        const result = await axios.delete(`http://localhost:8080/category/${product_id}`)
+        const result = await axios.delete(`http://localhost:5000/foods/${product_id}`)
         loadProducts()
     };
 
