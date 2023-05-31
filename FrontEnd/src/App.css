@@ -27,9 +27,8 @@
   justify-content: flex-start;
   align-items: flex-start;
   background-color: rgba(0,0,0,0.07);
-  background-image: url(./Images/background/main.jpg);
   background-size: contain;
-  
+  /*background-image: url(./Images/background/main.jpg);*/
 }
 .SideMenu{
   height: 100%;
