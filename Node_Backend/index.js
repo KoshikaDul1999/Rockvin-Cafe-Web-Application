@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import router from "./routes/FoodRoutes.js";
+import router from "./routes/MainRouter.js";
 import { fileURLToPath } from "url";
 import path from "path";
 

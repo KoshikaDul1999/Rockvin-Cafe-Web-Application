@@ -45,15 +45,15 @@ const Foods = db.define('foods',{
         allowNull: true,
     },
 
-    // created_at:{
-    //     type:DataTypes.STRING,
-    //     allowNull: true,
-    // },
+//     // created_at:{
+//     //     type:DataTypes.STRING,
+//     //     allowNull: true,
+//     // },
 
-    // updated_at:{
-    //     type:DataTypes.STRING,
-    //     allowNull: true,
-    // },
+//     // updated_at:{
+//     //     type:DataTypes.STRING,
+//     //     allowNull: true,
+//     // },
 
     type_id: {
         type: DataTypes.INTEGER,
