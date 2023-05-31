@@ -7,7 +7,11 @@
 // router.get('/foods', getFoods);
 // router.get('/foods/:id', getFoodById);
 // router.post('/foods', createFood);
+
+// router.put('/foods/:id', updateFood);
+
 // router.patch('/foods/:id', updateFood);
+
 // router.delete('/foods/:id', deleteFood);
 
 // export default router;
