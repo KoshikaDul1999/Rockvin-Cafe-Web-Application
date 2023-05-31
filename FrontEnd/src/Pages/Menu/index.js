@@ -1,4 +1,4 @@
-import { Typography } from "antd";
+import { Typography, Pagination } from "antd";
 import { Link, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -8,6 +8,8 @@ import PageContent from '../../Components/PageContent';
 function Product() {
 
     const [products,setProducts]=useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 6;
 
     const {product_id}=useParams()
 
@@ -16,14 +18,27 @@ function Product() {
     },[]);
 
     const loadProducts = async () => {
-        const result = await axios.get("http://localhost:8080/categories");
+        const result = await axios.get("http://localhost:5000/foods");
         setProducts(result.data);
     };
 
     const deleteProduct = async (product_id) => {
         const result = await axios.delete(`http://localhost:8080/category/${product_id}`)
         loadProducts()
-    }
+    };
+
+    // Pagination change event handler
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
+
+    // Calculate start and end index of products for the current page
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    // Slice the products array based on the current page
+    const currentProducts = products.slice(startIndex, endIndex);
+    const firstFiveProducts = currentProducts.slice(0, 5); // Get the first five products
 
     return (
         <div className="SideMenuAndPageContent">
@@ -40,45 +55,55 @@ function Product() {
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Product Name</th>
+                                <th scope="col">Product Image</th>
                                 <th scope="col">Product Price</th>
-                                <th scope="col">Product Description</th>
+                                {/*<th scope="col">Product Description</th>*/}
                                 <th scope="col">Product Category</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                         {
-                            products.map((product,index)=>(
+                            firstFiveProducts.map((foods, index) =>(
                                 <tr>
                                     <th scope="row" key={index}>{index+1}</th>
-                                    <td>{product.product_name}</td>
-                                    <td>{product.product_price}</td>
-                                    <td>{product.product_desc}</td>
-                                    <td>{product.product_category}</td>
+                                    <td>{foods.name}</td>
+                                    <td>{foods.img}</td>
+                                    <td>{foods.price}</td>
+                                    {/*<td>{foods.product_desc}</td>*/}
+                                    <td>{foods.type_id}</td>
                                     <td>
                                         <Link className='btn btn-primary mx-2'
-                                            to={`/viewproduct/${product.product_id}`}
+                                            to={`/viewproduct/${foods.id}`}
                                         >
                                             View
                                         </Link>
 
                                         <Link className='btn btn-outline-primary mx-2'
-                                        to={`/editproduct/${product.product_id}`}
+                                        to={`/editproduct/${foods.id}`}
                                         >
                                             Edit
                                         </Link>
 
                                         <button className='btn btn-danger mx-2'
-                                            onClick={() => deleteProduct(product.product_id)}
+                                            onClick={() => deleteProduct(foods.id)}
                                         >
                                             Delete
                                         </button>
                                     </td>
                                 </tr> 
                             ))
+                            
                         }
                         </tbody>
                         </table>
+                        {/* Pagination component */}
+                        <Pagination
+                            current={currentPage}
+                            total={products.length}
+                            pageSize={pageSize}
+                            onChange={handlePageChange}
+                        />
                     </div>
                 </div>
             </div>
