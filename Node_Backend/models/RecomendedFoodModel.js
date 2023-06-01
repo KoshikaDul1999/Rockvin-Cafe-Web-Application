@@ -1,36 +1,36 @@
-import {Sequelize} from "sequelize";
+import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
- 
+
 const {DataTypes} = Sequelize;
- 
-const Foods = db.define('foods',{
-    food_id: {
+
+const RecomendedFoods = db.define('recomended_foods',{
+    rec_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey:true
     },
-    food_name: {
+    rec_name: {
         type:DataTypes.STRING,
         allowNull:false,
     },
-    food_price: {
+    rec_price: {
         type: DataTypes.INTEGER,
         allowNull: true,
     },
-    food_img:{
+    rec_img:{
         type:DataTypes.STRING,
         allowNull: true,
     },
-    food_desc:{
+    rec_desc:{
         type:DataTypes.STRING,
         allowNull: true,
     },
 },{
     freezeTableName:true
 });
- 
-export default Foods;
- 
+
+export default RecomendedFoods;
+
 (async()=>{
     await db.sync();
 })();
