@@ -2,7 +2,7 @@ import {Sequelize} from "sequelize";
 
 const db = new Sequelize('rockvincafe','root','',{
     host: 'localhost',
-    dialect: 'mysql'
+    dialect: 'mysql',
 });
 
 
