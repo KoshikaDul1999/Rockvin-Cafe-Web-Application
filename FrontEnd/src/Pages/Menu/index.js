@@ -55,10 +55,10 @@ function Product() {
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Product Name</th>
-                                <th scope="col">Product Image</th>
                                 <th scope="col">Product Price</th>
-                                {/*<th scope="col">Product Description</th>*/}
+                                <th scope="col">Product Image</th>
                                 <th scope="col">Product Category</th>
+                                <th scope="col">Product Description</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
