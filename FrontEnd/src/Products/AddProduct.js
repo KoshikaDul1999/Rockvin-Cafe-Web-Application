@@ -10,7 +10,7 @@ import {
   Box,
 } from '@mui/material';
 
-const categories = ['Category 1', 'Category 2', 'Category 3']; // Replace with your actual categories
+const categories = ['Breakfast', 'Lunch', 'Dinner', 'Beverages', 'Dessert']; // Replace with your actual categories
 
 const ProductUploadForm = () => {
   const [productName, setProductName] = useState('');
@@ -41,6 +41,13 @@ const ProductUploadForm = () => {
             value={productPrice}
             onChange={(e) => setProductPrice(e.target.value)}
           />
+          <Box mt={2}>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setProductImage(e.target.files[0])}
+            />
+          </Box>
           <TextField
             label="Product Description"
             fullWidth
@@ -49,13 +56,6 @@ const ProductUploadForm = () => {
             value={productDescription}
             onChange={(e) => setProductDescription(e.target.value)}
           />
-          <Box mt={2}>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => setProductImage(e.target.files[0])}
-            />
-          </Box>
           <FormControl fullWidth>
             <InputLabel id="category-label">Product Category</InputLabel>
             <Select
