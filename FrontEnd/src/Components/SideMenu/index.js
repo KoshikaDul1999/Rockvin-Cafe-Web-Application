@@ -1,5 +1,5 @@
 import { Menu } from "antd";
-import { AppstoreOutlined, MenuFoldOutlined, ShoppingCartOutlined, UserOutlined, DesktopOutlined, FileDoneOutlined, IdcardOutlined, HolderOutlined } from "@ant-design/icons";
+import { AppstoreOutlined, MenuFoldOutlined, ShoppingCartOutlined, UserOutlined, DesktopOutlined, FileDoneOutlined, IdcardOutlined, HolderOutlined, ShopOutlined, CoffeeOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -41,6 +41,11 @@ function SideMenu(){
                     key:'/category',
                 },
                 {
+                    label: "POS",
+                    icon: <DesktopOutlined />,
+                    key:'/fos',
+                },
+                {
                     label: "Orders",
                     icon: <ShoppingCartOutlined />,
                     key:'/orders',
@@ -51,9 +56,14 @@ function SideMenu(){
                     key:'/customers',
                 },
                 {
-                    label: "FOS",
-                    icon: <DesktopOutlined />,
-                    key:'/fos',
+                    label: "Recomended Foods",
+                    icon: <ShopOutlined />,
+                    key:'/recomendedfoods',
+                },
+                {
+                    label: "Offer Foods",
+                    icon: <CoffeeOutlined />,
+                    key:'/offerfoods',
                 },
                 {
                     label: "Reports",
