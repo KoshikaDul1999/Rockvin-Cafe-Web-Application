@@ -13,7 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import img1 from "../Images/logo/RockVinh_Logo.jpg";
+import img1 from "../Images/logo/res-logo.png";
 import { Image } from "antd";
 import {useNavigate} from 'react-router-dom';
 
@@ -61,6 +61,10 @@ export default function SignIn() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            /*background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+            borderRadius: '10px',
+            padding: '20px',
+            boxShadow: '0px 3px 15px rgba(0, 0, 0, 0.2)',*/
           }}
         >
         <Image
@@ -96,6 +100,7 @@ export default function SignIn() {
               autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              variant="outlined"
             />
             {/*<FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
