@@ -67,26 +67,26 @@ function Product() {
                             firstFiveProducts.map((foods, index) =>(
                                 <tr>
                                     <th scope="row" key={index}>{index+1}</th>
-                                    <td>{foods.name}</td>
-                                    <td>{foods.img}</td>
-                                    <td>{foods.price}</td>
+                                    <td>{foods.food_name}</td>
+                                    <td>{foods.food_img}</td>
+                                    <td>{foods.food_price}</td>
                                     {/*<td>{foods.product_desc}</td>*/}
                                     <td>{foods.type_id}</td>
                                     <td>
                                         <Link className='btn btn-primary mx-2'
-                                            to={`/viewproduct/${foods.id}`}
+                                            to={`/viewproduct/${foods.food_id}`}
                                         >
                                             View
                                         </Link>
 
                                         <Link className='btn btn-outline-primary mx-2'
-                                        to={`/editproduct/${foods.id}`}
+                                        to={`/editproduct/${foods.food_id}`}
                                         >
                                             Edit
                                         </Link>
 
                                         <button className='btn btn-danger mx-2'
-                                            onClick={() => deleteProduct(foods.id)}
+                                            onClick={() => deleteProduct(foods.food_id)}
                                         >
                                             Delete
                                         </button>

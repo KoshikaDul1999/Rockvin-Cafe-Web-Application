@@ -17,21 +17,27 @@ import Customers from "./Pages/Customers";
 import POS from "./Pages/POS";
 import Reports from "./Pages/Reports";
 import Profile from "./Pages/Profile";
+import Category from "./Pages/Category";
+import OfferFoodsProduct from "./Pages/OfferFoods";
+import RecomendedFoodsProduct from "./Pages/RecomendedFoods";
+
 import AddAdmin from "./Admins/AddAdmin";
 import EditAdmin from "./Admins/EditAdmin";
 import ViewAdmin from "./Admins/ViewAdmin";
+
 import AddChef from "./Chef/AddChef";
 import EditChef from "./Chef/EditChef";
 import ViewChef from "./Chef/ViewChef";
-import Category from "./Pages/Category";
+
 import AddCategory from "./Categories/AddCategory";
 import EditCategory from "./Categories/EditCategory";
 import ViewCategory from "./Categories/ViewCategory";
+
 import AddProduct from "./Products/AddProduct";
 import EditProduct from "./Products/EditProduct";
 import ViewProduct from "./Products/ViewProduct";
 
-
+import AddOfferProduct from "./OffProFoods/AddOffFoods";
 
 function App() {
   return (
@@ -55,6 +61,8 @@ function App() {
           <Route path="/pos" element={<POS />}></Route>
           <Route path="/reports" element={<Reports />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
+          <Route path="/offerfoods" element={<OfferFoodsProduct />}></Route>
+          <Route path="/recomendedfoods" element={<RecomendedFoodsProduct />}></Route>
 
           <Route exact path='/addnewadmin' element={<AddAdmin />} />
           <Route exact path='/editadmin/:id' element={<EditAdmin />} />
@@ -71,6 +79,10 @@ function App() {
           <Route exact path="/addnewproduct" element={<AddProduct />} />
           <Route exact path="/editproduct/:product_id" element={<EditProduct />} />
           <Route exact path="/viewproduct/:product_id" element={<ViewProduct />} />
+
+          <Route exact path="/addnewofferfoodproduct" element={<AddOfferProduct />} />
+
+
 
           <Route></Route>
 
