@@ -46,7 +46,7 @@ function Product() {
         <PageContent></PageContent>
 
             <div>
-                <Typography.Title level={4}> Our Products</Typography.Title>
+                <Typography.Title level={4}> Offer Products</Typography.Title>
                 <Link className='btn btn-primary' to="/addnewofferfoodproduct">Add Offer Product</Link>
                 <div className="container">
                     <div className="py-4">
