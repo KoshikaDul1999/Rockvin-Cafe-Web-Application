@@ -7,24 +7,24 @@ import PageContent from '../../Components/PageContent';
 
 function Product() {
 
-    const [products,setProducts]=useState([]);
+    const [offerproducts,setOfferProducts]=useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 6;
 
-    const {product_id}=useParams()
+    const {offer_id}=useParams()
 
     useEffect(() => {
-        loadProducts();
+        loadOfferProducts();
     },[]);
 
-    const loadProducts = async () => {
-        const result = await axios.get("http://localhost:5000/foods");
-        setProducts(result.data);
+    const loadOfferProducts = async () => {
+        const result = await axios.get("http://localhost:5000/offer_foods");
+        setOfferProducts(result.data);
     };
 
-    const deleteProduct = async (product_id) => {
-        const result = await axios.delete(`http://localhost:5000/foods/${product_id}`)
-        loadProducts()
+    const deleteOfferProduct = async (offer_id) => {
+        const result = await axios.delete(`http://localhost:5000/foods/${offer_id}`)
+        loadOfferProducts()
     };
 
     // Pagination change event handler
@@ -37,8 +37,8 @@ function Product() {
     const endIndex = startIndex + pageSize;
 
     // Slice the products array based on the current page
-    const currentProducts = products.slice(startIndex, endIndex);
-    const firstFiveProducts = currentProducts.slice(0, 5); // Get the first five products
+    const currentOfferProducts = offerproducts.slice(startIndex, endIndex);
+    const firstFiveOfferProducts = currentOfferProducts.slice(0, 5); // Get the first five products
 
     return (
         <div className="SideMenuAndPageContent">
@@ -47,7 +47,7 @@ function Product() {
 
             <div>
                 <Typography.Title level={4}> Our Products</Typography.Title>
-                <Link className='btn btn-primary' to="/addnewproduct">Add New product</Link>
+                <Link className='btn btn-primary' to="/addnewofferfoodproduct">Add Offer Product</Link>
                 <div className="container">
                     <div className="py-4">
                         <table className="table border shadow-inner, table-primary">
@@ -64,29 +64,29 @@ function Product() {
                         </thead>
                         <tbody>
                         {
-                            firstFiveProducts.map((foods, index) =>(
+                            firstFiveOfferProducts.map((offer_foods, index) =>(
                                 <tr>
                                     <th scope="row" key={index}>{index+1}</th>
-                                    <td>{foods.name}</td>
-                                    <td>{foods.img}</td>
-                                    <td>{foods.price}</td>
+                                    <td>{offer_foods.offer_name}</td>
+                                    <td>{offer_foods.offer_img}</td>
+                                    <td>{offer_foods.offer_price}</td>
                                     {/*<td>{foods.product_desc}</td>*/}
-                                    <td>{foods.type_id}</td>
+                                    <td>{offer_foods.type_id}</td>
                                     <td>
                                         <Link className='btn btn-primary mx-2'
-                                            to={`/viewproduct/${foods.id}`}
+                                            to={`/viewofferfoodproduct/${offer_foods.offer_id}`}
                                         >
                                             View
                                         </Link>
 
                                         <Link className='btn btn-outline-primary mx-2'
-                                        to={`/editproduct/${foods.id}`}
+                                        to={`/editofferfoodproduct/${offer_foods.offer_id}`}
                                         >
                                             Edit
                                         </Link>
 
                                         <button className='btn btn-danger mx-2'
-                                            onClick={() => deleteProduct(foods.id)}
+                                            onClick={() => deleteOfferProduct(offer_foods.offer_id)}
                                         >
                                             Delete
                                         </button>
@@ -100,7 +100,7 @@ function Product() {
                         {/* Pagination component */}
                         <Pagination
                             current={currentPage}
-                            total={products.length}
+                            total={offerproducts.length}
                             pageSize={pageSize}
                             onChange={handlePageChange}
                         />
