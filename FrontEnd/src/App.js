@@ -1,21 +1,12 @@
 import {Routes, Route} from 'react-router-dom';
-import { Space } from "antd";
 import './App.css';
 import './Main/style.css';
 import Login from './Login';
 import AppHeader from './Components/AppHeader';
-import SideMenu from './Components/SideMenu';
-import PageContent from './Components/PageContent';
 import AppFooter from './Components/AppFooter';
-
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import Register from './Register'
-import Main from './Main';
-
-
 
 //import Login from "./Login/index";
 
@@ -80,6 +71,8 @@ function App() {
           <Route exact path="/addnewproduct" element={<AddProduct />} />
           <Route exact path="/editproduct/:product_id" element={<EditProduct />} />
           <Route exact path="/viewproduct/:product_id" element={<ViewProduct />} />
+
+          <Route></Route>
 
         </Routes>
        <AppFooter />
