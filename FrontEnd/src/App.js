@@ -39,6 +39,8 @@ import ViewProduct from "./Products/ViewProduct";
 
 import AddOfferProduct from "./OffProFoods/AddOffFoods";
 
+import AddRecomendedProduct from "./RecProFoods/AddRecProducts";
+
 function App() {
   return (
     <div className='App'>
@@ -82,7 +84,7 @@ function App() {
 
           <Route exact path="/addnewofferfoodproduct" element={<AddOfferProduct />} />
 
-
+          <Route exact path="/addnewrecomendedproduct" element={<AddRecomendedProduct />}></Route>
 
           <Route></Route>
 

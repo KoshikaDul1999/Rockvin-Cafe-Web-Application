@@ -45,26 +45,26 @@ function Category() {
                         </thead>
                         <tbody>
                         {
-                            categories.map((food_types,index)=>(
+                            categories.map((category,index)=>(
                                 <tr>
                                     <th scope="row" key={index}>{index+1}</th>
-                                    <td>{food_types.title}</td>
-                                    <td>{food_types.description}</td>
+                                    <td>{category.cate_name}</td>
+                                    <td>{category.cate_desc}</td>
                                     <td>
                                         <Link className='btn btn-primary mx-2'
-                                            to={`/viewcategory/${food_types.id}`}
+                                            to={`/viewcategory/${category.cate_id}`}
                                         >
                                             View
                                         </Link>
 
                                         <Link className='btn btn-outline-primary mx-2'
-                                        to={`/editcategory/${food_types.id}`}
+                                        to={`/editcategory/${category.cate_id}`}
                                         >
                                             Edit
                                         </Link>
 
                                         <button className='btn btn-danger mx-2'
-                                            onClick={() => deleteCategory(food_types.id)}
+                                            onClick={() => deleteCategory(category.cate_id)}
                                         >
                                             Delete
                                         </button>
