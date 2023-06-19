@@ -4,24 +4,20 @@ import db from "../config/Database.js";
 const {DataTypes} = Sequelize;
  
 const OrderDetails = db.define('orderDetails',{
-    id: {
+    orderid: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey:true
-    },
+        primaryKey: true,
+        autoIncrement: true
+    },    
     
-    order_id: {
-        type:DataTypes.INTEGER,
+    uid: {
+        type:DataTypes.STRING,
         allowNull:false,
     },
 
-    food_id: {
+    foodid: {
         type: DataTypes.INTEGER,
-        allowNull: true,
-    },
-
-    food_details: {
-        type: DataTypes.STRING,
         allowNull: true,
     },
 
@@ -30,20 +26,31 @@ const OrderDetails = db.define('orderDetails',{
         allowNull: true,
     },
 
-    tax_amount:{
-        type: DataTypes.INTEGER,
+    totalprice:{
+        type:DataTypes.DOUBLE,
         allowNull: true,
     },
 
-    test:{
+    stutus:{
         type:DataTypes.INTEGER,
         allowNull: true,
     },
 
-    total_price:{
-        type:DataTypes.INTEGER,
+    time: {
+        type: DataTypes.DATE,
         allowNull: true,
-    },
+      },
+
+      order_from: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+
+      picup_time: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        }
+
 
 },{
     freezeTableName:true
