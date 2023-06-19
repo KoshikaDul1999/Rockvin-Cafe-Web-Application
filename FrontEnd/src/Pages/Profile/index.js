@@ -36,12 +36,12 @@ function Profile() {
     },[]);
 
     const loadChefs = async () => {
-        const result = await axios.get("http://localhost:8080/chefs");
+        const result = await axios.get("http://localhost:5000/chefs");
         setChefs(result.data);
     };
 
     const deleteChef = async (chef_id) => {
-        const result = await axios.delete(`http://localhost:8080/chef/${chef_id}`)
+        const result = await axios.delete(`http://localhost:5000/chef/${chef_id}`)
         loadChefs()
     }
 
@@ -112,9 +112,10 @@ function Profile() {
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">User Name</th>
                                 <th scope="col">E-mail</th>
                                 <th scope="col">Password</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Telephone</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -123,10 +124,11 @@ function Profile() {
                             chefs.map((chef,index)=>(
                                 <tr>
                                     <th scope="row" key={index}>{index+1}</th>
-                                    <td>{chef.chef_name}</td>
-                                    <td>{chef.chef_username}</td>
-                                    <td>{chef.chef_email}</td>
-                                    <td>{chef.chef_password}</td>
+                                    <td>{chef.name}</td>
+                                    <td>{chef.email}</td>
+                                    <td>{chef.password}</td>
+                                    <td>{chef.address}</td>
+                                    <td>{chef.telephone}</td>
                                     <td>
                                         <Link className='btn btn-primary mx-2'
                                             to={`/viewchef/${chef.chef_id}`}

@@ -1,4 +1,4 @@
-import { DollarCircleOutlined, ShoppingCartOutlined, ShoppingOutlined, UserOutlined } from "@ant-design/icons";
+import { DollarCircleOutlined, ShoppingCartOutlined, ShoppingOutlined, UserOutlined, ContainerOutlined } from "@ant-design/icons";
 import { Card, Space, Statistic, Table, Typography } from "antd"
 import { useEffect, useState } from "react";
 import { getCustomers, getInventory, getOrders, getRevenue } from "../../API";
@@ -28,6 +28,7 @@ ChartJS.register(
 function Dashboard() {
 
     const [orders, setOrders] = useState(0);
+    const [categories, setCategories] = useState(0);
     const [menu, setInventry] = useState(0);
     const [customers, setCustomers] = useState(0);
     const [revenue, setRevenue] = useState(0);
@@ -73,7 +74,20 @@ function Dashboard() {
                         title={"Orders"} 
                         value={orders} 
                     />
-
+                    <DashboardCard icon={
+                        <ContainerOutlined 
+                            style={{ 
+                                color: "yellow", 
+                                backgroundColor:"rgba(0,0,255,0.25",
+                                borderRadius: 20, 
+                                fontSize: 24,
+                                padding: 8,
+                            }}
+                        />
+                    } 
+                        title={"Categories"} 
+                        value={categories} 
+                    />
                     <DashboardCard icon={
                         <ShoppingOutlined 
                             style={{ 

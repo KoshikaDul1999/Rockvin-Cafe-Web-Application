@@ -3,6 +3,7 @@ import { getCategories, getCategoryById, createCategory, updateCategory, deleteC
 import { getFoods, getFoodById, updateFood, createFood, deleteFood } from "../controllers/FoodController.js";
 // import { deleteOrderDetails, updateOrderDetails, getOrderDetailsById, getOrderDetails, createOrderDetails } from "../controllers/OrderDetailsController.js";
 // //import { getAdmins, getAdminById, createAdmin, updateAdmin, deleteAdmin} from "../controllers/CategoryController.js";
+import {getChefs, getChefById, createChef, updateChef, deleteChef} from "../controllers/ChefController.js"
 
 const router = express.Router();
 
@@ -29,5 +30,11 @@ router.delete('/foods/:id', deleteFood);
 // router.post('/admin', createAdmin);
 // router.put('/admins/:id', updateAdmin);
 // router.delete('/admin/:id', deleteAdmin);
+
+router.get('/chefs', getChefs);
+router.get('/chef/:id', getChefById);
+router.post('/chef', createChef);
+router.put('/chef/:id', updateChef);
+router.delete('/chef/:id', deleteChef);
 
 export default router;
