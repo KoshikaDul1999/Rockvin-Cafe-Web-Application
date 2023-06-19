@@ -9,14 +9,14 @@ function Profile() {
 
     const [admins,setAdmins]=useState([]);
 
-    const {id}=useParams()
+    const {admin_id}=useParams()
 
     useEffect(() => {
         loadAdmins();
     },[]);
 
     const loadAdmins = async () => {
-        const result = await axios.get("http://localhost:8080/admins");
+        const result = await axios.get("http://localhost:5000/admins");
         setAdmins(result.data);
     };
 
@@ -62,7 +62,6 @@ function Profile() {
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">User Name</th>
                                 <th scope="col">E-mail</th>
                                 <th scope="col">Password</th>
                                 <th scope="col">Action</th>
@@ -74,24 +73,23 @@ function Profile() {
                                 <tr>
                                     <th scope="row" key={index}>{index+1}</th>
                                     <td>{admin.admin_name}</td>
-                                    <td>{admin.admin_username}</td>
                                     <td>{admin.admin_email}</td>
                                     <td>{admin.admin_password}</td>
                                     <td>
                                         <Link className='btn btn-primary mx-2'
-                                            to={`/viewadmin/${admin.id}`}
+                                            to={`/viewadmin/${admin.admin_id}`}
                                         >
                                             View
                                         </Link>
 
                                         <Link className='btn btn-outline-primary mx-2'
-                                        to={`/editadmin/${admin.id}`}
+                                        to={`/editadmin/${admin.admin_id}`}
                                         >
                                             Edit
                                         </Link>
 
                                         <button className='btn btn-danger mx-2'
-                                            onClick={() => deleteAdmin(admin.id)}
+                                            onClick={() => deleteAdmin(admin.admin_id)}
                                         >
                                             Delete
                                         </button>
