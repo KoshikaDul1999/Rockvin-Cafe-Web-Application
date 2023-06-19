@@ -7,10 +7,10 @@ import { getCategories, getCategoryById, createCategory, updateCategory, deleteC
 const router = express.Router();
 
 router.get('/categories', getCategories);
-// router.get('/category/:id', getCategoryById);
-// router.post('/category', createCategory);
-// router.put('/categories/:id', updateCategory);
-// router.delete('/category/:id', deleteCategory);
+router.get('/category/:id', getCategoryById);
+router.post('/category', createCategory);
+router.put('/categories/:id', updateCategory);
+router.delete('/category/:id', deleteCategory);
  
 // router.get('/foods', getFoods);
 // router.get('/foods/:id', getFoodById);
