@@ -1,12 +1,12 @@
 import express from "express";
-// import { getCategories, getCategoryById, createCategory, updateCategory, deleteCategory} from "../controllers/CategoryController.js";
+import { getCategories, getCategoryById, createCategory, updateCategory, deleteCategory} from "../controllers/CategoryController.js";
 // import { getFoods, getFoodById, updateFood, createFood, deleteFood } from "../controllers/FoodController.js";
 // import { deleteOrderDetails, updateOrderDetails, getOrderDetailsById, getOrderDetails, createOrderDetails } from "../controllers/OrderDetailsController.js";
 // //import { getAdmins, getAdminById, createAdmin, updateAdmin, deleteAdmin} from "../controllers/CategoryController.js";
 
 const router = express.Router();
 
-// router.get('/categories', getCategories);
+router.get('/categories', getCategories);
 // router.get('/category/:id', getCategoryById);
 // router.post('/category', createCategory);
 // router.put('/categories/:id', updateCategory);

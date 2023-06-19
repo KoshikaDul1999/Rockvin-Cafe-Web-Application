@@ -15,7 +15,7 @@ const Category = db.define('category',{
         allowNull:false,
     },
     cate_desc: {
-        type:DataTypes.INTEGER,
+        type:DataTypes.STRING,
         allowNull:true,
     }, 
 },{
