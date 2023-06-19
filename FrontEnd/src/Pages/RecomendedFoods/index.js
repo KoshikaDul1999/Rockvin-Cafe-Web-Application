@@ -7,24 +7,24 @@ import PageContent from '../../Components/PageContent';
 
 function Product() {
 
-    const [products,setProducts]=useState([]);
+    const [recproducts,setRecProducts]=useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 6;
 
-    const {product_id}=useParams()
+    const {rec_id}=useParams()
 
     useEffect(() => {
-        loadProducts();
+        loadRecProducts();
     },[]);
 
-    const loadProducts = async () => {
-        const result = await axios.get("http://localhost:5000/foods");
-        setProducts(result.data);
+    const loadRecProducts = async () => {
+        const result = await axios.get("http://localhost:5000/recomended_foods");
+        setRecProducts(result.data);
     };
 
-    const deleteProduct = async (product_id) => {
-        const result = await axios.delete(`http://localhost:5000/foods/${product_id}`)
-        loadProducts()
+    const deleteRecProduct = async (rec_id) => {
+        const result = await axios.delete(`http://localhost:5000/recomended_foods/${rec_id}`)
+        loadRecProducts()
     };
 
     // Pagination change event handler
@@ -37,8 +37,8 @@ function Product() {
     const endIndex = startIndex + pageSize;
 
     // Slice the products array based on the current page
-    const currentProducts = products.slice(startIndex, endIndex);
-    const firstFiveProducts = currentProducts.slice(0, 5); // Get the first five products
+    const currentRecProducts = recproducts.slice(startIndex, endIndex);
+    const firstFiveRecProducts = currentRecProducts.slice(0, 5); // Get the first five products
 
     return (
         <div className="SideMenuAndPageContent">
@@ -46,8 +46,8 @@ function Product() {
         <PageContent></PageContent>
 
             <div>
-                <Typography.Title level={4}> Our Products</Typography.Title>
-                <Link className='btn btn-primary' to="/addnewproduct">Add New product</Link>
+                <Typography.Title level={4}> Recomended Products</Typography.Title>
+                <Link className='btn btn-primary' to="/addnewrecomendedproduct">Add recomended product</Link>
                 <div className="container">
                     <div className="py-4">
                         <table className="table border shadow-inner, table-primary">
@@ -64,29 +64,29 @@ function Product() {
                         </thead>
                         <tbody>
                         {
-                            firstFiveProducts.map((foods, index) =>(
+                            firstFiveRecProducts.map((recomended_foods, index) =>(
                                 <tr>
                                     <th scope="row" key={index}>{index+1}</th>
-                                    <td>{foods.name}</td>
-                                    <td>{foods.img}</td>
-                                    <td>{foods.price}</td>
+                                    <td>{recomended_foods.rec_name}</td>
+                                    <td>{recomended_foods.rec_img}</td>
+                                    <td>{recomended_foods.rec_price}</td>
                                     {/*<td>{foods.product_desc}</td>*/}
-                                    <td>{foods.type_id}</td>
+                                    <td>{recomended_foods.type_id}</td>
                                     <td>
                                         <Link className='btn btn-primary mx-2'
-                                            to={`/viewproduct/${foods.id}`}
+                                            to={`/viewrecomendedproduct/${recomended_foods.rec_id}`}
                                         >
                                             View
                                         </Link>
 
                                         <Link className='btn btn-outline-primary mx-2'
-                                        to={`/editproduct/${foods.id}`}
+                                        to={`/editrecomendedproduct/${recomended_foods.rec_id}`}
                                         >
                                             Edit
                                         </Link>
 
                                         <button className='btn btn-danger mx-2'
-                                            onClick={() => deleteProduct(foods.id)}
+                                            onClick={() => deleteRecProduct(recomended_foods.rec_id)}
                                         >
                                             Delete
                                         </button>
@@ -100,7 +100,7 @@ function Product() {
                         {/* Pagination component */}
                         <Pagination
                             current={currentPage}
-                            total={products.length}
+                            total={recproducts.length}
                             pageSize={pageSize}
                             onChange={handlePageChange}
                         />
