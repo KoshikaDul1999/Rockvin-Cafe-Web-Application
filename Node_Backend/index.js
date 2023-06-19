@@ -9,6 +9,7 @@ import Foods from "./models/FoodModel.js";
 import OfferFoods from "./models/OfferFoodModel.js";
 import RecomendedFoods from "./models/RecomendedFoodModel.js";
 import OrderDetails from "./models/OrderDetailsModel.js";
+import Chefs from "./models/ChefModel.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
