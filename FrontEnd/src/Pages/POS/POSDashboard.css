@@ -1,0 +1,44 @@
+.tab-box {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100vh;
+  }
+  
+  .tabs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .tabs button {
+    background-color: #f2f2f2;
+    border: none;
+    color: #333;
+    padding: 30px 60px;
+    font-size: 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  
+  .tabs button:last-child {
+    margin-right: 0;
+  }
+  
+  .tabs button.active {
+    background-color: #d45353;
+    color: #fff;
+  }
+  
+  .menu-section {
+    text-align: center;
+  }
+  
+  .menu-section h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
