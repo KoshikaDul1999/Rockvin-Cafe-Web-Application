@@ -29,12 +29,12 @@ export default function EditChef() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`http://localhost:5000/chef/${ch_id}`, chef);
+    await axios.put(`http://localhost:5000/chef/${chef_id}`, chef);
     navigate('/');
   };
 
   const loadChef = async () => {
-    const result = await axios.get(`http://localhost:5000/chef/${ch_id}`);
+    const result = await axios.get(`http://localhost:5000/chef/${chef_id}`);
     setChef(result.data);
   };
 
