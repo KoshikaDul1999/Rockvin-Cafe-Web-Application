@@ -41,7 +41,7 @@ function Profile() {
     };
 
     const deleteChef = async (chef_id) => {
-        const result = await axios.delete(`http://localhost:8080/chef/${chef_id}`)
+        const result = await axios.delete(`http://localhost:5000/chef/${chef_id}`)
         loadChefs()
     }
 
