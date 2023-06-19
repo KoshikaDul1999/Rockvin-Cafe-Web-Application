@@ -7,13 +7,15 @@ export default function AddChef() {
   let navigate = useNavigate();
 
   const [chef, setChef] = useState({
-    chef_name: '',
-    chef_username: '',
-    chef_email: '',
-    chef_password: '',
+    chef_id: '',
+    name: '',
+    email: '',
+    password: '',
+    address: '',
+    telephone: '',
   });
 
-  const { chef_name, chef_username, chef_email, chef_password } = chef;
+  const { chef_id, name, email, password, address, telephone } = chef;
 
   const onInputChange = (e) => {
     setChef({ ...chef, [e.target.name]: e.target.value });
@@ -21,7 +23,7 @@ export default function AddChef() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('http://localhost:8080/chef', chef);
+    await axios.post('http://localhost:5000/chef', chef);
     navigate('/profile');
   };
 
@@ -31,13 +33,23 @@ export default function AddChef() {
         <CardHeader title={<Typography variant="h4">Register Chef</Typography>} />
         <form onSubmit={(e) => onSubmit(e)} style={{ padding: '1rem' }}>
           <Grid container spacing={3}>
+          <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Chef ID"
+                placeholder="Enter Chef ID"
+                name="chef_id"
+                value={chef_id}
+                onChange={(e) => onInputChange(e)}
+              />
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 fullWidth
                 label="Chef Name"
                 placeholder="Enter Chef Name"
-                name="chef_name"
-                value={chef_name}
+                name="name"
+                value={name}
                 onChange={(e) => onInputChange(e)}
               />
             </Grid>
@@ -46,8 +58,8 @@ export default function AddChef() {
                 fullWidth
                 label="Chef Email"
                 placeholder="Enter Chef Email Address"
-                name="chef_email"
-                value={chef_email}
+                name="email"
+                value={email}
                 onChange={(e) => onInputChange(e)}
               />
             </Grid>
@@ -56,8 +68,8 @@ export default function AddChef() {
                 fullWidth
                 label="Password"
                 placeholder="Enter Chef Password"
-                name="chef_password"
-                value={chef_password}
+                name="password"
+                value={password}
                 onChange={(e) => onInputChange(e)}
               />
             </Grid>
@@ -66,8 +78,8 @@ export default function AddChef() {
                 fullWidth
                 label="Address"
                 placeholder="Enter Chef Address"
-                name="chef_username"
-                value={chef_username}
+                name="address"
+                value={address}
                 onChange={(e) => onInputChange(e)}
               />
             </Grid>
@@ -76,8 +88,8 @@ export default function AddChef() {
                 fullWidth
                 label="Telephone"
                 placeholder="Enter Chef Telephone"
-                name="chef_username"
-                value={chef_username}
+                name="telephone"
+                value={telephone}
                 onChange={(e) => onInputChange(e)}
               />
             </Grid>
