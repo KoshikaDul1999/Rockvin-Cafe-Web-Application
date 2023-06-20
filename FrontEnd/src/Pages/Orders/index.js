@@ -25,6 +25,19 @@ function Order() {
         loadOrders()
     }
 
+    const confirmOrder = async (orderId) => {
+        try {
+          await axios.post('http://localhost:5000/send-notification', {
+            customerId: 'CUSTOMER_ID', // Replace with the actual customer ID
+          });
+          console.log('Notification sent successfully'); // Optional: log a success message
+        } catch (error) {
+          console.error('Failed to send notification:', error); // Optional: log any errors
+        }
+      
+        // Perform other actions or update the UI as needed
+      };
+
     return (
         <div className="SideMenuAndPageContent">
         <SideMenu></SideMenu>
@@ -66,11 +79,17 @@ function Order() {
                                             View
                                         </Link>
 
-                                        <Link className='btn btn-outline-primary mx-2'
+                                        {/* <Link className='btn btn-outline-primary mx-2'
                                         to={`/editorder/${orderdetails.orderid}`}
                                         >
                                             Edit
-                                        </Link>
+                                        </Link> */}
+
+                                        <button className='btn btn-outline-primary mx-2'
+                                            onClick={() => confirmOrder(orderdetails.orderid)}
+                                        >
+                                            Confirm
+                                        </button>
 
                                         <button className='btn btn-danger mx-2'
                                             onClick={() => deleteOrder(orderdetails.orderid)}
