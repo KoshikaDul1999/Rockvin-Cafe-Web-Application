@@ -13,11 +13,12 @@ import {
 const categories = ['Breakfast', 'Lunch', 'Dinner', 'Beverages', 'Dessert']; // Replace with your actual categories
 
 const ProductUploadForm = () => {
-  const [productName, setProductName] = useState('');
-  const [productPrice, setProductPrice] = useState('');
-  const [productDescription, setProductDescription] = useState('');
-  const [productImage, setProductImage] = useState('');
-  const [productCategory, setProductCategory] = useState('');
+  const [food_id, setFoodID] = useState('');
+  const [food_name, setFoodName] = useState('');
+  const [food_price, setFoodPrice] = useState('');
+  const [food_image, setFoodImage] = useState('');
+  const [food_desc, setFoodDescription] = useState('');
+  const [food_cat_id, setFoodCategory] = useState('');
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -30,22 +31,28 @@ const ProductUploadForm = () => {
       <Box mt={2}>
         <form onSubmit={handleFormSubmit}>
           <TextField
+            label="Product ID"
+            fullWidth
+            value={food_id}
+            onChange={(e) => setFoodID(e.target.value)}
+          />
+          <TextField
             label="Product Name"
             fullWidth
-            value={productName}
-            onChange={(e) => setProductName(e.target.value)}
+            value={food_name}
+            onChange={(e) => setFoodName(e.target.value)}
           />
           <TextField
             label="Product Price"
             fullWidth
-            value={productPrice}
-            onChange={(e) => setProductPrice(e.target.value)}
+            value={food_price}
+            onChange={(e) => setFoodPrice(e.target.value)}
           />
           <Box mt={2}>
             <input
               type="file"
               accept="image/*"
-              onChange={(e) => setProductImage(e.target.files[0])}
+              onChange={(e) => setFoodImage(e.target.files[0])}
             />
           </Box>
           <TextField
@@ -53,15 +60,15 @@ const ProductUploadForm = () => {
             fullWidth
             multiline
             rows={4}
-            value={productDescription}
-            onChange={(e) => setProductDescription(e.target.value)}
+            value={food_desc}
+            onChange={(e) => setFoodDescription(e.target.value)}
           />
           <FormControl fullWidth>
             <InputLabel id="category-label">Product Category</InputLabel>
             <Select
               labelId="category-label"
-              value={productCategory}
-              onChange={(e) => setProductCategory(e.target.value)}
+              value={food_cat_id}
+              onChange={(e) => setFoodCategory(e.target.value)}
             >
               {categories.map((category) => (
                 <MenuItem key={category} value={category}>
