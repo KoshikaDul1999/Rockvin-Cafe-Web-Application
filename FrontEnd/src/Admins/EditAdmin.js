@@ -11,7 +11,7 @@ import {
 export default function EditAdmin() {
   let navigate = useNavigate();
 
-  const { ad_id } = useParams();
+  const { id } = useParams();
 
   const [admin, setAdmin] = useState({
     admin_id: '',
@@ -32,12 +32,12 @@ export default function EditAdmin() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`http://localhost:5000/admin/${ad_id}`, admin);
-    navigate('/');
+    await axios.put(`http://localhost:5000/admin/${id}`, admin);
+    navigate('/profile');
   };
 
   const loadAdmin = async () => {
-    const result = await axios.get(`http://localhost:5000/admin/${ad_id}`);
+    const result = await axios.get(`http://localhost:5000/admin/${id}`);
     setAdmin(result.data);
   };
 
