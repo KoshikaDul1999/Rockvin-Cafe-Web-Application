@@ -8,14 +8,14 @@ export default function AddChef() {
 
   const [chef, setChef] = useState({
     chef_id: '',
-    name: '',
-    email: '',
-    password: '',
-    address: '',
-    telephone: '',
+    chef_name: '',
+    chef_email: '',
+    chef_password: '',
+    chef_address: '',
+    chef_telephone: '',
   });
 
-  const { chef_id, name, email, password, address, telephone } = chef;
+  const { chef_id, chef_name, chef_email, chef_password, chef_address, chef_telephone } = chef;
 
   const onInputChange = (e) => {
     setChef({ ...chef, [e.target.name]: e.target.value });
@@ -48,8 +48,8 @@ export default function AddChef() {
                 fullWidth
                 label="Chef Name"
                 placeholder="Enter Chef Name"
-                name="name"
-                value={name}
+                name="chef_name"
+                value={chef_name}
                 onChange={(e) => onInputChange(e)}
               />
             </Grid>
@@ -58,8 +58,8 @@ export default function AddChef() {
                 fullWidth
                 label="Chef Email"
                 placeholder="Enter Chef Email Address"
-                name="email"
-                value={email}
+                name="chef_email"
+                value={chef_email}
                 onChange={(e) => onInputChange(e)}
               />
             </Grid>
@@ -68,8 +68,8 @@ export default function AddChef() {
                 fullWidth
                 label="Password"
                 placeholder="Enter Chef Password"
-                name="password"
-                value={password}
+                name="chef_password"
+                value={chef_password}
                 onChange={(e) => onInputChange(e)}
               />
             </Grid>
@@ -78,8 +78,8 @@ export default function AddChef() {
                 fullWidth
                 label="Address"
                 placeholder="Enter Chef Address"
-                name="address"
-                value={address}
+                name="chef_address"
+                value={chef_address}
                 onChange={(e) => onInputChange(e)}
               />
             </Grid>
@@ -88,8 +88,8 @@ export default function AddChef() {
                 fullWidth
                 label="Telephone"
                 placeholder="Enter Chef Telephone"
-                name="telephone"
-                value={telephone}
+                name="chef_telephone"
+                value={chef_telephone}
                 onChange={(e) => onInputChange(e)}
               />
             </Grid>

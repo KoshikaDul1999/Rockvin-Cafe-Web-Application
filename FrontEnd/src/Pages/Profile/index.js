@@ -21,7 +21,7 @@ function Profile() {
     };
 
     const deleteAdmin = async (id) => {
-        const result = await axios.delete(`http://localhost:8080/admin/${id}`)
+        const result = await axios.delete(`http://localhost:5000/admin/${id}`)
         loadAdmins()
     }
 
@@ -40,8 +40,8 @@ function Profile() {
         setChefs(result.data);
     };
 
-    const deleteChef = async (chef_id) => {
-        const result = await axios.delete(`http://localhost:5000/chef/${chef_id}`)
+    const deleteChef = async (id) => {
+        const result = await axios.delete(`http://localhost:5000/chef/${id}`)
         loadChefs()
     }
 
@@ -122,11 +122,11 @@ function Profile() {
                             chefs.map((chef,index)=>(
                                 <tr>
                                     <th scope="row" key={index}>{index+1}</th>
-                                    <td>{chef.name}</td>
-                                    <td>{chef.email}</td>
-                                    <td>{chef.password}</td>
-                                    <td>{chef.address}</td>
-                                    <td>{chef.telephone}</td>
+                                    <td>{chef.chef_name}</td>
+                                    <td>{chef.chef_email}</td>
+                                    <td>{chef.chef_password}</td>
+                                    <td>{chef.chef_address}</td>
+                                    <td>{chef.chef_telephone}</td>
                                     <td>
                                         <Link className='btn btn-primary mx-2'
                                             to={`/viewchef/${chef.chef_id}`}
