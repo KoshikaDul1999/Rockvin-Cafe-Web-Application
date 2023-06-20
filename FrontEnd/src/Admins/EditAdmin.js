@@ -33,7 +33,7 @@ export default function EditAdmin() {
   const onSubmit = async (e) => {
     e.preventDefault();
     await axios.put(`http://localhost:5000/admin/${id}`, admin);
-    navigate('/');
+    navigate('/profile');
   };
 
   const loadAdmin = async () => {
