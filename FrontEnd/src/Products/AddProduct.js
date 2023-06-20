@@ -9,6 +9,7 @@ import {
   Container,
   Box,
 } from '@mui/material';
+import axios from 'axios';
 
 const categories = ['Breakfast', 'Lunch', 'Dinner', 'Beverages', 'Dessert']; // Replace with your actual categories
 
@@ -22,9 +23,34 @@ const ProductUploadForm = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    // Perform your submit logic here
-    // You can access the form data using the state variables (productName, productPrice, etc.)
+  
+    // Create a FormData object and append form data
+    const formData = new FormData();
+    formData.append('food_id', food_id);
+    formData.append('food_name', food_name);
+    formData.append('food_price', food_price);
+    formData.append('food_image', food_image);
+    formData.append('food_desc', food_desc);
+    formData.append('food_category', categories.find((category) => category.name === food_cat_id)?.id);
+  
+    axios.post('http://localhost:5000/upload', formData)
+      .then((response) => {
+        // Handle the response from the server
+        console.log('Form submitted successfully');
+        // Reset the form fields
+        setFoodID('');
+        setFoodName('');
+        setFoodPrice('');
+        setFoodImage('');
+        setFoodDescription('');
+        setFoodCategory('');
+      })
+      .catch((error) => {
+        // Handle the error
+        console.error('Error submitting form:', error);
+      });
   };
+  
 
   return (
     <Container maxWidth="sm">
