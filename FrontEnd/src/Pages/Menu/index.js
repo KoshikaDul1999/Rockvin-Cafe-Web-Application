@@ -42,8 +42,8 @@ function Product() {
 
     return (
         <div className="SideMenuAndPageContent">
-        <SideMenu></SideMenu>
-        <PageContent></PageContent>
+            <SideMenu />
+            <PageContent />
 
             <div>
                 <Typography.Title level={4}> Our Products</Typography.Title>
@@ -51,51 +51,38 @@ function Product() {
                 <div className="container">
                     <div className="py-4">
                         <table className="table border shadow-inner, table-primary">
-                        <thead className="thead-dark">
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Product Name</th>
-                                <th scope="col">Product Price</th>
-                                <th scope="col">Product Image</th>
-                                <th scope="col">Product Category</th>
-                                <th scope="col">Product Description</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            firstFiveProducts.map((foods, index) =>(
+                            <thead className="thead-dark">
                                 <tr>
-                                    <th scope="row" key={index}>{index+1}</th>
-                                    <td>{foods.food_name}</td>
-                                    <td>{foods.food_img}</td>
-                                    <td>{foods.food_price}</td>
-                                    {/*<td>{foods.product_desc}</td>*/}
-                                    <td>{foods.type_id}</td>
-                                    <td>
-                                        <Link className='btn btn-primary mx-2'
-                                            to={`/viewproduct/${foods.food_id}`}
-                                        >
-                                            View
-                                        </Link>
-
-                                        <Link className='btn btn-outline-primary mx-2'
-                                        to={`/editproduct/${foods.food_id}`}
-                                        >
-                                            Edit
-                                        </Link>
-
-                                        <button className='btn btn-danger mx-2'
-                                            onClick={() => deleteProduct(foods.food_id)}
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr> 
-                            ))
-                            
-                        }
-                        </tbody>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col">Product Price</th>
+                                    <th scope="col">Product Image</th>
+                                    <th scope="col">Product Category</th>
+                                    <th scope="col">Product Description</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    firstFiveProducts.map((food, index) => (
+                                        <tr key={food.food_id}>
+                                            <th scope="row">{index + 1}</th>
+                                            <td>{food.food_name}</td>
+                                            <td>{food.food_price}</td>
+                                            <td>
+                                                <img src={food.food_img} alt={food.food_img} style={{ width: '100px' }} />
+                                            </td>
+                                            <td>{food.food_cat_id}</td>
+                                            <td>{food.food_desc}</td>
+                                            <td>
+                                                <Link className='btn btn-primary mx-2' to={`/viewproduct/${food.food_id}`}>View</Link>
+                                                <Link className='btn btn-outline-primary mx-2' to={`/editproduct/${food.food_id}`}>Edit</Link>
+                                                <button className='btn btn-danger mx-2' onClick={() => deleteProduct(food.food_id)}>Delete</button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
                         </table>
                         {/* Pagination component */}
                         <Pagination
