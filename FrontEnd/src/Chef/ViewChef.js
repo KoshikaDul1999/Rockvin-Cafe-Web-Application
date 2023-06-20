@@ -6,11 +6,11 @@ import { Container, Typography, Card, CardHeader, List, ListItem, ListItemText, 
 export default function ViewChef() {
   const [chef, setChef] = useState({
     chef_id: '',
-    name: '',
-    email: '',
-    password: '',
-    address: '',
-    telephone: '',
+    chef_name: '',
+    chef_email: '',
+    chef_password: '',
+    chef_address: '',
+    chef_telephone: '',
   });
 
   const { chef_id } = useParams();
@@ -35,19 +35,19 @@ export default function ViewChef() {
                 <ListItemText primary={<b>Chef Id: </b>} secondary={chef.chef_id} />
               </ListItem>
               <ListItem>
-                <ListItemText primary={<b>Chef Name: </b>} secondary={chef.name} />
+                <ListItemText primary={<b>Chef Name: </b>} secondary={chef.chef_name} />
               </ListItem>
               <ListItem>
-                <ListItemText primary={<b>Chef Email: </b>} secondary={chef.email} />
+                <ListItemText primary={<b>Chef Email: </b>} secondary={chef.chef_email} />
               </ListItem>
               <ListItem>
-                <ListItemText primary={<b>Chef Password: </b>} secondary={chef.password} />
+                <ListItemText primary={<b>Chef Password: </b>} secondary={chef.chef_password} />
               </ListItem>
               <ListItem>
-                <ListItemText primary={<b>Chef Address: </b>} secondary={chef.address} />
+                <ListItemText primary={<b>Chef Address: </b>} secondary={chef.chef_address} />
               </ListItem>
               <ListItem>
-                <ListItemText primary={<b>Chef Telephone: </b>} secondary={chef.telephone} />
+                <ListItemText primary={<b>Chef Telephone: </b>} secondary={chef.chef_telephone} />
               </ListItem>
             </List>
           </div>

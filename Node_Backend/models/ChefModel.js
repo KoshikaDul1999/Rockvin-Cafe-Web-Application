@@ -9,23 +9,23 @@ const Chefs = db.define('chef',{
         allowNull: true,
         primaryKey:true
     },
-    name: {
+    chef_name: {
         type:DataTypes.STRING,
         allowNull:false,
     },
-    email: {
+    chef_email: {
         type:DataTypes.STRING,
         allowNull:false,
     },
-    password: {
+    chef_password: {
         type:DataTypes.STRING,
         allowNull:false,
     },
-    address: {
+    chef_address: {
         type:DataTypes.STRING,
         allowNull:false,
     },
-    telephone: {
+    chef_telephone: {
         type:DataTypes.INTEGER,
         allowNull:false,
     },
