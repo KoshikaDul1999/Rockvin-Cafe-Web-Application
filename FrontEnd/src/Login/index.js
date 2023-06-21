@@ -1,55 +1,101 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import Avatar from '@mui/material/Avatar';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import img1 from "../Images/logo/res-logo.png";
 import { Image } from "antd";
 import {useNavigate} from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import axios from 'axios';
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+
+  const[email, setEmail] = useState("");
+  const[password, setPassword] = useState("");
+  const[err, setErr] = useState("");
 
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const [cookies, setCookie] = useCookies(['admin']);
 
-    // Create an object with the form data
-    const formData = {
-      email,
-      password,
-    };
-
-    // Send a POST request to your Spring Boot endpoint
-    axios.post("http://localhost:8080/login", formData)
-      .then((response) => {
-        // Handle the response from the server
-        if (response.status === 200){
-          console.log("Success")
-          navigate('/dashboard');
+  useEffect(() =>{
+    if (cookies.admin) {
+        if (cookies.email !== "") {
+            navigate("/dashboard");
         }
-        console.log(response.data);
-      })
-      .catch((error) => {
-        // Handle any errors that occur during the request
-        alert("Invalid Emial or Password");
-        console.error(error);
-      });
-  };
+    }
+  })
+
+  const loginadmin = async(e) =>{
+    e.preventDefault();
+    console.log("clicked");
+    console.log(email+','+password);
+    try {
+        const response = await axios.get(`http://localhost:5000/admin/${email}`);
+        console.log();
+        if (response.data.sysusr_password === password) {
+            if (response.data.role === 1) {
+                setCookie('id', response.data.sysusr_id, { path: '/' });
+                setCookie('email', response.data.sysusr_email, { path: '/' });
+                setCookie('username', response.data.sysusr_name, { path: '/' });
+                setCookie('role', response.data.role, { path: '/' });
+                navigate("/dashboard");
+            }else if(response.data.role===2){
+                setCookie('id', response.data.sysusr_id, { path: '/' });
+                setCookie('email', response.data.sysusr_email, { path: '/' });
+                setCookie('username', response.data.sysusr_name, { path: '/' });
+                setCookie('role', response.data.role, { path: '/' });
+                navigate("/cheforders");
+            }else{
+                console.log(response.data.role);
+            }
+        }else{
+            setErr("Email or Password is does not match");
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+
+  // const navigate = useNavigate();
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+
+  //   // Create an object with the form data
+  //   const formData = {
+  //     email,
+  //     password,
+  //   };
+
+  //   // Send a POST request to your Spring Boot endpoint
+  //   axios.post("http://localhost:5000/login", formData)
+  //     .then((response) => {
+  //       // Handle the response from the server
+  //       if (response.status === 200){
+  //         console.log("Success")
+  //         navigate('/dashboard');
+  //       }
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       // Handle any errors that occur during the request
+  //       alert("Invalid Emial or Password");
+  //       console.error(error);
+  //     });
+  // };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -76,7 +122,7 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form"  noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -111,6 +157,7 @@ export default function SignIn() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={(e)=>loginadmin(e)} value="Login"
             >
               Sign In
             </Button>
@@ -120,11 +167,11 @@ export default function SignIn() {
                   Forgot password?
                 </Link>
         </Grid>*/}
-              <Grid item>
+              {/* <Grid item>
                 <Link href="/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
-              </Grid>
+              </Grid> */}
             </Grid>
           </Box>
         </Box>

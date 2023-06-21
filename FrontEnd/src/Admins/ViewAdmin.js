@@ -13,22 +13,23 @@ import {
 } from '@material-ui/core';
 
 export default function ViewAdmin() {
-  const [admin, setAdmin] = useState({
-    admin_id: '',
-    admin_name: '',
-    admin_email: '',
-    admin_password: '',
+  const [systemusers, setSystemusers] = useState({
+    sysusr_id: '',
+    sysusr_name: '',
+    sysusr_email: '',
+    sysusr_password: '',
+    role: '',
   });
 
-  const { id } = useParams();
+  const { su_id } = useParams();
 
   useEffect(() => {
     loadAdmin();
   }, []);
 
   const loadAdmin = async () => {
-    const result = await axios.get(`http://localhost:5000/admin/${id}`);
-    setAdmin(result.data);
+    const result = await axios.get(`http://localhost:5000/admin/${su_id}`);
+    setSystemusers(result.data);
   };
 
   return (
@@ -37,7 +38,7 @@ export default function ViewAdmin() {
         <div className="col-md-12">
           <Card className="border rounded p-4 mt-2 shadow p-3 mb-2 bg-dark text-white">
             <Typography variant="h4" align="center" gutterBottom>
-              Admin Details
+              System User Details
             </Typography>
 
             {/* <CardHeader
@@ -47,24 +48,18 @@ export default function ViewAdmin() {
 
             <List>
               <ListItem>
-                <ListItemText primary="Admin ID :" secondary={admin.admin_id} />
+                <ListItemText primary="System User ID :" secondary={systemusers.sysusr_id} />
               </ListItem>
               <ListItem>
-                <ListItemText primary="Admin Name :" secondary={admin.admin_name} />
+                <ListItemText primary="System User Name :" secondary={systemusers.sysusr_name} />
               </ListItem>
               <ListItem>
-                <ListItemText
-                  primary="Admin UserName :"
-                  secondary={admin.admin_username}
-                />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary="Admin Email :" secondary={admin.admin_email} />
+                <ListItemText primary="System User Email :" secondary={systemusers.sysusr_email} />
               </ListItem>
               <ListItem>
                 <ListItemText
-                  primary="Admin Password :"
-                  secondary={admin.admin_password}
+                  primary="System User Password :"
+                  secondary={systemusers.sysusr_password}
                 />
               </ListItem>
             </List>

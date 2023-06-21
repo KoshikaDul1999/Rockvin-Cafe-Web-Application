@@ -3,26 +3,28 @@ import db from "../config/Database.js";
  
 const {DataTypes} = Sequelize;
  
-const Admins = db.define('admin',{
-    admin_id: {
+const Admins = db.define('systemusers',{
+    sysusr_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey:true
     },
-    admin_name: {
+    sysusr_name: {
         type:DataTypes.STRING,
         allowNull:false,
     },
-    admin_email: {
+    sysusr_email: {
         type:DataTypes.STRING,
         allowNull:false,
     },
-    admin_password: {
+    sysusr_password: {
         type:DataTypes.STRING,
         allowNull:false,
     },
-
-
+    role: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
 },{
     freezeTableName:true
 });

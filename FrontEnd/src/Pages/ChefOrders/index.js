@@ -1,64 +1,111 @@
-import { Space, Table, Typography } from "antd";
-import { useEffect, useState } from "react";
-import { getOrders } from "../../API";
-import { Link } from 'react-router-dom';
+import { Typography } from "antd";
+import { Link, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import SideMenu from '../../Components/SideMenu';
 import PageContent from '../../Components/PageContent';
 
-function Orders() {
-    const [loading, setLoading] = useState(false)
-    const [dataSource, setDataSource] = useState([])
-    
+function Order() {
+
+    const [orders,setOrders]=useState([]);
+
+    const {orderid}=useParams()
+
     useEffect(() => {
-        setLoading(true)
-        getOrders().then(res=>{
-            setDataSource(res.products)
-            setLoading(false);
-        })
-    }, [])
-    
+        loadOrders();
+    },[]);
+
+    const loadOrders = async () => {
+        const result = await axios.get("http://localhost:5000/OrderDetails");
+        setOrders(result.data);
+    };
+
+    const deleteOrder = async (orderid) => {
+        const result = await axios.delete(`http://localhost:5000/OrderDetails/${orderid}`)
+        loadOrders()
+    }
+
+    const confirmOrder = async (orderId) => {
+        try {
+          await axios.post('http://localhost:5000/send-notification', {
+            customerId: 'CUSTOMER_ID', // Replace with the actual customer ID
+          });
+          console.log('Notification sent successfully'); // Optional: log a success message
+        } catch (error) {
+          console.error('Failed to send notification:', error); // Optional: log any errors
+        }
+      
+        // Perform other actions or update the UI as needed
+      };
+
     return (
         <div className="SideMenuAndPageContent">
         <SideMenu></SideMenu>
         <PageContent></PageContent>
+            <div>
+                <Typography.Title level={4}>Our Orders</Typography.Title>
+                {/* <Link className='btn btn-primary' to="/addnewcategory">Add New category</Link> */}
+                <div className="container">
+                    <div className="py-4">
+                        <table className="table border shadow-inner, table-primary">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th scope="col">Order ID</th>
+                                <th scope="col">Food Name</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">time</th>
+                                <th scope="col">pickup_time</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            orders.map((orderdetails,index)=>(
+                                <tr>
+                                    <th scope="row" key={index}>{index+1}</th>
+                                    <td>{orderdetails.orderid}</td>
+                                    <td>{orderdetails.foodid}</td>
+                                    <td>{orderdetails.quantity}</td>
+                                    <td>{orderdetails.price}</td>
+                                    <td>{orderdetails.status}</td>
+                                    <td>{orderdetails.time}</td>
+                                    <td>{orderdetails.pickup_time}</td>
+                                    <td>
+                                        <Link className='btn btn-primary mx-2'
+                                            to={`/vieworder/${orderdetails.orderid}`}
+                                        >
+                                            View
+                                        </Link>
 
-            <Space size={20} direction='vertical'>
-                <Typography.Title level={4}>Order List</Typography.Title>
-                <Link className='btn btn-success' to="/addneworder">Add New Order</Link>
-                <Table 
-                    loading={loading}
-                    columns={[
-                        {
-                            title:"TiTle",
-                            dataIndex:'title',
-                        },
-                        {
-                            title:"Price",
-                            dataIndex:'price',
-                            render:(value)=><span>Rs.{value}</span>
-                        },
-                        {
-                            title:"Discounted Price",
-                            dataIndex:'discountedPrice',
-                            render:(value)=><span>Rs.{value}</span>
-                        },
-                        {
-                            title:"Quantity",
-                            dataIndex:'quantity',
-                        },
-                        {
-                            title:"Total",
-                            dataIndex:'total',
-                        },
-                ]}
-                dataSource={dataSource}
-                pagination={{
-                    pageSize: 6,
-                }}
-                ></Table>
-            </Space>
+                                        {/* <Link className='btn btn-outline-primary mx-2'
+                                        to={`/editorder/${orderdetails.orderid}`}
+                                        >
+                                            Edit
+                                        </Link> */}
+
+                                        <button className='btn btn-outline-primary mx-2'
+                                            onClick={() => confirmOrder(orderdetails.orderid)}
+                                        >
+                                            Confirm
+                                        </button>
+
+                                        <button className='btn btn-danger mx-2'
+                                            onClick={() => deleteOrder(orderdetails.orderid)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr> 
+                            ))
+                        }
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-    
     ); 
 }
-export default Orders;
+export default Order
