@@ -20,6 +20,7 @@ import Profile from "./Pages/Profile";
 import Category from "./Pages/Category";
 import OfferFoodsProduct from "./Pages/OfferFoods";
 import RecomendedFoodsProduct from "./Pages/RecomendedFoods";
+import ChefOrders from "./Pages/ChefOrders";
 
 import AddAdmin from "./Admins/AddAdmin";
 import EditAdmin from "./Admins/EditAdmin";
@@ -59,7 +60,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Login/>}></Route>
           {/*<Route path='home' element={<Main/>}></Route>*/}
-          <Route path='register' element={<Register/>}></Route>
+          {/* <Route path='register' element={<Register/>}></Route> */}
           {/* <Route path='*' element={<NoMatch/>}></Route> */}
 
 
@@ -73,6 +74,7 @@ function App() {
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/offerfoods" element={<OfferFoodsProduct />}></Route>
           <Route path="/recomendedfoods" element={<RecomendedFoodsProduct />}></Route>
+          <Route path="/cheforders" element={<ChefOrders />}></Route>
 
           <Route exact path='/addnewadmin' element={<AddAdmin />} />
           <Route exact path='/editadmin/:id' element={<EditAdmin />} />

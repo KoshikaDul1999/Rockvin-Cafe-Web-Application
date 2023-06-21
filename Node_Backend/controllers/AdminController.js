@@ -13,7 +13,7 @@ export const getAdminById = async(req, res) =>{
     try {
         const response = await Admins.findOne({
             where:{
-                admin_id: req.params.id
+                sysusr_email: req.params.id
             }
         });
         res.status(200).json(response);
@@ -21,6 +21,19 @@ export const getAdminById = async(req, res) =>{
         console.log(error.message);
     }
 }
+
+// export const getAdminByEmail = async (req, res) => {
+//     try {
+//       const response = await User.findOne({
+//         where: {
+//           admin_email: req.params.id,
+//         },
+//       });
+//       res.status(200).json(response);
+//     } catch (error) {
+//       console.log(error.message);
+//     }
+//   };
  
 export const createAdmin = async(req, res) =>{
     try {
@@ -35,7 +48,7 @@ export const updateAdmin = async(req, res) =>{
     try {
         await Admins.update(req.body,{
             where:{
-                admin_id: req.params.id
+                sysusr_id: req.params.id
             }
         });
         res.status(200).json({msg: "Admin Updated"});
@@ -48,7 +61,7 @@ export const deleteAdmin = async(req, res) =>{
     try {
         await Admins.destroy({
             where:{
-                admin_id: req.params.id
+                sysusr_id: req.params.id
             }
         });
         res.status(200).json({msg: "Admin Deleted"});

@@ -2,26 +2,28 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Typography, TextField, Button } from '@material-ui/core';
+import { RollerSkating } from '@mui/icons-material';
 
 export default function AddAdmin() {
   let navigate = useNavigate();
 
-  const [admin, setAdmin] = useState({
-    admin_id: '',
-    admin_name: '',
-    admin_email: '',
-    admin_password: '',
+  const [systemusers, setSystemusers] = useState({
+    sysusr_id: '',
+    sysusr_name: '',
+    sysusr_email: '',
+    sysusr_password: '',
+    role: '',
   });
 
-  const { admin_id, admin_name, admin_email, admin_password } = admin;
+  const { sysusr_id, sysusr_name, sysusr_email, sysusr_password, role } = systemusers;
 
   const onInputChange = (e) => {
-    setAdmin({ ...admin, [e.target.name]: e.target.value });
+    setSystemusers({ ...systemusers, [e.target.name]: e.target.value });
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('http://localhost:5000/admin', admin);
+    await axios.post('http://localhost:5000/admin', systemusers);
     navigate('/profile');
   };
 
@@ -31,16 +33,16 @@ export default function AddAdmin() {
         <div className="col-md-12">
           <div className="border rounded p-4 mt-2 shadow p-3 mb-2 bg-dark text-white">
             <Typography variant="h4" align="center" gutterBottom>
-              Register Admin
+              Register System User
             </Typography>
 
             <form onSubmit={(e) => onSubmit(e)}>
             <TextField
                 label="ID"
                 fullWidth
-                placeholder="Enter Admin ID"
-                name="admin_id"
-                value={admin_id}
+                placeholder="Enter System User ID"
+                name="sysusr_id"
+                value={sysusr_id}
                 onChange={(e) => onInputChange(e)}
                 margin="normal"
               />
@@ -48,9 +50,9 @@ export default function AddAdmin() {
               <TextField
                 label="Name"
                 fullWidth
-                placeholder="Enter Admin Name"
-                name="admin_name"
-                value={admin_name}
+                placeholder="Enter System User Name"
+                name="sysusr_name"
+                value={sysusr_name}
                 onChange={(e) => onInputChange(e)}
                 margin="normal"
               />
@@ -58,9 +60,9 @@ export default function AddAdmin() {
               <TextField
                 label="Email"
                 fullWidth
-                placeholder="Enter Admin Email "
-                name="admin_email"
-                value={admin_email}
+                placeholder="Enter System User Email "
+                name="sysusr_email"
+                value={sysusr_email}
                 onChange={(e) => onInputChange(e)}
                 margin="normal"
               />
@@ -68,9 +70,19 @@ export default function AddAdmin() {
               <TextField
                 label="Password"
                 fullWidth
-                placeholder="Enter Admin Password"
-                name="admin_password"
-                value={admin_password}
+                placeholder="Enter System User Password"
+                name="sysusr_password"
+                value={sysusr_password}
+                onChange={(e) => onInputChange(e)}
+                margin="normal"
+              />
+
+              <TextField
+                label="Role"
+                fullWidth
+                placeholder="Enter System User Role"
+                name="role"
+                value={role}
                 onChange={(e) => onInputChange(e)}
                 margin="normal"
               />

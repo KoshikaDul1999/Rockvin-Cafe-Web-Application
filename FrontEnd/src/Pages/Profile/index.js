@@ -27,23 +27,23 @@ function Profile() {
 
 
 
-    const [chefs,setChefs]=useState([]);
+    // const [chefs,setChefs]=useState([]);
 
-    const {chef_id}=useParams()
+    // const {chef_id}=useParams()
 
-    useEffect(() => {
-        loadChefs();
-    },[]);
+    // useEffect(() => {
+    //     loadChefs();
+    // },[]);
 
-    const loadChefs = async () => {
-        const result = await axios.get("http://localhost:5000/chefs");
-        setChefs(result.data);
-    };
+    // const loadChefs = async () => {
+    //     const result = await axios.get("http://localhost:5000/chefs");
+    //     setChefs(result.data);
+    // };
 
-    const deleteChef = async (id) => {
-        const result = await axios.delete(`http://localhost:5000/chef/${id}`)
-        loadChefs()
-    }
+    // const deleteChef = async (id) => {
+    //     const result = await axios.delete(`http://localhost:5000/chef/${id}`)
+    //     loadChefs()
+    // }
 
 
 
@@ -53,8 +53,8 @@ function Profile() {
         <PageContent></PageContent>
 
             <div>
-                <Typography.Title level={4}>Admin Profile</Typography.Title>
-                <Link className='btn btn-dark' to="/addnewadmin">Add New Admin</Link>
+                <Typography.Title level={4}>System User Profiles</Typography.Title>
+                <Link className='btn btn-dark' to="/addnewadmin">Add New System User</Link>
                 <div className="container">
                     <div className="py-4">
                         <table className="table border shadow-inner, table-dark">
@@ -64,32 +64,34 @@ function Profile() {
                                 <th scope="col">Name</th>
                                 <th scope="col">E-mail</th>
                                 <th scope="col">Password</th>
+                                <th scope="col">Role</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                         {
-                            admins.map((admin,index)=>(
+                            admins.map((systemuser,index)=>(
                                 <tr>
                                     <th scope="row" key={index}>{index+1}</th>
-                                    <td>{admin.admin_name}</td>
-                                    <td>{admin.admin_email}</td>
-                                    <td>{admin.admin_password}</td>
+                                    <td>{systemuser.sysusr_name}</td>
+                                    <td>{systemuser.sysusr_email}</td>
+                                    <td>{systemuser.sysusr_password}</td>
+                                    <td>{systemuser.role}</td>
                                     <td>
                                         <Link className='btn btn-primary mx-2'
-                                            to={`/viewadmin/${admin.admin_id}`}
+                                            to={`/viewadmin/${systemuser.sysusr_id}`}
                                         >
                                             View
                                         </Link>
 
                                         <Link className='btn btn-outline-primary mx-2'
-                                        to={`/editadmin/${admin.admin_id}`}
+                                        to={`/editadmin/${systemuser.sysusr_id}`}
                                         >
                                             Edit
                                         </Link>
 
                                         <button className='btn btn-danger mx-2'
-                                            onClick={() => deleteAdmin(admin.admin_id)}
+                                            onClick={() => deleteAdmin(systemuser.sysusr_id)}
                                         >
                                             Delete
                                         </button>
@@ -101,7 +103,7 @@ function Profile() {
                         </table>
                     </div>
                 </div>
-                <Typography.Title level={4}>Chef Profile</Typography.Title>
+                {/* <Typography.Title level={4}>Chef Profile</Typography.Title>
                 <Link className='btn btn-info' to="/addnewchef">Add New Chef</Link>
                 <div className="container">
                     <div className="py-4">
@@ -152,7 +154,7 @@ function Profile() {
                         </tbody>
                         </table>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     ); 
