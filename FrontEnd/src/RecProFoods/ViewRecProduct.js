@@ -1,84 +1,56 @@
-import React, { useState } from 'react';
-import {
-  TextField,
-  Button,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Container,
-  Box,
-} from '@mui/material';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { Typography, Container, Card, CardHeader, List, ListItem, ListItemText, Button } from '@material-ui/core';
 
-const categories = ['Category 1', 'Category 2', 'Category 3']; // Replace with your actual categories
+export default function ViewFood() {
+  const [food, setFood] = useState({
+    food_name: '',
+    food_price: '',
+    food_img: '',
+    food_desc: '',
+    food_cat_id: '',
+  });
 
-const ProductUploadForm = () => {
-  const [productName, setProductName] = useState('');
-  const [productPrice, setProductPrice] = useState('');
-  const [productDescription, setProductDescription] = useState('');
-  const [productImage, setProductImage] = useState('');
-  const [productCategory, setProductCategory] = useState('');
+  const { food_id } = useParams();
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    // Perform your submit logic here
-    // You can access the form data using the state variables (productName, productPrice, etc.)
+  useEffect(() => {
+    loadFood();
+  }, []);
+
+  const loadFood = async () => {
+    const result = await axios.get(`http://localhost:5000/foods/${food_id}`);
+    setFood(result.data);
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box mt={2}>
-        <form onSubmit={handleFormSubmit}>
-          <TextField
-            label="Product Name"
-            fullWidth
-            value={productName}
-            onChange={(e) => setProductName(e.target.value)}
-          />
-          <TextField
-            label="Product Price"
-            fullWidth
-            value={productPrice}
-            onChange={(e) => setProductPrice(e.target.value)}
-          />
-          <TextField
-            label="Product Description"
-            fullWidth
-            multiline
-            rows={4}
-            value={productDescription}
-            onChange={(e) => setProductDescription(e.target.value)}
-          />
-          <Box mt={2}>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => setProductImage(e.target.files[0])}
-            />
-          </Box>
-          <FormControl fullWidth>
-            <InputLabel id="category-label">Product Category</InputLabel>
-            <Select
-              labelId="category-label"
-              value={productCategory}
-              onChange={(e) => setProductCategory(e.target.value)}
-            >
-              {categories.map((category) => (
-                <MenuItem key={category} value={category}>
-                  {category}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <Box mt={2}>
-            <Button variant="contained" color="primary" type="submit">
-              Upload Product
-            </Button>
-          </Box>
-        </form>
-      </Box>
+    <Container maxWidth="md">
+      <Card variant="outlined" style={{ marginTop: '2rem' }}>
+        <CardHeader title={<Typography variant="h4">Food Details</Typography>} />
+        <List>
+          <ListItem>
+            <ListItemText primary="Food ID" secondary={food.food_id} />
+          </ListItem>
+          <ListItem>
+            <ListItemText primary="Food Name" secondary={food.food_name} />
+          </ListItem>
+          <ListItem>
+            <ListItemText primary="Food Price" secondary={food.food_name} />
+          </ListItem>
+          <ListItem>
+            <ListItemText primary="Food Image" secondary={food.food_name} />
+          </ListItem>
+          <ListItem>
+            <ListItemText primary="Food Description" secondary={food.food_desc} />
+          </ListItem>
+          <ListItem>
+            <ListItemText primary="Food Category" secondary={food.food_name} />
+          </ListItem>
+        </List>
+      </Card>
+      <Button component={Link} to="/recomendedfoods" variant="contained" color="primary" style={{ marginTop: '1rem' }}>
+        Back to Home
+      </Button>
     </Container>
   );
-};
-
-export default ProductUploadForm;
+}
