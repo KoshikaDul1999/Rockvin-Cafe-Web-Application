@@ -6,10 +6,11 @@ const NavigationBar = () => {
   return (
     <nav className="navigation-bar">
       <ul className="navigation-list">
-        <li><a href="#">Breakfast</a></li>
-        <li><a href="#">Lunch</a></li>
-        <li><a href="#">Dinner</a></li>
-        <li><a href="#">Beverages</a></li>
+      <li><a href="../Dashboard/"><i className="fa-solid fa-home"></i></a></li>
+        <li><a href="/productView">Breakfast</a></li>
+        <li><a href="/lunchView">Lunch</a></li>
+        <li><a href="/dinnerView">Dinner</a></li>
+        <li><a href="beveragesView">Beverages</a></li>
       </ul>
     </nav>
   );
@@ -21,6 +22,8 @@ const CartPage = () => {
 
   const [cartItems, setCartItems] = useState([]);
   
+  const imageSrc = `/images/foods/${cartItems.food_img}`;
+
 
 
 
@@ -64,8 +67,8 @@ const CartPage = () => {
 
   return (
     <div>
-      <NavigationBar />
-      <h1>Shopping Cart</h1>
+      <NavigationBar /><br></br><br></br>
+      <h1>Shopping Cart</h1><br></br>
       <table className="cart-items">
         <thead>
           <tr>
@@ -82,7 +85,7 @@ const CartPage = () => {
             <>
               <tr className="cart-item">
                 <td>
-                  <img src={item.image} alt={item.food_name} className="cart-item-image" />
+                  <img src={imageSrc} alt={item.food_name} className="cart-item-image" />
                 </td>
                 <td>{item.food_name}</td>
                 <td>RS. {item.food_price}</td>
@@ -96,7 +99,7 @@ const CartPage = () => {
 />
 
                 </td>
-                <td id={item.food_id}>RS.{item.food}</td>
+                <td id={item.food_id}>RS.{item.food_price}</td>
                 <td>
                   <button className="delete-button" onClick={()=>handleRemoveItem(item.food_id)}>
                     Delete
