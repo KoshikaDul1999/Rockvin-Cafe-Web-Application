@@ -13,32 +13,33 @@ export default function EditAdmin() {
 
   const { id } = useParams();
 
-  const [admin, setAdmin] = useState({
-    admin_id: '',
-    admin_name: '',
-    admin_email: '',
-    admin_password: '',
+  const [systemusers, setSystemusers] = useState({
+    sysusr_id: '',
+    sysusr_name: '',
+    sysusr_email: '',
+    sysusr_password: '',
+    role: '',
   });
 
-  const { admin_id, admin_name, admin_email, admin_password } = admin;
+  const { sysusr_id, sysusr_name, sysusr_email, sysusr_password, role } = systemusers;
 
   const onInputChange = (e) => {
-    setAdmin({ ...admin, [e.target.name]: e.target.value });
+    setSystemusers({ ...systemusers, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
-    loadAdmin();
+    loadSystemusers();
   }, []);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`http://localhost:5000/admin/${id}`, admin);
+    await axios.put(`http://localhost:5000/admin/${id}`, systemusers);
     navigate('/profile');
   };
 
-  const loadAdmin = async () => {
+  const loadSystemusers = async () => {
     const result = await axios.get(`http://localhost:5000/admin/${id}`);
-    setAdmin(result.data);
+    setSystemusers(result.data);
   };
 
   return (
@@ -47,20 +48,20 @@ export default function EditAdmin() {
         <div className="col-md-12">
           <div className="border rounded p-4 mt-2 shadow p-3 mb-2 bg-dark text-white">
             <Typography variant="h4" align="center" gutterBottom>
-              Edit Admin
+              Edit System User
             </Typography>
 
             <form onSubmit={(e) => onSubmit(e)}>
                <div className="mb-3">
                 <label htmlFor="ID" className="form-label">
-                  Name
+                  ID
                 </label>
                 <TextField
                   type="text"
                   className="form-control"
-                  placeholder="Enter Admin ID"
-                  name="admin_id"
-                  value={admin_id}
+                  placeholder="Enter System User ID"
+                  name="sysusr_id"
+                  value={sysusr_id}
                   onChange={(e) => onInputChange(e)}
                   fullWidth
                 />
@@ -72,9 +73,9 @@ export default function EditAdmin() {
                 <TextField
                   type="text"
                   className="form-control"
-                  placeholder="Enter Admin Name"
-                  name="admin_name"
-                  value={admin_name}
+                  placeholder="Enter System User Name"
+                  name="sysusr_name"
+                  value={sysusr_name}
                   onChange={(e) => onInputChange(e)}
                   fullWidth
                 />
@@ -86,9 +87,9 @@ export default function EditAdmin() {
                 <TextField
                   type="text"
                   className="form-control"
-                  placeholder="Enter Admin Email Address"
-                  name="admin_email"
-                  value={admin_email}
+                  placeholder="Enter System User Email "
+                  name="sysusr_email"
+                  value={sysusr_email}
                   onChange={(e) => onInputChange(e)}
                   fullWidth
                 />
@@ -100,9 +101,23 @@ export default function EditAdmin() {
                 <TextField
                   type="text"
                   className="form-control"
-                  placeholder="Enter Admin Password"
-                  name="admin_password"
-                  value={admin_password}
+                  placeholder="Enter System User Password"
+                  name="sysusr_password"
+                  value={sysusr_password}
+                  onChange={(e) => onInputChange(e)}
+                  fullWidth
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="Email" className="form-label">
+                  Role
+                </label>
+                <TextField
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter System User Email "
+                  name="role"
+                  value={role}
                   onChange={(e) => onInputChange(e)}
                   fullWidth
                 />

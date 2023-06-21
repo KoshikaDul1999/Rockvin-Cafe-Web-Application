@@ -45,6 +45,10 @@ import AddRecomendedProduct from "./RecProFoods/AddRecProducts";
 //pages
 
 import ProductView from './Pages/POS/productView';
+import LunchView from './Pages/POS/lunchView';
+import DinnerView from './Pages/POS/dinnerView';
+import BeveragesView from './Pages/POS/beveragesView';
+
 import CartPage from './Pages/POS/cart';
 
 
@@ -97,7 +101,11 @@ function App() {
           <Route exact path="/addnewrecomendedproduct" element={<AddRecomendedProduct />}></Route>
 
           <Route path='/productview' element={<ProductView />} />
+          <Route path='/lunchView' element={<LunchView />} />
+
           <Route path='/viewcart' element={<CartPage />} />
+          <Route path='/dinnerView' element={<DinnerView />} />
+          <Route path='/beveragesView' element={<BeveragesView />} />
 
           <Route></Route>
 

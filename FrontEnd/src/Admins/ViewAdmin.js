@@ -5,30 +5,32 @@ import {
   Container,
   Typography,
   Card,
-  CardHeader,
   List,
   ListItem,
   ListItemText,
   Button,
 } from '@material-ui/core';
 
+
 export default function ViewAdmin() {
   const [systemusers, setSystemusers] = useState({
-    sysusr_id: '',
     sysusr_name: '',
     sysusr_email: '',
     sysusr_password: '',
     role: '',
   });
 
-  const { su_id } = useParams();
+  const { id } = useParams();
+  
 
   useEffect(() => {
-    loadAdmin();
+    loadSystemusers();
   }, []);
 
-  const loadAdmin = async () => {
-    const result = await axios.get(`http://localhost:5000/admin/${su_id}`);
+  const loadSystemusers = async () => {
+    console.log(id);
+    const result = await axios.get(`http://localhost:5000/admin/${id}`);
+    console.log(result.data);
     setSystemusers(result.data);
   };
 
@@ -47,9 +49,9 @@ export default function ViewAdmin() {
             /> */}
 
             <List>
-              <ListItem>
+              {/* <ListItem>
                 <ListItemText primary="System User ID :" secondary={systemusers.sysusr_id} />
-              </ListItem>
+              </ListItem> */}
               <ListItem>
                 <ListItemText primary="System User Name :" secondary={systemusers.sysusr_name} />
               </ListItem>
@@ -57,10 +59,10 @@ export default function ViewAdmin() {
                 <ListItemText primary="System User Email :" secondary={systemusers.sysusr_email} />
               </ListItem>
               <ListItem>
-                <ListItemText
-                  primary="System User Password :"
-                  secondary={systemusers.sysusr_password}
-                />
+                <ListItemText primary="System User Password :" secondary={systemusers.sysusr_password} />
+              </ListItem>
+              <ListItem>
+                <ListItemText primary="System User Role :" secondary={systemusers.role} />
               </ListItem>
             </List>
 
