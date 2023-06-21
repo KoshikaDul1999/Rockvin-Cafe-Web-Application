@@ -12,10 +12,6 @@ import OrderDetails from "./models/OrderDetailsModel.js";
 import Chefs from "./models/ChefModel.js";
 import Admins from "./models/AdminModel.js";
 
-import { Jwt } from "jsonwebtoken";
-import bcrypt from "bcrypt";
-import cookieParser from "cookie-parser";
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -25,7 +21,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(router);
-app.use(cookieParser());
 
 (async () => {
     try {
