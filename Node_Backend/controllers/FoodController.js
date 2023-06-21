@@ -21,6 +21,19 @@ export const getFoodById = async(req, res) =>{
         console.log(error.message);
     }
 }
+
+export const getFoodByName = async(req, res) =>{
+    try {
+        const response = await Foods.findOne({
+            where:{
+                food_name: req.params.id
+            }
+        });
+        res.status(200).json(response);
+    } catch (error) {
+        console.log(error.message);
+    }
+}
  
 export const createFood = async(req, res) =>{
     try {
