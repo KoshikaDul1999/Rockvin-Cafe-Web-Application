@@ -41,6 +41,14 @@ import AddOfferProduct from "./OffProFoods/AddOffFoods";
 
 import AddRecomendedProduct from "./RecProFoods/AddRecProducts";
 
+//pages
+
+import ProductView from './Pages/POS/productView';
+import CartPage from './Pages/POS/cart';
+
+
+
+
 function App() {
   return (
     <div className='App'>
@@ -85,6 +93,9 @@ function App() {
           <Route exact path="/addnewofferfoodproduct" element={<AddOfferProduct />} />
 
           <Route exact path="/addnewrecomendedproduct" element={<AddRecomendedProduct />}></Route>
+
+          <Route path='/productview' element={<ProductView />} />
+          <Route path='/viewcart' element={<CartPage />} />
 
           <Route></Route>
 
