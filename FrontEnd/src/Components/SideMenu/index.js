@@ -43,7 +43,7 @@ function SideMenu(){
                 {
                     label: "POS",
                     icon: <DesktopOutlined />,
-                    key:'/pos',
+                    key:'/productView',
                 },
                 {
                     label: "Orders",
