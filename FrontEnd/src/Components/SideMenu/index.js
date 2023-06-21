@@ -55,16 +55,16 @@ function SideMenu(){
                     icon: <UserOutlined />,
                     key:'/customers',
                 },
-                {
-                    label: "Recomended Foods",
-                    icon: <ShopOutlined />,
-                    key:'/recomendedfoods',
-                },
-                {
-                    label: "Offer Foods",
-                    icon: <CoffeeOutlined />,
-                    key:'/offerfoods',
-                },
+                // {
+                //     label: "Recomended Foods",
+                //     icon: <ShopOutlined />,
+                //     key:'/recomendedfoods',
+                // },
+                // {
+                //     label: "Offer Foods",
+                //     icon: <CoffeeOutlined />,
+                //     key:'/offerfoods',
+                // },
                 {
                     label: "Reports",
                     icon: <FileDoneOutlined />,

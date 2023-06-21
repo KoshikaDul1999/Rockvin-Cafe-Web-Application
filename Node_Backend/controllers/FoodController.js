@@ -13,7 +13,7 @@ export const getFoodById = async(req, res) =>{
     try {
         const response = await Foods.findOne({
             where:{
-                id: req.params.id
+                food_id: req.params.id
             }
         });
         res.status(200).json(response);
@@ -48,7 +48,7 @@ export const updateFood = async(req, res) =>{
     try {
         await Foods.update(req.body,{
             where:{
-                id: req.params.id
+                food_id: req.params.id
             }
         });
         res.status(200).json({msg: "Food Updated"});
@@ -61,7 +61,7 @@ export const deleteFood = async(req, res) =>{
     try {
         await Foods.destroy({
             where:{
-                id: req.params.id
+                food_id: req.params.id
             }
         });
         res.status(200).json({msg: "Food Deleted"});
