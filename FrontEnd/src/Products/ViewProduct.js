@@ -12,14 +12,14 @@ export default function ViewFood() {
     food_cat_id: '',
   });
 
-  const { food_id } = useParams();
+  const { product_id } = useParams();
 
   useEffect(() => {
     loadFood();
   }, []);
 
   const loadFood = async () => {
-    const result = await axios.get(`http://localhost:5000/foods/${food_id}`);
+    const result = await axios.get(`http://localhost:5000/foods/${product_id}`);
     setFood(result.data);
   };
 
@@ -35,16 +35,16 @@ export default function ViewFood() {
             <ListItemText primary="Food Name" secondary={food.food_name} />
           </ListItem>
           <ListItem>
-            <ListItemText primary="Food Price" secondary={food.food_name} />
+            <ListItemText primary="Food Price" secondary={food.food_price} />
           </ListItem>
           <ListItem>
-            <ListItemText primary="Food Image" secondary={food.food_name} />
+            <ListItemText primary="Food Image" secondary={food.food_img} />
           </ListItem>
           <ListItem>
             <ListItemText primary="Food Description" secondary={food.food_desc} />
           </ListItem>
           <ListItem>
-            <ListItemText primary="Food Category" secondary={food.food_name} />
+            <ListItemText primary="Food Category" secondary={food.food_cat_id} />
           </ListItem>
         </List>
       </Card>
