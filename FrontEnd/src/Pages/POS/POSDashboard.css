@@ -226,3 +226,18 @@ body {
 .checkout-button:hover {
   background-color: #3b3838;
 }
+
+
+
+
+.navigation-list li.active a {
+
+  background-color: #d45353;
+  color: white;
+ 
+}
+
+.navigation-list li.active a:hover {
+
+}
+
