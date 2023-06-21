@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './POSDashboard.css';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 const NavigationBar = () => {
@@ -19,7 +17,7 @@ const NavigationBar = () => {
 };
 
 const Product = ({ product, addToCart }) => {
-  const { id, food_name, food_price, food_img } = product;
+  const { food_name, food_price, food_img } = product;
   const imageSrc = `../../../images/foods/dinner/${food_img}`;
   const data = [];
 
@@ -31,27 +29,21 @@ const Product = ({ product, addToCart }) => {
     const temp = JSON.parse(sessionStorage.getItem('cart'));
 
     if (temp != null) {
-      temp.forEach((d)=>{
+      temp.forEach((d) => {
         data.push(d);
-      })
+      });
     }
-    
-    
-    data.push(value)
+
+    data.push(value);
     sessionStorage.setItem('cart', JSON.stringify(data));
-
-    
-    
   };
-
-  
 
   return (
     <div className="product">
       <img src={imageSrc} alt={food_name} className="product-image" style={{ width: '640px', height: '640px' }} />
       <h3 className="product-name">{food_name}</h3>
       <p className="product-price">Rs {food_price}</p>
-      <button className="add-to-cart-button" onClick={()=>setSessionData(product)}>Add to Cart</button>
+      <button className="add-to-cart-button" onClick={() => setSessionData(product)}>Add to Cart</button>
     </div>
   );
 };
@@ -59,8 +51,6 @@ const Product = ({ product, addToCart }) => {
 const ProductView = () => {
   const [foods, setFoods] = useState([]);
   const [cartItems, setCartItems] = useState([]);
-
-  
 
   useEffect(() => {
     const fetchFoods = async () => {
@@ -79,16 +69,17 @@ const ProductView = () => {
     setCartItems((prevCartItems) => [...prevCartItems, product]);
   };
 
+  // Filter foods by food_cat_id === 1
+  const filteredFoods = foods.filter((product) => product.food_cat_id === 1);
+
   return (
     <div>
       <div className="header">
         <NavigationBar />
       </div>
-      <div className="product-list">
-        {foods.map((product) => (
-          <Product key={product.id} product={product} addToCart={addToCart} />
-        ))}
-      </div>
+      <div className="product-list">{filteredFoods.map((product) => (
+  <Product key={product.id} product={product} addToCart={addToCart} />
+))}</div>
     </div>
   );
 };
