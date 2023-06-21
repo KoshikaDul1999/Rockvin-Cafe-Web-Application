@@ -17,7 +17,7 @@ const NavigationBar = () => {
 };
 
 const Product = ({ product, addToCart }) => {
-  const { id, food_name, food_price, food_img } = product;
+  const { food_name, food_price, food_img } = product;
   const imageSrc = `../../../images/foods/dinner/${food_img}`;
   const data = [];
 
@@ -77,11 +77,9 @@ const ProductView = () => {
       <div className="header">
         <NavigationBar />
       </div>
-      <div className="product-list">
-        {filteredFoods.map((product) => (
-          <Product key={product.id} product={product} addToCart={addToCart} />
-        ))}
-      </div>
+      <div className="product-list">{filteredFoods.map((product) => (
+  <Product key={product.id} product={product} addToCart={addToCart} />
+))}</div>
     </div>
   );
 };
