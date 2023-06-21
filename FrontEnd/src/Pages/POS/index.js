@@ -3,6 +3,8 @@ import SideMenu from '../../Components/SideMenu';
 import PageContent from '../../Components/PageContent';
 
 import POSDashboard from "./dashboard";
+// import ProductView from './productView.jsx';
+// import Cart from './cart';
 
 
 
@@ -15,6 +17,8 @@ function POS() {
             <div>
                 <Typography.Title level={4}>Point Of Sales</Typography.Title>
                 <POSDashboard />
+                {/* <ProductView/>
+                <Cart/> */}
                 
             </div>
 
