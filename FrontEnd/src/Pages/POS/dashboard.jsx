@@ -11,12 +11,13 @@ const POSDashboard = () => {
   return (
     <div className='tab-box'>
       <div className="tabs">
-        <button
+        {/* <button
           className={selectedTab === 'breakfast' ? 'active' : ''}
           onClick={() => handleTabChange('breakfast')}
         >
           Breakfast
-        </button>
+        </button> */}
+        <a href="/productview" className={selectedTab === 'breakfast' ? 'active' : ''}>Breakfast</a>
         <button
           className={selectedTab === 'lunch' ? 'active' : ''}
           onClick={() => handleTabChange('lunch')}
