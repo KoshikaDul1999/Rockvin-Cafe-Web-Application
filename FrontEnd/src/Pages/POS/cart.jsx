@@ -6,6 +6,7 @@ const NavigationBar = () => {
   return (
     <nav className="navigation-bar">
       <ul className="navigation-list">
+      <li><a href="../Dashboard/"><i className="fa-solid fa-home"></i></a></li>
         <li><a href="/productView">Breakfast</a></li>
         <li><a href="/lunchView">Lunch</a></li>
         <li><a href="/dinnerView">Dinner</a></li>
@@ -21,6 +22,8 @@ const CartPage = () => {
 
   const [cartItems, setCartItems] = useState([]);
   
+  const imageSrc = `/images/foods/${cartItems.food_img}`;
+
 
 
 
@@ -82,7 +85,7 @@ const CartPage = () => {
             <>
               <tr className="cart-item">
                 <td>
-                  <img src={item.image} alt={item.food_name} className="cart-item-image" />
+                  <img src={imageSrc} alt={item.food_name} className="cart-item-image" />
                 </td>
                 <td>{item.food_name}</td>
                 <td>RS. {item.food_price}</td>

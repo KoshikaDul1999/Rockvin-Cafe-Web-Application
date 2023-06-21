@@ -6,19 +6,24 @@ const NavigationBar = () => {
   return (
     <nav className="navigation-bar">
       <ul className="navigation-list">
-        <li><a href="/productView">Breakfast</a></li>
+        <li><a href="../Dashboard/"><i className="fa-solid fa-home"></i></a></li>
+        <li className="active"><a href="/productView">Breakfast</a></li>
         <li><a href="/lunchView">Lunch</a></li>
         <li><a href="/dinnerView">Dinner</a></li>
-        <li><a href="beveragesView">Beverages</a></li>
-        <li><a href="/viewcart" className='btn btn-primary'><i class="fa-solid fa-cart-shopping"></i></a></li>
+        <li ><a href="beveragesView">Beverages</a></li>
+        <li><a href="/viewcart" className='btn btn-primary'><i className="fa-solid fa-cart-shopping"></i></a></li>
       </ul>
     </nav>
   );
+  
 };
+
+
+
 
 const Product = ({ product, addToCart }) => {
   const { food_name, food_price, food_img } = product;
-  const imageSrc = `../../../images/foods/dinner/${food_img}`;
+  const imageSrc = `/images/foods/${food_img}`;
   const data = [];
 
   const handleAddToCart = () => {
@@ -37,10 +42,11 @@ const Product = ({ product, addToCart }) => {
     data.push(value);
     sessionStorage.setItem('cart', JSON.stringify(data));
   };
-
+  
+  
   return (
     <div className="product">
-      <img src={imageSrc} alt={food_name} className="product-image" style={{ width: '640px', height: '640px' }} />
+      <img src={imageSrc} alt={food_name} className="product-image" style={{ width: '150px', height: '640px' }} />
       <h3 className="product-name">{food_name}</h3>
       <p className="product-price">Rs {food_price}</p>
       <button className="add-to-cart-button" onClick={() => setSessionData(product)}>Add to Cart</button>
@@ -76,6 +82,8 @@ const ProductView = () => {
     <div>
       <div className="header">
         <NavigationBar />
+        <br></br>
+        
       </div>
       <div className="product-list">{filteredFoods.map((product) => (
   <Product key={product.id} product={product} addToCart={addToCart} />
