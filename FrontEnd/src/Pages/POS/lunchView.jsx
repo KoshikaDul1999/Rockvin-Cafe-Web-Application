@@ -70,7 +70,7 @@ const ProductView = () => {
   };
 
   // Filter foods by food_cat_id === 1
-  const filteredFoods = foods.filter((product) => product.food_cat_id === 1);
+  const filteredFoods = foods.filter((product) => product.food_cat_id === 2);
 
   return (
     <div>
