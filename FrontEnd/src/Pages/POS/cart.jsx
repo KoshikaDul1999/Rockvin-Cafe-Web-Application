@@ -73,7 +73,7 @@ const CartPage = () => {
             <th>Name</th>
             <th>Price</th>
             <th>Quantity</th>
-            <th>Total</th>
+            <th>Total</th> 
             <th>Action</th>
           </tr>
         </thead>
@@ -96,7 +96,7 @@ const CartPage = () => {
 />
 
                 </td>
-                <td id={item.food_id}>RS.{item.food_price}</td>
+                <td id={item.food_id}>RS.{item.food}</td>
                 <td>
                   <button className="delete-button" onClick={()=>handleRemoveItem(item.food_id)}>
                     Delete
