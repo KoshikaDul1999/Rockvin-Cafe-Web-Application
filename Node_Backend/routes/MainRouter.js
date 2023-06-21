@@ -28,6 +28,7 @@ router.get('/foodsname/:id',getFoodByName);
 
 router.get('/admins', getAdmins);
 router.get('/admin/:id', getAdminById);
+// router.get('/admin/:email', getAdminByEmail);
 router.post('/admin', createAdmin);
 router.put('/admin/:id', updateAdmin);
 router.delete('/admin/:id', deleteAdmin);
