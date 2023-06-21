@@ -19,8 +19,7 @@ import {useNavigate} from 'react-router-dom';
 
 function SignUp() {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    fullName: '',
     email: '',
     password: ''
   });
@@ -75,28 +74,16 @@ function SignUp() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} >
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="fullName"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="fullName"
+                  label="Full Name"
                   autoFocus
-                  value={formData.firstName}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                  value={formData.lastName}
+                  value={formData.fullName}
                   onChange={handleChange}
                 />
               </Grid>
