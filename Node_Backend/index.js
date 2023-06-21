@@ -11,6 +11,7 @@ import RecomendedFoods from "./models/RecomendedFoodModel.js";
 import OrderDetails from "./models/OrderDetailsModel.js";
 import Chefs from "./models/ChefModel.js";
 import Admins from "./models/AdminModel.js";
+import User from "./models/UserModel.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
