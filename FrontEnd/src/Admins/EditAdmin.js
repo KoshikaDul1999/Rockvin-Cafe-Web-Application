@@ -11,7 +11,7 @@ import {
 export default function EditAdmin() {
   let navigate = useNavigate();
 
-  const { id } = useParams();
+  const { email } = useParams();
 
   const [systemusers, setSystemusers] = useState({
     sysusr_id: '',
@@ -33,12 +33,12 @@ export default function EditAdmin() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`http://localhost:5000/admin/${id}`, systemusers);
+    await axios.put(`http://localhost:5000/admin/${email}`, systemusers);
     navigate('/profile');
   };
 
   const loadSystemusers = async () => {
-    const result = await axios.get(`http://localhost:5000/admin/${id}`);
+    const result = await axios.get(`http://localhost:5000/admin/${email}`);
     setSystemusers(result.data);
   };
 
