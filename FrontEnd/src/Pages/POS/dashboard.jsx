@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './POSDashboard.css'; // Update the CSS file name if needed
+import './POSDashboard.css'; 
 
 const POSDashboard = () => {
-  const [selectedTab, setSelectedTab] = useState('breakfast');
+  const [selectedTab, setSelectedTab] = useState('cash');
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
@@ -11,31 +11,19 @@ const POSDashboard = () => {
   return (
     <div className='tab-box'>
       <div className="tabs">
-        {/* <button
-          className={selectedTab === 'breakfast' ? 'active' : ''}
-          onClick={() => handleTabChange('breakfast')}
-        >
-          Breakfast
-        </button> */}
-        <a href="/productview" className={selectedTab === 'breakfast' ? 'active' : ''}>Breakfast</a>
         <button
-          className={selectedTab === 'lunch' ? 'active' : ''}
-          onClick={() => handleTabChange('lunch')}
+          className={selectedTab === 'cash' ? 'active' : ''}
+          onClick={() => handleTabChange('cash')}
         >
-          Lunch
+          Cash Payment
         </button>
         <button
-          className={selectedTab === 'dinner' ? 'active' : ''}
-          onClick={() => handleTabChange('dinner')}
+          className={selectedTab === 'card' ? 'active' : ''}
+          onClick={() => handleTabChange('card')}
         >
-          Dinner
+          Card Payment
         </button>
-        <button
-          className={selectedTab === 'beverages' ? 'active' : ''}
-          onClick={() => handleTabChange('beverages')}
-        >
-          Beverages
-        </button>
+        
       </div>
 
       
