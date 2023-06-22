@@ -1,0 +1,60 @@
+/* CashPaymentReceipt.css */
+
+.receipt {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    width: 300px;
+    margin: 0 auto;
+  }
+  
+  .header {
+    text-align: center;
+  }
+  
+  .store-info {
+    margin-bottom: 20px;
+  }
+  
+  .store-name {
+    font-weight: bold;
+  }
+  
+  .item-details {
+    margin-bottom: 20px;
+  }
+  
+  .item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  
+  /* .product {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+   */
+  .totals {
+    margin-bottom: 20px;
+  }
+  
+  .payment {
+    margin-bottom: 20px;
+  }
+  
+  .thank-you {
+    text-align: center;
+  }
+  
+  .divider {
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  /* Add more styles for other elements as per your requirements */
+  
