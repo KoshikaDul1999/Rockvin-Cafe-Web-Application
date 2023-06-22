@@ -47,6 +47,14 @@ const CartPage = () => {
     );
   };
 
+  const updateTotal = () => {
+    let totalPrice = 0;
+    cartItems.forEach((item) => {
+      totalPrice += item.food_price;
+    });
+    setTotal(totalPrice);
+  };
+
   const handleDelete = (itemId) => {
     setCartItems((prevCartItems) =>
       prevCartItems.filter((item) => item.id !== itemId)
@@ -69,14 +77,8 @@ const CartPage = () => {
   }, [])
 
   useEffect(() => {
-    // Calculate the total amount
-    const totalPrice = cartItems.reduce((acc, item) => {
-      const itemTotal = item.food_price * item.quantity;
-      return acc + itemTotal;
-    }, 0);
-    setTotal(totalPrice);
+    updateTotal();
   }, [cartItems]);
-  
   
 
   return (
@@ -126,7 +128,7 @@ const CartPage = () => {
           ))}
         </tbody>
       </table>
-      <div>Total: RS {total}</div> {/* Display the total amount */}
+      <div className="total-amount">Total: RS. {total}</div>
 
       <a href="/payMethod"> <button className="checkout-button">Checkout</button></a>
     </div>
