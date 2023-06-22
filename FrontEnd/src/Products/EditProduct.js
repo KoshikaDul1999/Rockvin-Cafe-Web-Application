@@ -75,7 +75,7 @@ export default function EditFood() {
           variant="outlined"
           fullWidth
           name="food_img"
-          value={food_img}
+          value={<img src={`/images/foods/${food.food_img}`} alt={food.food_name} className="product-image" style={{ width: '150px', height: '200px' }} />}
           onChange={(e) => onInputChange(e)}
           margin="normal"
         />
