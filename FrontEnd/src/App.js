@@ -48,6 +48,8 @@ import ProductView from './Pages/POS/productView';
 import LunchView from './Pages/POS/lunchView';
 import DinnerView from './Pages/POS/dinnerView';
 import BeveragesView from './Pages/POS/beveragesView';
+import PayMethod from './Pages/POS/payMethod';
+import CashPay from './Pages/POS/cashPay';
 
 import CartPage from './Pages/POS/cart';
 
@@ -106,6 +108,8 @@ function App() {
           <Route path='/viewcart' element={<CartPage />} />
           <Route path='/dinnerView' element={<DinnerView />} />
           <Route path='/beveragesView' element={<BeveragesView />} />
+          <Route path='/payMethod' element={<PayMethod />} />
+          <Route path='/cashPay' element={<CashPay />} />
 
           <Route></Route>
 

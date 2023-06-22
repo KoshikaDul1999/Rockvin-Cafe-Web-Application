@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './POSDashboard.css';
 import axios from 'axios';
 
+
 const NavigationBar = () => {
   return (
     <nav className="navigation-bar">
@@ -22,7 +23,9 @@ const CartPage = () => {
 
   const [cartItems, setCartItems] = useState([]);
   
-  const imageSrc = `/images/foods/${cartItems.food_img}`;
+  const imageSrc = `/images/foods/`;
+
+  const [total, setTotal] = useState(0);
 
 
 
@@ -65,6 +68,17 @@ const CartPage = () => {
     getSessionData();
   }, [])
 
+  useEffect(() => {
+    // Calculate the total amount
+    const totalPrice = cartItems.reduce((acc, item) => {
+      const itemTotal = item.food_price * item.quantity;
+      return acc + itemTotal;
+    }, 0);
+    setTotal(totalPrice);
+  }, [cartItems]);
+  
+  
+
   return (
     <div>
       <NavigationBar /><br></br><br></br>
@@ -85,7 +99,7 @@ const CartPage = () => {
             <>
               <tr className="cart-item">
                 <td>
-                  <img src={imageSrc} alt={item.food_name} className="cart-item-image" />
+                  <img src={`${imageSrc}${item.food_img}`} alt={item.food_name} className="cart-item-image" />
                 </td>
                 <td>{item.food_name}</td>
                 <td>RS. {item.food_price}</td>
@@ -112,7 +126,9 @@ const CartPage = () => {
           ))}
         </tbody>
       </table>
-      <button className="checkout-button">Checkout</button>
+      <div>Total: RS {total}</div> {/* Display the total amount */}
+
+      <a href="/payMethod"> <button className="checkout-button">Checkout</button></a>
     </div>
   );
 };
