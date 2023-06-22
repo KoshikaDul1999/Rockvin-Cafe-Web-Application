@@ -68,12 +68,13 @@ function Product() {
                             <tbody>
                                 {
                                     firstFiveProducts.map((food, index) => (
+                                        
                                         <tr key={food.food_id}>
                                             <th scope="row">{index + 1}</th>
                                             <td>{food.food_name}</td>
                                             <td>{food.food_price}</td>
                                             <td>
-                                                <img src={imageSrc} alt={food.food_name} className="product-image" style={{ width: '150px', height: '200px' }} />
+                                                <img src={`/images/foods/${food.food_img}`} alt={food.food_name} className="product-image" style={{ width: '150px', height: '200px' }} />
                                                 {/* <img src={food.food_img} alt={food.food_img} style={{ width: '100px' }} /> */}
                                             </td>
                                             <td>{food.food_cat_id}</td>

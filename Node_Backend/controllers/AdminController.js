@@ -49,7 +49,7 @@ export const updateAdmin = async(req, res) =>{
     try {
         await Admins.update(req.body,{
             where:{
-                sysusr_id: req.params.id
+                sysusr_email: req.params.id
             }
         });
         res.status(200).json({msg: "Admin Updated"});

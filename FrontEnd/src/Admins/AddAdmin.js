@@ -31,7 +31,7 @@ export default function AddAdmin() {
     <Container maxWidth="md">
       <div className="row">
         <div className="col-md-12">
-          <div className="border rounded p-4 mt-2 shadow p-3 mb-2 bg-dark text-white">
+          <div className="border rounded p-4 mt-2 shadow p-3 mb-2 bg-light text-white">
             <Typography variant="h4" align="center" gutterBottom>
               Register System User
             </Typography>
