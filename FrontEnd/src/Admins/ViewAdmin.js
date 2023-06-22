@@ -11,7 +11,6 @@ import {
   Button,
 } from '@material-ui/core';
 
-
 export default function ViewAdmin() {
   const [systemusers, setSystemusers] = useState({
     sysusr_name: '',
@@ -21,7 +20,6 @@ export default function ViewAdmin() {
   });
 
   const { id } = useParams();
-  
 
   useEffect(() => {
     loadSystemusers();
@@ -38,31 +36,74 @@ export default function ViewAdmin() {
     <Container maxWidth="md">
       <div className="row">
         <div className="col-md-12">
-          <Card className="border rounded p-4 mt-2 shadow p-3 mb-2 bg-dark text-white">
+          <Card
+            className="border rounded p-4 mt-2 shadow p-3 mb-2"
+            style={{ background: '#1f1f1f', color: '#ffffff' }} // Change background and text color here
+          >
             <Typography variant="h4" align="center" gutterBottom>
               System User Details
             </Typography>
 
-            {/* <CardHeader
-              title={`Details of Admin Id : ${admin.id}`}
-              className="bg-primary text-white"
-            /> */}
-
             <List>
-              {/* <ListItem>
-                <ListItemText primary="System User ID :" secondary={systemusers.sysusr_id} />
-              </ListItem> */}
               <ListItem>
-                <ListItemText primary="System User Name :" secondary={systemusers.sysusr_name} />
+                <ListItemText
+                  primary="System User Name :"
+                  secondary={
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      style={{ color: '#ff9800' }} // Change secondary text color here
+                    >
+                      {systemusers.sysusr_name}
+                    </Typography>
+                  }
+                  style={{ color: '#ffffff' }} // Change primary text color here
+                />
               </ListItem>
               <ListItem>
-                <ListItemText primary="System User Email :" secondary={systemusers.sysusr_email} />
+                <ListItemText
+                  primary="System User Email :"
+                  secondary={
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      style={{ color: '#ff9800' }} // Change secondary text color here
+                    >
+                      {systemusers.sysusr_email}
+                    </Typography>
+                  }
+                  style={{ color: '#ffffff' }} // Change primary text color here
+                />
               </ListItem>
               <ListItem>
-                <ListItemText primary="System User Password :" secondary={systemusers.sysusr_password} />
+                <ListItemText
+                  primary="System User Password :"
+                  secondary={
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      style={{ color: '#ff9800' }} // Change secondary text color here
+                    >
+                      {systemusers.sysusr_password}
+                    </Typography>
+                  }
+                  style={{ color: '#ffffff' }} // Change primary text color here
+                />
               </ListItem>
               <ListItem>
-                <ListItemText primary="System User Role :" secondary={systemusers.role} />
+                <ListItemText
+                  primary="System User Role :"
+                  secondary={
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      style={{ color: '#ff9800' }} // Change secondary text color here
+                    >
+                      {systemusers.role}
+                    </Typography>
+                  }
+                  style={{ color: '#ffffff' }} // Change primary text color here
+                />
               </ListItem>
             </List>
 
@@ -81,6 +122,9 @@ export default function ViewAdmin() {
     </Container>
   );
 }
+
+
+
 
 
 
