@@ -128,7 +128,7 @@ const CartPage = () => {
           ))}
         </tbody>
       </table>
-      <div className="total-amount">Total: RS. {total}</div>
+      {/* <div className="total-amount">Total: RS. {total}</div> */}
 
       <a href="/payMethod"> <button className="checkout-button">Checkout</button></a>
     </div>
