@@ -40,9 +40,13 @@ const Product = ({ product, addToCart }) => {
 
   return (
     <div className="product">
-      <img src={imageSrc} alt={food_name} className="product-image" style={{ width: '50px', height: '50px' }} />
-      <h3 className="product-name">{food_name}</h3>
-      <p className="product-price">Rs {food_price}</p>
+      <div className="product-image">
+        <img src={imageSrc} alt={food_name} style={{ width: '50px', height: '50px', borderRadius: '4px' }} />
+      </div>
+      <div className="product-details">
+        <h3 className="product-name">{food_name}</h3>
+        <p className="product-price">Rs {food_price}</p>
+      </div>
       <button className="add-to-cart-button" onClick={() => setSessionData(product)}>Add to Cart</button>
     </div>
   );
@@ -75,7 +79,7 @@ const ProductView = () => {
     <div>
       <div className="header">
         <NavigationBar />
-        <br></br>
+        <br />
       </div>
       <div className="product-list">
         {filteredFoods.map((product) => (
