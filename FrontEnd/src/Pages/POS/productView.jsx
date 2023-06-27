@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
- 
 import axios from 'axios';
 
 const NavigationBar = () => {
@@ -10,16 +9,12 @@ const NavigationBar = () => {
         <li className="active"><a href="/productView">Breakfast</a></li>
         <li><a href="/lunchView">Lunch</a></li>
         <li><a href="/dinnerView">Dinner</a></li>
-        <li ><a href="beveragesView">Beverages</a></li>
+        <li><a href="beveragesView">Beverages</a></li>
         <li><a href="/viewcart" className='btn btn-primary'><i className="fa-solid fa-cart-shopping"></i></a></li>
       </ul>
     </nav>
   );
-  
 };
-
-
-
 
 const Product = ({ product, addToCart }) => {
   const { food_name, food_price, food_img } = product;
@@ -42,11 +37,10 @@ const Product = ({ product, addToCart }) => {
     data.push(value);
     sessionStorage.setItem('cart', JSON.stringify(data));
   };
-  
-  
+
   return (
     <div className="product">
-      <img src={imageSrc} alt={food_name} className="product-image" style={{ width: '150px', height: '640px' }} />
+      <img src={imageSrc} alt={food_name} className="product-image" style={{ width: '50px', height: '50px' }} />
       <h3 className="product-name">{food_name}</h3>
       <p className="product-price">Rs {food_price}</p>
       <button className="add-to-cart-button" onClick={() => setSessionData(product)}>Add to Cart</button>
@@ -75,7 +69,6 @@ const ProductView = () => {
     setCartItems((prevCartItems) => [...prevCartItems, product]);
   };
 
-  // Filter foods by food_cat_id === 1
   const filteredFoods = foods.filter((product) => product.food_cat_id === 1);
 
   return (
@@ -83,11 +76,12 @@ const ProductView = () => {
       <div className="header">
         <NavigationBar />
         <br></br>
-        
       </div>
-      <div className="product-list">{filteredFoods.map((product) => (
-  <Product key={product.id} product={product} addToCart={addToCart} />
-))}</div>
+      <div className="product-list">
+        {filteredFoods.map((product) => (
+          <Product key={product.id} product={product} addToCart={addToCart} />
+        ))}
+      </div>
     </div>
   );
 };
