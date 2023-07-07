@@ -53,7 +53,7 @@ function Profile() {
         <PageContent></PageContent>
 
             <div>
-                <Typography.Title level={4}>System User Profiles</Typography.Title>
+                {/* <Typography.Title level={4}>System User Profiles</Typography.Title>
                 <Link className='btn btn-dark' to="/addnewadmin">Add New System User</Link>
                 <div className="container">
                     <div className="py-4">
@@ -102,8 +102,8 @@ function Profile() {
                         </tbody>
                         </table>
                     </div>
-                </div>
-                {/* <Typography.Title level={4}>Chef Profile</Typography.Title>
+                </div> */}
+                <Typography.Title level={4}>Chef Profile</Typography.Title>
                 <Link className='btn btn-info' to="/addnewchef">Add New Chef</Link>
                 <div className="container">
                     <div className="py-4">
@@ -154,7 +154,7 @@ function Profile() {
                         </tbody>
                         </table>
                     </div>
-                </div> */}
+                </div> 
             </div>
         </div>
     ); 
