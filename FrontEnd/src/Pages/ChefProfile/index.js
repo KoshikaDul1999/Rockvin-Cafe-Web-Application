@@ -7,43 +7,43 @@ import PageContent from '../../Components/PageContent';
 
 function Profile() {
 
-    const [admins,setAdmins]=useState([]);
+    // const [admins,setAdmins]=useState([]);
 
-    const {admin_id}=useParams()
-
-    useEffect(() => {
-        loadAdmins();
-    },[]);
-
-    const loadAdmins = async () => {
-        const result = await axios.get("http://localhost:5000/admins");
-        setAdmins(result.data);
-    };
-
-    const deleteAdmin = async (id) => {
-        const result = await axios.delete(`http://localhost:5000/admin/${id}`)
-        loadAdmins()
-    }
-
-
-
-    // const [chefs,setChefs]=useState([]);
-
-    // const {chef_id}=useParams()
+    // const {admin_id}=useParams()
 
     // useEffect(() => {
-    //     loadChefs();
+    //     loadAdmins();
     // },[]);
 
-    // const loadChefs = async () => {
-    //     const result = await axios.get("http://localhost:5000/chefs");
-    //     setChefs(result.data);
+    // const loadAdmins = async () => {
+    //     const result = await axios.get("http://localhost:5000/admins");
+    //     setAdmins(result.data);
     // };
 
-    // const deleteChef = async (id) => {
-    //     const result = await axios.delete(`http://localhost:5000/chef/${id}`)
-    //     loadChefs()
+    // const deleteAdmin = async (id) => {
+    //     const result = await axios.delete(`http://localhost:5000/admin/${id}`)
+    //     loadAdmins()
     // }
+
+
+
+    const [chefs,setChefs]=useState([]);
+
+    const {chef_id}=useParams()
+
+    useEffect(() => {
+        loadChefs();
+    },[]);
+
+    const loadChefs = async () => {
+        const result = await axios.get("http://localhost:5000/chefs");
+        setChefs(result.data);
+    };
+
+    const deleteChef = async (id) => {
+        const result = await axios.delete(`http://localhost:5000/chef/${id}`)
+        loadChefs()
+    }
 
 
 
