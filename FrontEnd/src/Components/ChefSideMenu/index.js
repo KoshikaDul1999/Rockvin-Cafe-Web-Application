@@ -28,12 +28,12 @@ function SideMenu(){
                 {
                     label: "Orders",
                     icon: <ShoppingCartOutlined />,
-                    key:'/orders',
+                    key:'/cheforders',
                 },
                 {
                     label: "Profile",
                     icon: <IdcardOutlined />,
-                    key:'/profile',
+                    key:'/chefprofile',
                 },
                 ]}
             ></Menu>
