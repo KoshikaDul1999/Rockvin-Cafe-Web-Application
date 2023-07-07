@@ -27,7 +27,7 @@ const OrderDetails = db.define('orderDetails',{
         allowNull: true,
         references: {
             model: Foods, 
-            key: 'food_id' // Replace 'id' with the actual name of the primary key column in the referenced table
+            key: 'food_id' 
         }
     },
 
