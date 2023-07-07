@@ -41,18 +41,18 @@ export const createOrderDetails = async(req, res) =>{
     }
 }
  
-// export const updateOrderDetails = async(req, res) =>{
-//     try {
-//         await OrderDetails.update(req.body,{
-//             where:{
-//                 id: req.params.id
-//             }
-//         });
-//         res.status(200).json({msg: "OrderDetails Updated"});
-//     } catch (error) {
-//         console.log(error.message);
-//     }
-// }
+export const updateOrderDetails = async(req, res) =>{
+    try {
+        await OrderDetails.update(req.body,{
+            where:{
+                id: req.params.id
+            }
+        });
+        res.status(200).json({msg: "OrderDetails Updated"});
+    } catch (error) {
+        console.log(error.message);
+    }
+}
  
 export const deleteOrderDetails = async(req, res) =>{
     try {

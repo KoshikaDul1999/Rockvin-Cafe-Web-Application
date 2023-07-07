@@ -26,7 +26,7 @@ const OrderDetails = db.define('orderDetails',{
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
-            model: Foods, // Replace 'food_categories' with the actual name of the table you want to reference
+            model: Foods, 
             key: 'food_id' // Replace 'id' with the actual name of the primary key column in the referenced table
         }
     },
