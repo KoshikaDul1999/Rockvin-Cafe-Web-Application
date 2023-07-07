@@ -2,7 +2,7 @@ import { Typography } from "antd";
 import { Link, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import SideMenu from '../../Components/SideMenu';
+import ChefSideMenu from '../../Components/ChefSideMenu';
 import PageContent from '../../Components/PageContent';
 
 function Order() {
@@ -40,7 +40,7 @@ function Order() {
 
     return (
         <div className="SideMenuAndPageContent">
-        <SideMenu></SideMenu>
+        <ChefSideMenu></ChefSideMenu>
         <PageContent></PageContent>
             <div>
                 <Typography.Title level={4}>Our Orders</Typography.Title>
