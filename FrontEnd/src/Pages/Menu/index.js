@@ -61,7 +61,6 @@ function Product() {
                                     <th scope="col">Product Price</th>
                                     <th scope="col">Product Image</th>
                                     <th scope="col">Product Category</th>
-                                    <th scope="col">Product Description</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -78,7 +77,6 @@ function Product() {
                                                 {/* <img src={food.food_img} alt={food.food_img} style={{ width: '100px' }} /> */}
                                             </td>
                                             <td>{food.food_cat_id}</td>
-                                            <td>{food.food_desc}</td>
                                             <td>
                                                 <Link className='btn btn-primary mx-2' to={`/viewproduct/${food.food_id}`}>View</Link>
                                                 <Link className='btn btn-outline-primary mx-2' to={`/editproduct/${food.food_id}`}>Edit</Link>

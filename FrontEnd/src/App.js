@@ -21,6 +21,7 @@ import Category from "./Pages/Category";
 import OfferFoodsProduct from "./Pages/OfferFoods";
 import RecomendedFoodsProduct from "./Pages/RecomendedFoods";
 import ChefOrders from "./Pages/ChefOrders";
+import ChefProfile from "./Pages/ChefProfile";
 
 import AddAdmin from "./Admins/AddAdmin";
 import EditAdmin from "./Admins/EditAdmin";
@@ -81,6 +82,7 @@ function App() {
           <Route path="/offerfoods" element={<OfferFoodsProduct />}></Route>
           <Route path="/recomendedfoods" element={<RecomendedFoodsProduct />}></Route>
           <Route path="/cheforders" element={<ChefOrders />}></Route>
+          <Route path="/chefprofile" element={<ChefProfile />}></Route>
 
           <Route exact path='/addnewadmin' element={<AddAdmin />} />
           <Route exact path='/editadmin/:id' element={<EditAdmin />} />
