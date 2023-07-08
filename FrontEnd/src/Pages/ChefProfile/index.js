@@ -114,36 +114,34 @@ function Profile() {
                                 <th scope="col">Name</th>
                                 <th scope="col">E-mail</th>
                                 <th scope="col">Password</th>
-                                <th scope="col">Address</th>
-                                <th scope="col">Telephone</th>
+                                <th scope="col">Role</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                         {
-                            chefs.map((chef,index)=>(
+                            chefs.map((systemuser,index)=>(
                                 <tr>
                                     <th scope="row" key={index}>{index+1}</th>
-                                    <td>{chef.chef_name}</td>
-                                    <td>{chef.chef_email}</td>
-                                    <td>{chef.chef_password}</td>
-                                    <td>{chef.chef_address}</td>
-                                    <td>{chef.chef_telephone}</td>
+                                    <td>{systemuser.sysusr_name}</td>
+                                    <td>{systemuser.sysusr_email}</td>
+                                    <td>{systemuser.sysusr_password}</td>
+                                    <td>{systemuser.role}</td>
                                     <td>
                                         <Link className='btn btn-primary mx-2'
-                                            to={`/viewchef/${chef.chef_id}`}
+                                            to={`/viewchef/${systemuser.sysusr_id}`}
                                         >
                                             View
                                         </Link>
 
                                         <Link className='btn btn-outline-primary mx-2'
-                                        to={`/editchef/${chef.chef_id}`}
+                                        to={`/editchef/${systemuser.sysusr_id}`}
                                         >
                                             Edit
                                         </Link>
 
                                         <button className='btn btn-danger mx-2'
-                                            onClick={() => deleteChef(chef.chef_id)}
+                                            onClick={() => deleteChef(systemuser.sysusr_id)}
                                         >
                                             Delete
                                         </button>
