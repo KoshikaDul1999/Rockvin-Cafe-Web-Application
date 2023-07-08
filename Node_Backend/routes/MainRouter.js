@@ -3,7 +3,7 @@ import { getCategories, getCategoryById, createCategory, updateCategory, deleteC
 import { getFoods, getFoodById, updateFood, createFood, deleteFood, getFoodByName } from "../controllers/FoodController.js";
 import { deleteOrderDetails, updateOrderDetails, getOrderDetailsById, getOrderDetails, createOrderDetails } from "../controllers/OrderDetailsController.js";
 import { getAdmins, getAdminById, createAdmin, updateAdmin, deleteAdmin} from "../controllers/AdminController.js";
-//import {getChefs, getChefById, createChef, updateChef, deleteChef} from "../controllers/ChefController.js";
+import {getChefs, getChefById, createChef, updateChef, deleteChef} from "../controllers/ChefController.js";
 import {getUsers, getUserById, createUser, updateUser, deleteUser} from "../controllers/UserController.js";
 
 const router = express.Router();
@@ -34,11 +34,11 @@ router.post('/admin', createAdmin);
 router.put('/admin/:id', updateAdmin);
 router.delete('/admin/:id', deleteAdmin);
 
-// router.get('/chefs', getChefs);
-// router.get('/chef/:id', getChefById);
-// router.post('/chef', createChef);
-// router.put('/chef/:id', updateChef);
-// router.delete('/chef/:id', deleteChef);
+router.get('/chefs', getChefs);
+router.get('/chef/:id', getChefById);
+router.post('/chef', createChef);
+router.put('/chef/:id', updateChef);
+router.delete('/chef/:id', deleteChef);
 
 router.get('/user', getUsers);
 router.get('/user/:id', getUserById);
