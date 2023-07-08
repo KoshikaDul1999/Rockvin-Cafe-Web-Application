@@ -1,13 +1,27 @@
 import Chefs from "../models/ChefModel.js";
  
+// export const getChefs = async(req, res) =>{
+//     try {
+//         const response = await Chefs.findAll();
+//         res.status(200).json(response);
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// }
+
 export const getChefs = async(req, res) =>{
     try {
-        const response = await Chefs.findAll();
+        const response = await Chefs.findAll({
+            where: {
+                role: 2
+            }
+        });
         res.status(200).json(response);
     } catch (error) {
         console.log(error.message);
     }
 }
+
  
 export const getChefById = async(req, res) =>{
     try {

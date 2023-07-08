@@ -3,37 +3,33 @@ import db from "../config/Database.js";
  
 const {DataTypes} = Sequelize;
  
-const Chefs = db.define('chef',{
-    chef_id: {
+const Admins = db.define('systemusers',{
+    sysusr_id: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
         primaryKey:true
     },
-    chef_name: {
+    sysusr_name: {
         type:DataTypes.STRING,
         allowNull:false,
     },
-    chef_email: {
+    sysusr_email: {
         type:DataTypes.STRING,
         allowNull:false,
     },
-    chef_password: {
+    sysusr_password: {
         type:DataTypes.STRING,
         allowNull:false,
     },
-    chef_address: {
-        type:DataTypes.STRING,
-        allowNull:false,
-    },
-    chef_telephone: {
-        type:DataTypes.INTEGER,
-        allowNull:false,
-    },
+    role: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
 },{
     freezeTableName:true
 });
  
-export default Chefs;
+export default Admins;
  
 (async()=>{
     await db.sync();
