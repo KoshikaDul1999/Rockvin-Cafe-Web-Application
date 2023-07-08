@@ -68,29 +68,29 @@ export const deleteOrderDetails = async(req, res) =>{
 }
 
 
-export const updateOrderDetails = async (req, res) => {
-    try {
-      await OrderDetails.update(req.body, {
-        where: {
-          id: req.params.id,
-        },
-      });
+// export const updateOrderDetails = async (req, res) => {
+//     try {
+//       await OrderDetails.update(req.body, {
+//         where: {
+//           id: req.params.id,
+//         },
+//       });
   
-      // Send notification to the customer
-      const order = await OrderDetails.findByPk(req.params.id);
-      const { customerId } = order; // Replace with the actual customer ID field in your OrderDetails model
+//       // Send notification to the customer
+//       const order = await OrderDetails.findByPk(req.params.id);
+//       const { customerId } = order; // Replace with the actual customer ID field in your OrderDetails model
   
-      const message = 'Your order has been confirmed!'; // Customize the message as needed
+//       const message = 'Your order has been confirmed!'; // Customize the message as needed
   
-      await client.messages.create({
-        body: message,
-        from: twilioPhoneNumber,
-        to: customerId,
-      });
+//       await client.messages.create({
+//         body: message,
+//         from: twilioPhoneNumber,
+//         to: customerId,
+//       });
   
-      res.status(200).json({ msg: 'OrderDetails Updated' });
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+//       res.status(200).json({ msg: 'OrderDetails Updated' });
+//     } catch (error) {
+//       console.log(error.message);
+//     }
+//   };
   
