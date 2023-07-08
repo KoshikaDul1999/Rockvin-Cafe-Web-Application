@@ -42,7 +42,7 @@ const Product = ({ product, addToCart }) => {
 
   return (
     <div className="product">
-      <img src={imageSrc} alt={food_name} className="product-image" style={{ width: '150px', height: '640px' }} />
+      <img src={imageSrc} alt={food_name} className="product-image" style={{ width: '50px', height: '50px' }} />
       <h3 className="product-name">{food_name}</h3>
       <p className="product-price">Rs {food_price}</p>
       <button className="add-to-cart-button" onClick={() => setSessionData(product)}>Add to Cart</button>
