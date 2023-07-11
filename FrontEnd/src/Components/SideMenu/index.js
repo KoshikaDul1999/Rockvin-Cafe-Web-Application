@@ -77,6 +77,9 @@ function SideMenu(){
                 },
                 ]}
             ></Menu>
+            <div>
+                <button>Log out</button>
+            </div>
         </div>
     );
 }
