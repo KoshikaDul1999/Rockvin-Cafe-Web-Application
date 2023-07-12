@@ -12,7 +12,7 @@ function Product() {
     const pageSize = 6;
 
     const { food_name, food_price, food_img } = products;
-    const imageSrc = `/images/foods/${food_img}`;
+    //const imageSrc = `/images/foods/${food_img}`;
 
     const {product_id}=useParams()
 
@@ -59,7 +59,7 @@ function Product() {
                                     <th scope="col">ID</th>
                                     <th scope="col">Product Name</th>
                                     <th scope="col">Product Price</th>
-                                    <th scope="col">Product Image</th>
+                                    {/* <th scope="col">Product Image</th> */}
                                     <th scope="col">Product Category</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -72,10 +72,10 @@ function Product() {
                                             <th scope="row">{index + 1}</th>
                                             <td>{food.food_name}</td>
                                             <td>{food.food_price}</td>
-                                            <td>
-                                                <img src={`/images/foods/${food.food_img}`} alt={food.food_name} className="product-image" style={{ width: '150px', height: '200px' }} />
+                                            
+                                                {/* <img src={`/images/foods/${food.food_img}`} alt={food.food_name} className="product-image" style={{ width: '150px', height: '200px' }} /> */}
                                                 {/* <img src={food.food_img} alt={food.food_img} style={{ width: '100px' }} /> */}
-                                            </td>
+                                            
                                             <td>{food.food_cat_id}</td>
                                             <td>
                                                 <Link className='btn btn-primary mx-2' to={`/viewproduct/${food.food_id}`}>View</Link>
