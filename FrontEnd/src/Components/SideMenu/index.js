@@ -76,11 +76,13 @@ function SideMenu(){
                     key:'/profile',
                 },
                 ]}
-            ></Menu>
+            >
+            </Menu>
             <div>
                 <button>Log out</button>
             </div>
         </div>
+        
     );
 }
 
