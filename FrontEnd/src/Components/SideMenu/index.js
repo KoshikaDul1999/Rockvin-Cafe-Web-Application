@@ -1,5 +1,5 @@
 import { Menu } from "antd";
-import { AppstoreOutlined, MenuFoldOutlined, ShoppingCartOutlined, UserOutlined, DesktopOutlined, FileDoneOutlined, IdcardOutlined, HolderOutlined, ShopOutlined, CoffeeOutlined } from "@ant-design/icons";
+import { AppstoreOutlined, MenuFoldOutlined, ShoppingCartOutlined, UserOutlined, DesktopOutlined, FileDoneOutlined, IdcardOutlined, HolderOutlined, LogoutOutlined, ShopOutlined, CoffeeOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -75,12 +75,18 @@ function SideMenu(){
                     icon: <IdcardOutlined />,
                     key:'/profile',
                 },
+                // {
+                //     // key:'/logout',
+                //     // label:'Log out',
+                //     icon: <LogoutOutlined />,
+                //     component: () => <button className="btn btn-danger btn-sm">Log out</button>,
+                // },
                 ]}
             >
             </Menu>
-            <div>
-                <button>Log out</button>
-            </div>
+            {/* <div>
+                <button className="btn btn-danger btn-sm">Log out</button>
+            </div> */}
         </div>
         
     );
