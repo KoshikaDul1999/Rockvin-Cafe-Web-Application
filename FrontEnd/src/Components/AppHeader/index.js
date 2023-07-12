@@ -32,7 +32,7 @@ function AppHeader(){
             >
             </Image>
             <Typography.Title strong type="warning">RockVin Cafe and Surfer's Inn</Typography.Title>
-            <Space>
+            {/* <Space>
                 <Badge count={comments.length} dot>
                     <MailOutlined style={{ fontSize: 24 }} 
                         onClick={() => {
@@ -78,7 +78,10 @@ function AppHeader(){
                         );
                     }}
                 ></List>
-            </Drawer>
+            </Drawer> */}
+            <div>
+                <button className="btn btn-danger btn-sm">Log out</button>
+            </div>
         </div>
     );
 }
