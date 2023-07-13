@@ -4,6 +4,7 @@ import './Main/style.css';
 import Login from './Login';
 import AppHeader from './Components/AppHeader';
 import AppFooter from './Components/AppFooter';
+import LoginAppHeader from './Components/LoginAppHeader';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Register from './Register'
