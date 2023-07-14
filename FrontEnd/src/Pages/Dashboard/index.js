@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getCustomers, getInventory, getOrders, getRevenue } from "../../API";
 import SideMenu from '../../Components/SideMenu';
 import PageContent from '../../Components/PageContent';
+import axios from "axios";
 
 import {
     Chart as ChartJS,
@@ -34,9 +35,18 @@ function Dashboard() {
     const [revenue, setRevenue] = useState(0);
 
     useEffect(() => {
-      getOrders().then((res) => {
-        setOrders(res.total);
-      });
+
+        axios
+            .get("http://localhost:5000/OrderDetailsCount")
+            .then((res) => {
+                setOrders(res.data.count);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    //   getOrders().then((res) => {
+    //     setOrders(res.total);
+    //   });
 
       getInventory().then((res) => {
         setInventry(res.total);

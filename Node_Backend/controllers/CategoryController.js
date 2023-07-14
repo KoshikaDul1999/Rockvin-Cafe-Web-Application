@@ -56,3 +56,4 @@ export const deleteCategory = async(req, res) =>{
         console.log(error.message);
     }
 }
+

@@ -1,7 +1,7 @@
 import express from "express";
 import { getCategories, getCategoryById, createCategory, updateCategory, deleteCategory} from "../controllers/CategoryController.js";
 import { getFoods, getFoodById, updateFood, createFood, deleteFood, getFoodByName } from "../controllers/FoodController.js";
-import { deleteOrderDetails, updateOrderDetails, getOrderDetailsById, getOrderDetails, createOrderDetails } from "../controllers/OrderDetailsController.js";
+import { deleteOrderDetails, updateOrderDetails, getOrderDetailsById, getOrderDetails, createOrderDetails, getOrderDetailsCount } from "../controllers/OrderDetailsController.js";
 import { getAdmins, getAdminById, createAdmin, updateAdmin, deleteAdmin} from "../controllers/AdminController.js";
 import {getChefs, getChefById, createChef, updateChef, deleteChef} from "../controllers/ChefController.js";
 import {getUsers, getUserById, createUser, updateUser, deleteUser} from "../controllers/UserController.js";
@@ -26,6 +26,7 @@ router.get('/OrderDetails/:id', getOrderDetailsById);
 router.post('/OrderDetails', createOrderDetails);
 router.patch('/OrderDetails/:id', updateOrderDetails);
 router.delete('/OrderDetails/:id', deleteOrderDetails);
+router.get('/OrderDetailsCount', getOrderDetailsCount);
 
 router.get('/admins', getAdmins);
 router.get('/admin/:id', getAdminById);
