@@ -52,7 +52,7 @@ export default function ViewChef() {
             </List>
           </div>
         </div>
-        <Button component={Link} to="/profile" variant="contained" color="primary" style={{ margin: '1rem' }}>
+        <Button component={Link} to="/chefprofile" variant="contained" color="primary" style={{ margin: '1rem' }}>
           Back to Home
         </Button>
       </Card>
