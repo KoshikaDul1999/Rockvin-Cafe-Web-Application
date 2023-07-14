@@ -75,6 +75,7 @@ export default function AddCategory() {
             </Button>
             <Button component={Link} to="/category" variant="contained" color="secondary" style={{ marginLeft: 10 }}>
               Cancel
+            </Button>
           </Grid>
         </Grid>
       </form>
@@ -83,7 +84,7 @@ export default function AddCategory() {
         <DialogContent>
           <Typography variant="body1">
             <FaCheckCircle style={{ marginRight: 5 }} />
-            Successfully added.
+            Successfully Added.
           </Typography>
         </DialogContent>
         <DialogActions>
