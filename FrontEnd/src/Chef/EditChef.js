@@ -204,7 +204,7 @@ export default function EditChef() {
                 variant="outlined"
                 color="secondary"
                 component={Link}
-                to="/profile"
+                to="/chefprofile"
                 fullWidth
               >
                 Cancel
