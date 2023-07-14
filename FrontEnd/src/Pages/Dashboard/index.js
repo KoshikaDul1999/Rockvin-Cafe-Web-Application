@@ -84,7 +84,7 @@ function Dashboard() {
         <PageContent></PageContent>
        
             <Space size={20} direction="vertical">
-                <Typography.Title level={4}>Admin Dashboard</Typography.Title>
+                <Typography.Title level={3}>Admin Dashboard</Typography.Title>
                 <Space direction="horizontal">
                     <DashboardCard icon={
                         <ShoppingCartOutlined 
@@ -214,7 +214,7 @@ function RecentOrders() {
 
     return (
         <>
-        <Typography.Text>Recent Orders</Typography.Text>
+        <Typography.Text strong style={{ fontSize: 18 }}>Recent Orders</Typography.Text>
         <Table
             columns={[
                 {
