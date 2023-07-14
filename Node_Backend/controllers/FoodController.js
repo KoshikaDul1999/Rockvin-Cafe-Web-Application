@@ -70,6 +70,16 @@ export const deleteFood = async(req, res) =>{
     }
 }
 
+export const getFoodsCount = async (req, res) => {
+    try {
+        const count = await Foods.count();
+        res.status(200).json({count});
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({error: "Internal Server Error "});
+    }
+}
+
 // const Food = require('./models/food');
 // const Category = require('./models/category');
 // const multer = require('multer');

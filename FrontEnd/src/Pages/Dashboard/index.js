@@ -44,17 +44,33 @@ function Dashboard() {
             .catch((error) => {
                 console.log(error);
             })
-    //   getOrders().then((res) => {
-    //     setOrders(res.total);
-    //   });
 
-      getInventory().then((res) => {
-        setInventry(res.total);
-      });
+        axios
+            .get("http://localhost:5000/CategoryCount")
+            .then((res) => {
+                setCategories(res.data.count);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
 
-      getCustomers().then((res) => {
-        setCustomers(res.total);
-      });
+        axios
+            .get("http://localhost:5000/FoodsCount")
+            .then((res) => {
+                setInventry(res.data.count);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+        axios
+            .get("http://localhost:5000/CustomersCount")
+            .then((res) => {
+                setCustomers(res.data.count);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
 
       getOrders().then((res) => {
         setRevenue(res.discountedTotal);
@@ -77,11 +93,15 @@ function Dashboard() {
                                 backgroundColor:"rgba(0,255,0,0.25",
                                 borderRadius: 20, 
                                 fontSize: 24,
-                                padding: 8,
+                                padding: 18,
                             }}
                         />
                         } 
-                        title={"Orders"} 
+                        title={
+                            <Typography.Text strong style={{ fontSize: 16 }}>
+                                Orders
+                            </Typography.Text>
+                        } 
                         value={orders} 
                     />
                     <DashboardCard icon={
@@ -91,11 +111,15 @@ function Dashboard() {
                                 backgroundColor:"rgba(0,0,255,0.25",
                                 borderRadius: 20, 
                                 fontSize: 24,
-                                padding: 8,
+                                padding: 18,
                             }}
                         />
                     } 
-                        title={"Categories"} 
+                        title={
+                            <Typography.Text strong style={{ fontSize: 16 }}>
+                                Categories
+                            </Typography.Text>
+                        } 
                         value={categories} 
                     />
                     <DashboardCard icon={
@@ -105,11 +129,15 @@ function Dashboard() {
                                 backgroundColor:"rgba(0,255,255,0.25",
                                 borderRadius: 20, 
                                 fontSize: 24,
-                                padding: 8,
+                                padding: 18,
                             }}
                         />
                     } 
-                        title={"Menus"} 
+                        title={
+                            <Typography.Text strong style={{ fontSize: 16 }}>
+                                Menus
+                            </Typography.Text>
+                        } 
                         value={menu} 
                     />
 
@@ -120,11 +148,15 @@ function Dashboard() {
                                 backgroundColor:"rgba(255,0,0,0.25",
                                 borderRadius: 20, 
                                 fontSize: 24,
-                                padding: 8,
+                                padding: 18,
                             }}
                         />
                     } 
-                        title={"Customers"} 
+                        title={
+                            <Typography.Text strong style={{ fontSize: 16 }}>
+                                Customers
+                            </Typography.Text>
+                        } 
                         value={customers} 
                     />
 
@@ -135,11 +167,15 @@ function Dashboard() {
                                 backgroundColor:"rgba(0,0,255,0.25",
                                 borderRadius: 20, 
                                 fontSize: 24,
-                                padding: 8,
+                                padding: 18,
                             }}
                         />
                     } 
-                        title={"Revenue"} 
+                        title={
+                            <Typography.Text strong style={{ fontSize: 16 }}>
+                                Revenue
+                            </Typography.Text>
+                        } 
                         value={revenue} 
                     />  
                 </Space>

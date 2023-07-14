@@ -57,3 +57,12 @@ export const deleteCategory = async(req, res) =>{
     }
 }
 
+export const getCategoryCount = async (req, res) => {
+    try {
+        const count = await Category.count();
+        res.status(200).json({count});
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({error: "Internal Server Error "});
+    }
+}
