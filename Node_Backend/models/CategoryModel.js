@@ -8,6 +8,7 @@ const Category = db.define('category',{
         type:DataTypes.INTEGER,
         allowNull:false,
         primaryKey:true,
+        autoIncrement:true,
         
     },
     cate_name: {
