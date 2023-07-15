@@ -17,7 +17,7 @@ const ProductUploadForm = () => {
   const [food_id, setFoodID] = useState('');
   const [food_name, setFoodName] = useState('');
   const [food_price, setFoodPrice] = useState('');
-  const [food_image, setFoodImage] = useState('');
+  const [food_image, setFoodImage] = useState(null);
   const [food_desc, setFoodDescription] = useState('');
   const [food_cat_id, setFoodCategory] = useState('');
   const [categories, setCategories] = useState([]);
@@ -44,6 +44,7 @@ const ProductUploadForm = () => {
     formData.append('food_name', food_name);
     formData.append('food_price', food_price);
     formData.append('food_image', food_image);
+    // formData.append('food_image', food_image.name);
     formData.append('food_desc', food_desc);
     formData.append(
       'food_category', 
@@ -57,7 +58,7 @@ const ProductUploadForm = () => {
         setFoodID('');
         setFoodName('');
         setFoodPrice('');
-        setFoodImage('');
+        setFoodImage(null);
         setFoodDescription('');
         setFoodCategory('');
       })
@@ -66,7 +67,10 @@ const ProductUploadForm = () => {
         console.error('Error submitting form:', error);
       });
   };
-  
+
+  const handleFileChange = (e) => {
+    setFoodImage(e.target.files[0]);
+  };
 
   return (
     <Container maxWidth="sm">
@@ -94,7 +98,7 @@ const ProductUploadForm = () => {
             <input
               type="file"
               accept="image/*"
-              onChange={(e) => setFoodImage(e.target.files[0])}
+              onChange={handleFileChange}
             />
           </Box>
           <TextField
