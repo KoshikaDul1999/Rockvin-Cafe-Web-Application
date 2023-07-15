@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getCustomers, getInventory, getOrders, getRevenue } from "../../API";
 import SideMenu from '../../Components/SideMenu';
 import PageContent from '../../Components/PageContent';
+import axios from "axios";
 
 import {
     Chart as ChartJS,
@@ -34,17 +35,42 @@ function Dashboard() {
     const [revenue, setRevenue] = useState(0);
 
     useEffect(() => {
-      getOrders().then((res) => {
-        setOrders(res.total);
-      });
 
-      getInventory().then((res) => {
-        setInventry(res.total);
-      });
+        axios
+            .get("http://localhost:5000/OrderDetailsCount")
+            .then((res) => {
+                setOrders(res.data.count);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
 
-      getCustomers().then((res) => {
-        setCustomers(res.total);
-      });
+        axios
+            .get("http://localhost:5000/CategoryCount")
+            .then((res) => {
+                setCategories(res.data.count);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+        axios
+            .get("http://localhost:5000/FoodsCount")
+            .then((res) => {
+                setInventry(res.data.count);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+        axios
+            .get("http://localhost:5000/CustomersCount")
+            .then((res) => {
+                setCustomers(res.data.count);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
 
       getOrders().then((res) => {
         setRevenue(res.discountedTotal);
@@ -58,7 +84,7 @@ function Dashboard() {
         <PageContent></PageContent>
        
             <Space size={20} direction="vertical">
-                <Typography.Title level={4}>Admin Dashboard</Typography.Title>
+                <Typography.Title level={3}>Admin Dashboard</Typography.Title>
                 <Space direction="horizontal">
                     <DashboardCard icon={
                         <ShoppingCartOutlined 
@@ -67,11 +93,15 @@ function Dashboard() {
                                 backgroundColor:"rgba(0,255,0,0.25",
                                 borderRadius: 20, 
                                 fontSize: 24,
-                                padding: 8,
+                                padding: 18,
                             }}
                         />
                         } 
-                        title={"Orders"} 
+                        title={
+                            <Typography.Text strong style={{ fontSize: 16 }}>
+                                Orders
+                            </Typography.Text>
+                        } 
                         value={orders} 
                     />
                     <DashboardCard icon={
@@ -81,11 +111,15 @@ function Dashboard() {
                                 backgroundColor:"rgba(0,0,255,0.25",
                                 borderRadius: 20, 
                                 fontSize: 24,
-                                padding: 8,
+                                padding: 18,
                             }}
                         />
                     } 
-                        title={"Categories"} 
+                        title={
+                            <Typography.Text strong style={{ fontSize: 16 }}>
+                                Categories
+                            </Typography.Text>
+                        } 
                         value={categories} 
                     />
                     <DashboardCard icon={
@@ -95,11 +129,15 @@ function Dashboard() {
                                 backgroundColor:"rgba(0,255,255,0.25",
                                 borderRadius: 20, 
                                 fontSize: 24,
-                                padding: 8,
+                                padding: 18,
                             }}
                         />
                     } 
-                        title={"Menus"} 
+                        title={
+                            <Typography.Text strong style={{ fontSize: 16 }}>
+                                Menus
+                            </Typography.Text>
+                        } 
                         value={menu} 
                     />
 
@@ -110,11 +148,15 @@ function Dashboard() {
                                 backgroundColor:"rgba(255,0,0,0.25",
                                 borderRadius: 20, 
                                 fontSize: 24,
-                                padding: 8,
+                                padding: 18,
                             }}
                         />
                     } 
-                        title={"Customers"} 
+                        title={
+                            <Typography.Text strong style={{ fontSize: 16 }}>
+                                Customers
+                            </Typography.Text>
+                        } 
                         value={customers} 
                     />
 
@@ -125,11 +167,15 @@ function Dashboard() {
                                 backgroundColor:"rgba(0,0,255,0.25",
                                 borderRadius: 20, 
                                 fontSize: 24,
-                                padding: 8,
+                                padding: 18,
                             }}
                         />
                     } 
-                        title={"Revenue"} 
+                        title={
+                            <Typography.Text strong style={{ fontSize: 16 }}>
+                                Revenue
+                            </Typography.Text>
+                        } 
                         value={revenue} 
                     />  
                 </Space>
@@ -168,7 +214,7 @@ function RecentOrders() {
 
     return (
         <>
-        <Typography.Text>Recent Orders</Typography.Text>
+        <Typography.Text strong style={{ fontSize: 18 }}>Recent Orders</Typography.Text>
         <Table
             columns={[
                 {

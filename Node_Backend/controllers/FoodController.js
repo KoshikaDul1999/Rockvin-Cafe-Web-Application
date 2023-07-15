@@ -1,4 +1,21 @@
 import Foods from "../models/FoodModel.js";
+import multer from 'multer';
+import path from 'path';
+
+// Set up multer storage
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'foods'); // Folder where the uploaded images will be saved
+    },
+    filename: (req, file, cb) => {
+      const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+      const fileExtension = path.extname(file.originalname);
+      cb(null, `${uniqueSuffix}${fileExtension}`);
+    },
+  });
+
+// Set up multer upload instance
+const upload = multer({ storage });
 
 export const getFoods = async(req, res) =>{
     try {
@@ -35,15 +52,57 @@ export const getFoodByName = async(req, res) =>{
     }
 }
  
-export const createFood = async(req, res) =>{
+// export const createFood = async (req, res) => {
+//     try {
+//       await Foods.create(req.body);
+//       res.status(201).json({ msg: "Food Created" });
+//     } catch (error) {
+//       console.log(error.message);
+//       res.status(500).json({ error: "Internal Server Error" });
+//     }
+//   };
+  
+
+export const createFood = async (req, res) => {
     try {
-        await Foods.create(req.body);
-        res.status(201).json({msg: "Food Created"});
+      const { food_id, food_name, food_price, food_desc, food_cat_id } = req.body;
+      const food_image = req.file ? req.file.filename : null; // Get the filename of the uploaded image
+  
+      await Foods.create({
+        food_id,
+        food_name,
+        food_price,
+        food_desc,
+        food_img: food_image, // Save the image filename in the 'food_img' column
+        food_cat_id,
+      });
+  
+      res.status(201).json({ msg: 'Food Created' });
     } catch (error) {
-        console.log(error.message);
+      console.log(error.message);
+      res.status(500).json({ error: 'Internal Server Error' });
     }
-}
+  };
+  
+
+export const uploadFoodImage = (req, res) => {
+    res.status(200).json({ filename: req.file.filename });
+};
  
+export const deleteFoodImage = (req, res) => {
+    const filename = req.params.filename;
+    const imagePath = path.join(__dirname, '../foods', filename);
+  
+    fs.unlink(imagePath, (err) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+        res.status(200).json({ msg: 'Image Deleted' });
+      }
+    });
+};
+
 export const updateFood = async(req, res) =>{
     try {
         await Foods.update(req.body,{
@@ -67,6 +126,16 @@ export const deleteFood = async(req, res) =>{
         res.status(200).json({msg: "Food Deleted"});
     } catch (error) {
         console.log(error.message);
+    }
+}
+
+export const getFoodsCount = async (req, res) => {
+    try {
+        const count = await Foods.count();
+        res.status(200).json({count});
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({error: "Internal Server Error "});
     }
 }
 

@@ -67,6 +67,16 @@ export const deleteOrderDetails = async(req, res) =>{
     }
 }
 
+export const getOrderDetailsCount = async (req, res) => {
+    try {
+        const count = await OrderDetails.count();
+        res.status(200).json({count});
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({error: "Internal Server Error "});
+    }
+}
+
 
 // export const updateOrderDetails = async (req, res) => {
 //     try {

@@ -1,17 +1,23 @@
 import { Menu } from "antd";
-import { AppstoreOutlined, MenuFoldOutlined, ShoppingCartOutlined, UserOutlined, DesktopOutlined, FileDoneOutlined, IdcardOutlined, HolderOutlined, ShopOutlined, CoffeeOutlined } from "@ant-design/icons";
+import { AppstoreOutlined, MenuFoldOutlined, ShoppingCartOutlined, UserOutlined, DesktopOutlined, FileDoneOutlined, IdcardOutlined, HolderOutlined, LogoutOutlined, ShopOutlined, CoffeeOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useCookies } from 'react-cookie';
 
 function SideMenu(){
     const location = useLocation()
     const [selectedKeys, setSelectedKeys] = useState('/')
+    const [cookies, setCookie, removeCookie] = useCookies(['admin']);
 
     useEffect(() => {
       const pathName = location.pathname
       setSelectedKeys(pathName)
     }, [location.pathname])
     
+    // const handleLogout = () => {
+    //     removeCookie('admin', { path: '/' });
+    //     navigate("/");
+    //   }
 
     const navigate = useNavigate();
     return (
@@ -76,8 +82,13 @@ function SideMenu(){
                     key:'/profile',
                 },
                 ]}
-            ></Menu>
+            >
+            </Menu>
+            {/* <div>
+                <button className="btn btn-danger btn-sm" onClick={handleLogout} style={{margin: "10px 0"}}>Log out</button>
+            </div> */}
         </div>
+        
     );
 }
 

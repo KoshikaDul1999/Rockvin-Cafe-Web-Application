@@ -56,3 +56,13 @@ export const deleteUser = async(req, res) =>{
         console.log(error.message);
     }
 }
+
+export const getCustomersCount = async (req, res) => {
+    try {
+        const count = await User.count();
+        res.status(200).json({count});
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({error: "Internal Server Error "});
+    }
+}

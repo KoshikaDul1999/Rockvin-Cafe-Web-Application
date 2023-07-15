@@ -3,6 +3,8 @@ import { Badge, Drawer, Image, List, Space, Typography } from "antd";
 import { getComments, getOrders } from "../../API";
 import { useEffect, useState } from "react";
 import img1 from "../../Images/logo/res-logo.png";
+import {useNavigate} from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 const { Text, Link } = Typography;
 
 function AppHeader(){
@@ -10,6 +12,13 @@ function AppHeader(){
     const [orders, setOrders] = useState([])
     const [commentsOpen, setCommentsOpen] = useState(false)
     const [notificationsOpen, setNotificationsOpen] = useState(false)
+    const [cookies, setCookie, removeCookie] = useCookies(['admin']);
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        removeCookie('admin', { path: '/' });
+        navigate("/");
+      }
 
     useEffect(() => {
       getComments().then(res=>{
@@ -32,7 +41,7 @@ function AppHeader(){
             >
             </Image>
             <Typography.Title strong type="warning">RockVin Cafe and Surfer's Inn</Typography.Title>
-            <Space>
+            {/* <Space>
                 <Badge count={comments.length} dot>
                     <MailOutlined style={{ fontSize: 24 }} 
                         onClick={() => {
@@ -78,7 +87,10 @@ function AppHeader(){
                         );
                     }}
                 ></List>
-            </Drawer>
+            </Drawer> */}
+            <div>
+                <button className="btn btn-danger btn-sm" onClick={handleLogout}>Log out</button>
+            </div>
         </div>
     );
 }
