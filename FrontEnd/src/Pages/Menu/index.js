@@ -25,10 +25,10 @@ function Product() {
         setProducts(result.data);
     };
 
-    const deleteProduct = async (product_id) => {
-        const result = await axios.delete(`http://localhost:5000/foods/${product_id}`)
-        loadProducts()
-    };
+    // const deleteProduct = async (product_id) => {
+    //     const result = await axios.delete(`http://localhost:5000/foods/${product_id}`)
+    //     loadProducts()
+    // };
 
     // Pagination change event handler
     const handlePageChange = (page) => {

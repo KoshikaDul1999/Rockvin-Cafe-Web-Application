@@ -103,18 +103,45 @@ export const deleteFoodImage = (req, res) => {
     });
 };
 
-export const updateFood = async(req, res) =>{
+export const updateFood = async (req, res) => {
     try {
-        await Foods.update(req.body,{
-            where:{
-                food_id: req.params.id
-            }
-        });
-        res.status(200).json({msg: "Food Updated"});
+      const { food_name, food_price, food_desc, food_cat_id } = req.body;
+      const food_image = req.file ? req.file.filename : null; // Get the filename of the uploaded image
+  
+      await Foods.update(
+        {
+          food_name,
+          food_price,
+          food_desc,
+          food_img: food_image, // Update the image filename in the 'food_img' column if a new image is uploaded
+          food_cat_id,
+        },
+        {
+          where: {
+            food_id: req.params.id,
+          },
+        }
+      );
+  
+      res.status(200).json({ msg: 'Food Updated' });
     } catch (error) {
-        console.log(error.message);
+      console.log(error.message);
+      res.status(500).json({ error: 'Internal Server Error' });
     }
-}
+  };
+
+// export const updateFood = async(req, res) =>{
+//     try {
+//         await Foods.update(req.body,{
+//             where:{
+//                 food_id: req.params.id
+//             }
+//         });
+//         res.status(200).json({msg: "Food Updated"});
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// }
  
 export const deleteFood = async(req, res) =>{
     try {
