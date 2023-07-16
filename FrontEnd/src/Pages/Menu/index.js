@@ -26,9 +26,19 @@ function Product() {
     };
 
     const deleteProduct = async (product_id) => {
-        const result = await axios.delete(`http://localhost:5000/foods/${product_id}`)
-        loadProducts()
-    };
+        try {
+          await axios.delete(`http://localhost:5000/foods/${product_id}`);
+          setProducts(products.filter((product) => product.food_id !== product_id));
+          console.log('Food deleted');
+        } catch (error) {
+          console.log('Failed to delete food');
+        }
+      };
+
+    // const deleteProduct = async (product_id) => {
+    //     const result = await axios.delete(`http://localhost:5000/foods/${product_id}`)
+    //     loadProducts()
+    // };
 
     // Pagination change event handler
     const handlePageChange = (page) => {
