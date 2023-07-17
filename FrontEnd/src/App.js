@@ -9,6 +9,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Register from './Register'
 
+
 //import Login from "./Login/index";
 
 import Dashboard from "./Pages/Dashboard";
@@ -42,6 +43,12 @@ import ViewProduct from "./Products/ViewProduct";
 
 import ViewCustomer from "./Customers/ViewCustomer";
 import EditCustomer from "./Customers/EditCustomer";
+
+import ViewOrder from "./Orders/ViewOrder";
+import EditOrder from "./Orders/EditOrder";
+
+import ChefViewOrder from "./OrderChef/ViewOrder";
+import ChefEditOrder from "./OrderChef/EditOrder";
 
 import AddOfferProduct from "./OffProFoods/AddOffFoods";
 
@@ -89,8 +96,8 @@ function App() {
           <Route path="/chefprofile" element={<ChefProfile />}></Route>
 
           <Route exact path='/addnewadmin' element={<AddAdmin />} />
-          <Route exact path='/editadmin/:id' element={<EditAdmin />} />
-          <Route exact path='/viewadmin/:id' element={<ViewAdmin />} />
+          <Route exact path='/editadmin/:sysusr_id ' element={<EditAdmin />} />
+          <Route exact path='/viewadmin/:sysusr_id ' element={<ViewAdmin />} />
 
           <Route exact path='/addnewchef' element={<AddChef />} />
           <Route exact path='/editchef/:chef_id' element={<EditChef />} />
@@ -106,6 +113,12 @@ function App() {
 
           <Route exact path="/viewcustomer/:customer_id" element={<ViewCustomer />} />
           <Route exact path="/editcustomer/:customer_id" element={<EditCustomer />} />
+
+          <Route exact path="/vieworder/:order_id" element={<ViewOrder />} />
+          <Route exact path="/editorder/:order_id" element={<EditOrder />} />
+
+          <Route exact path="/chefvieworder/:order_id" element={<ChefViewOrder />} />
+          <Route exact path="/chefeditorder/:order_id" element={<ChefEditOrder />} />
 
           <Route exact path="/addnewofferfoodproduct" element={<AddOfferProduct />} />
 

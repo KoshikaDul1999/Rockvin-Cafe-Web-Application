@@ -23,7 +23,7 @@ export const getOrderDetailsById = async(req, res) =>{
     try {
         const response = await OrderDetails.findOne({
             where:{
-                id: req.params.id
+                orderid: req.params.id
             }
         });
         res.status(200).json(response);
@@ -45,7 +45,7 @@ export const updateOrderDetails = async(req, res) =>{
     try {
         await OrderDetails.update(req.body,{
             where:{
-                id: req.params.id
+                orderid: req.params.id
             }
         });
         res.status(200).json({msg: "OrderDetails Updated"});
@@ -58,7 +58,7 @@ export const deleteOrderDetails = async(req, res) =>{
     try {
         await OrderDetails.destroy({
             where:{
-                id: req.params.id
+                orderid: req.params.id
             }
         });
         res.status(200).json({msg: "OrderDetails Deleted"});
