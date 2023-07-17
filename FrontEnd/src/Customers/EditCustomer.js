@@ -4,32 +4,34 @@ import axios from 'axios';
 import { TextField, Button, Typography, Container, Grid, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import { FaCheckCircle } from 'react-icons/fa';
 
-export default function EditCategory() {
+export default function EditCustomer() {
   let navigate = useNavigate();
-  const { category_id } = useParams();
+  const { customer_id } = useParams();
 
-  const [category, setCategory] = useState({
-    cate_id: '',
-    cate_name: '',
-    cate_desc: '',
+  const [customer, setCustomer] = useState({
+    phoneno: '',
+    fname: '',
+    lname: '',
+    address: '',
+    city: '',
+    emailaddress: '',
   });
-
   const [isUpdated, setIsUpdated] = useState(false);
 
-  const { cate_id, cate_name, cate_desc } = category;
+  const { phoneno, fname, lname, address, city, emailaddress } = customer;
 
   const onInputChange = (e) => {
-    setCategory({ ...category, [e.target.name]: e.target.value });
+    setCustomer({ ...customer, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
-    loadCategory();
+    loadCustomer();
   }, []);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/categories/${category_id}`, category);
+      await axios.put(`http://localhost:5000/user/${customer_id}`, customer);
       setIsUpdated(true);
     } catch (error) {
       console.error(error);
@@ -38,48 +40,78 @@ export default function EditCategory() {
 
   const handleClose = () => {
     setIsUpdated(false);
-    navigate('/category');
+    navigate('/customers');
   };
 
-  const loadCategory = async () => {
-    const result = await axios.get(`http://localhost:5000/category/${category_id}`);
-    setCategory(result.data);
+  const loadCustomer = async () => {
+    const result = await axios.get(`http://localhost:5000/user/${customer_id}`);
+    setCustomer(result.data);
   };
 
   return (
     <Container maxWidth="sm">
       <Typography variant="h4" align="center" gutterBottom>
-        Edit category
+        Edit Customer Details
       </Typography>
       <form onSubmit={(e) => onSubmit(e)}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <TextField
-              label="Category ID"
+              label="Customer First Name"
               variant="outlined"
               fullWidth
-              name="cate_id"
-              value={cate_id}
+              name="fname"
+              value={fname}
               onChange={(e) => onInputChange(e)}
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
-              label="Category Name"
+              label="Customer Last Name"
               variant="outlined"
               fullWidth
-              name="cate_name"
-              value={cate_name}
+              name="lname"
+              value={lname}
               onChange={(e) => onInputChange(e)}
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
-              label="Category Description"
+              label="Customer Mobile"
               variant="outlined"
               fullWidth
-              name="cate_desc"
-              value={cate_desc}
+              name="phoneno"
+              value={phoneno}
+              onChange={(e) => onInputChange(e)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Customer Address"
+              variant="outlined"
+              fullWidth
+              name="address"
+              value={address}
+              onChange={(e) => onInputChange(e)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Customer City"
+              variant="outlined"
+              fullWidth
+              name="city"
+              value={city}
+              onChange={(e) => onInputChange(e)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Customer Email"
+              variant="outlined"
+              fullWidth
+              name="emailaddress"
+              value={emailaddress}
               onChange={(e) => onInputChange(e)}
             />
           </Grid>
@@ -87,7 +119,7 @@ export default function EditCategory() {
             <Button type="submit" variant="contained" color="primary">
               Update
             </Button>
-            <Button component={Link} to="/category" variant="contained" color="secondary" style={{ marginLeft: 10 }}>
+            <Button component={Link} to="/customers" variant="contained" color="secondary" style={{ marginLeft: 10 }}>
               Cancel
             </Button>
           </Grid>
