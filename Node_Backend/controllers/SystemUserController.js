@@ -1,8 +1,8 @@
-import Admins from "../models/AdminModel.js";
+import SystemUsers from "../models/SystemUserModel.js";
  
 export const getAdmins = async(req, res) =>{
     try {
-        const response = await Admins.findAll();
+        const response = await SystemUsers.findAll();
         res.status(200).json(response);
     } catch (error) {
         console.log(error.message);
@@ -12,7 +12,7 @@ export const getAdmins = async(req, res) =>{
 export const getAdminById = async(req, res) =>{
     
     try {
-        const response = await Admins.findOne({
+        const response = await SystemUsers.findOne({
             where:{
                 sysusr_email : req.params.id
             }
@@ -38,8 +38,8 @@ export const getAdminById = async(req, res) =>{
  
 export const createAdmin = async(req, res) =>{
     try {
-        await Admins.create(req.body);
-        res.status(201).json({msg: "Admin Created"});
+        await SystemUsers.create(req.body);
+        res.status(201).json({msg: "SystemUser Created"});
     } catch (error) {
         console.log(error.message);
     }
@@ -47,12 +47,12 @@ export const createAdmin = async(req, res) =>{
  
 export const updateAdmin = async(req, res) =>{
     try {
-        await Admins.update(req.body,{
+        await SystemUsers.update(req.body,{
             where:{
                 sysusr_email: req.params.id
             }
         });
-        res.status(200).json({msg: "Admin Updated"});
+        res.status(200).json({msg: "SystemUser Updated"});
     } catch (error) {
         console.log(error.message);
     }
@@ -60,12 +60,12 @@ export const updateAdmin = async(req, res) =>{
  
 export const deleteAdmin = async(req, res) =>{
     try {
-        await Admins.destroy({
+        await SystemUsers.destroy({
             where:{
                 sysusr_id: req.params.id
             }
         });
-        res.status(200).json({msg: "Admin Deleted"});
+        res.status(200).json({msg: "SystemUser Deleted"});
     } catch (error) {
         console.log(error.message);
     }
