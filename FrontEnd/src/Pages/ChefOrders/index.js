@@ -9,21 +9,52 @@ function Order() {
 
     const [orders,setOrders]=useState([]);
 
-    const {orderid}=useParams()
+    const { orderid }=useParams()
 
     useEffect(() => {
         loadOrders();
     },[]);
 
+    // const loadOrders = async () => {
+    //     const result = await axios.get("http://localhost:5000/OrderDetails");
+    //     setOrders(result.data);
+    // };
+
     const loadOrders = async () => {
-        const result = await axios.get("http://localhost:5000/OrderDetails");
-        setOrders(result.data);
-    };
+        try {
+          const result = await axios.get("http://localhost:5000/OrderDetails");
+          const orders = result.data;
+          // Fetch food details for each order
+          const orderDetailsWithFood = await Promise.all(
+            orders.map(async (order) => {
+              const foodResult = await axios.get(`http://localhost:5000/Foods/${order.food_id}`);
+              const food = foodResult.data;
+              return { ...order, food_name: food.food_name };
+            })
+          );
+          setOrders(orderDetailsWithFood);
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
+
+    // const deleteOrder = async (orderid) => {
+    //     const result = await axios.delete(`http://localhost:5000/OrderDetails/${orderid}`)
+    //     loadOrders()
+    // }
 
     const deleteOrder = async (orderid) => {
-        const result = await axios.delete(`http://localhost:5000/OrderDetails/${orderid}`)
-        loadOrders()
-    }
+        // Show a confirmation popup
+        const confirmDelete = window.confirm("Are you sure you want to delete this order");
+        if (confirmDelete) {
+        // Delete the category
+        await axios.delete(`http://localhost:5000/OrderDetails/${orderid}`);
+        loadOrders();
+        } else {
+        // Do not delete the category
+        console.log("Order was not deleted.");
+        }
+    };
 
     const confirmOrder = async (orderId) => {
         try {
@@ -49,13 +80,11 @@ function Order() {
                     <div className="py-4">
                         <table className="table border shadow-inner, table-primary">
                         <thead className="thead-dark">
-                            <tr>
+                        <tr>
                                 <th scope="col">Order ID</th>
                                 <th scope="col">Food Name</th>
                                 <th scope="col">Quantity</th>
-                                <th scope="col">Price</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">time</th>
                                 <th scope="col">pickup_time</th>
                                 <th scope="col">Action</th>
                             </tr>
@@ -63,27 +92,24 @@ function Order() {
                         <tbody>
                         {
                             orders.map((orderdetails,index)=>(
-                                <tr>
-                                    <th scope="row" key={index}>{index+1}</th>
-                                    <td>{orderdetails.orderid}</td>
-                                    <td>{orderdetails.foodid}</td>
+                                <tr key={index}>
+                                    <th scope="row">{index + 1}</th>
+                                    <td>{orderdetails.food_name}</td>
                                     <td>{orderdetails.quantity}</td>
-                                    <td>{orderdetails.price}</td>
                                     <td>{orderdetails.status}</td>
-                                    <td>{orderdetails.time}</td>
                                     <td>{orderdetails.pickup_time}</td>
                                     <td>
                                         <Link className='btn btn-primary mx-2'
-                                            to={`/vieworder/${orderdetails.orderid}`}
+                                            to={`/chefvieworder/${orderdetails.orderid}`}
                                         >
                                             View
                                         </Link>
 
-                                        {/* <Link className='btn btn-outline-primary mx-2'
-                                        to={`/editorder/${orderdetails.orderid}`}
+                                        <Link className='btn btn-outline-primary mx-2'
+                                        to={`/chefeditorder/${orderdetails.orderid}`}
                                         >
                                             Edit
-                                        </Link> */}
+                                        </Link>
 
                                         <button className='btn btn-outline-primary mx-2'
                                             onClick={() => confirmOrder(orderdetails.orderid)}
