@@ -8,14 +8,13 @@ export default function AddAdmin() {
   let navigate = useNavigate();
 
   const [systemusers, setSystemusers] = useState({
-    sysusr_id: '',
     sysusr_name: '',
     sysusr_email: '',
     sysusr_password: '',
     role: '',
   });
 
-  const { sysusr_id, sysusr_name, sysusr_email, sysusr_password, role } = systemusers;
+  const { sysusr_name, sysusr_email, sysusr_password, role } = systemusers;
 
   const onInputChange = (e) => {
     setSystemusers({ ...systemusers, [e.target.name]: e.target.value });
@@ -37,7 +36,7 @@ export default function AddAdmin() {
             </Typography>
 
             <form onSubmit={(e) => onSubmit(e)}>
-            <TextField
+            {/* <TextField
                 label="ID"
                 fullWidth
                 placeholder="Enter System User ID"
@@ -45,7 +44,7 @@ export default function AddAdmin() {
                 value={sysusr_id}
                 onChange={(e) => onInputChange(e)}
                 margin="normal"
-              />
+              /> */}
 
               <TextField
                 label="Name"

@@ -96,8 +96,8 @@ function App() {
           <Route path="/chefprofile" element={<ChefProfile />}></Route>
 
           <Route exact path='/addnewadmin' element={<AddAdmin />} />
-          <Route exact path='/editadmin/:id' element={<EditAdmin />} />
-          <Route exact path='/viewadmin/:id' element={<ViewAdmin />} />
+          <Route exact path='/editadmin/:sysusr_id ' element={<EditAdmin />} />
+          <Route exact path='/viewadmin/:sysusr_id ' element={<ViewAdmin />} />
 
           <Route exact path='/addnewchef' element={<AddChef />} />
           <Route exact path='/editchef/:chef_id' element={<EditChef />} />
