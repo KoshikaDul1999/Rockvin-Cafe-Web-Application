@@ -81,7 +81,7 @@ export default function ViewOrder() {
           </ListItem>
         </List>
       </Card>
-      <Button component={Link} to="/orders" variant="contained" color="primary" style={{ marginTop: '1rem' }}>
+      <Button component={Link} to="/cheforders" variant="contained" color="primary" style={{ marginTop: '1rem' }}>
         Back to Home
       </Button>
     </Container>
