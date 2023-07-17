@@ -5,9 +5,10 @@ const {DataTypes} = Sequelize;
  
 const User = db.define('users',{
    userid: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        primaryKey:true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
     },
     phoneno: {
         type:DataTypes.INTEGER,
@@ -26,11 +27,11 @@ const User = db.define('users',{
         allowNull:false,
     },
     city: {
-        type:DataTypes.INTEGER,
+        type:DataTypes.STRING,
         allowNull:false,
     },
     emailaddress: {
-        type:DataTypes.INTEGER,
+        type:DataTypes.STRING,
         allowNull:false,
     },
     

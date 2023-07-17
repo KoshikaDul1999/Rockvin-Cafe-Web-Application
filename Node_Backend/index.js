@@ -6,13 +6,15 @@ import { fileURLToPath } from "url";
 import path from "path";
 import db from "./config/Database.js";
 import Category from "./models/CategoryModel.js";
-import Foods from "./models/FoodModel.js"; 
-import OfferFoods from "./models/OfferFoodModel.js";
-import RecomendedFoods from "./models/RecomendedFoodModel.js";
+import Foods from "./models/FoodModel.js";
 import OrderDetails from "./models/OrderDetailsModel.js";
-import Chefs from "./models/ChefModel.js";
-import Admins from "./models/AdminModel.js";
 import User from "./models/UserModel.js";
+import SystemUsers from "./models/SystemUserModel.js";
+//import Chefs from "./models/ChefModel.js";
+//import Admins from "./models/AdminModel.js";
+//import OfferFoods from "./models/OfferFoodModel.js";
+//import RecomendedFoods from "./models/RecomendedFoodModel.js";
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
