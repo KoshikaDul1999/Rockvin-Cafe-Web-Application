@@ -9,6 +9,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Register from './Register'
 
+
 //import Login from "./Login/index";
 
 import Dashboard from "./Pages/Dashboard";
@@ -42,6 +43,9 @@ import ViewProduct from "./Products/ViewProduct";
 
 import ViewCustomer from "./Customers/ViewCustomer";
 import EditCustomer from "./Customers/EditCustomer";
+
+import ViewOrder from "./Orders/ViewOrder";
+import EditOrder from "./Orders/EditOrder";
 
 import AddOfferProduct from "./OffProFoods/AddOffFoods";
 
@@ -106,6 +110,9 @@ function App() {
 
           <Route exact path="/viewcustomer/:customer_id" element={<ViewCustomer />} />
           <Route exact path="/editcustomer/:customer_id" element={<EditCustomer />} />
+
+          <Route exact path="/vieworder/:order_id" element={<ViewOrder />} />
+          <Route exact path="/editorder/:order_id" element={<EditOrder />} />
 
           <Route exact path="/addnewofferfoodproduct" element={<AddOfferProduct />} />
 
