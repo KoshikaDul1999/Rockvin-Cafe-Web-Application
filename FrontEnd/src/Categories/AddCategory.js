@@ -8,14 +8,14 @@ export default function AddCategory() {
   let navigate = useNavigate();
 
   const [category, setCategory] = useState({
-    cate_id: '',
+    //cate_id: '',
     cate_name: '',
     cate_desc: '',
   });
 
   const [isAdded, setIsAdded] = useState(false);
 
-  const { cate_id, cate_name, cate_desc } = category;
+  const { cate_name, cate_desc } = category;
 
   const onInputChange = (e) => {
     setCategory({ ...category, [e.target.name]: e.target.value });
@@ -39,7 +39,7 @@ export default function AddCategory() {
       </Typography>
       <form onSubmit={(e) => onSubmit(e)}>
         <Grid container spacing={3}>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <TextField
               label="Category ID"
               variant="outlined"
@@ -48,7 +48,7 @@ export default function AddCategory() {
               value={cate_id}
               onChange={(e) => onInputChange(e)}
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12}>
             <TextField
               label="Category Name"
