@@ -58,7 +58,7 @@ export const deleteOrderDetails = async(req, res) =>{
     try {
         await OrderDetails.destroy({
             where:{
-                id: req.params.id
+                orderid: req.params.id
             }
         });
         res.status(200).json({msg: "OrderDetails Deleted"});

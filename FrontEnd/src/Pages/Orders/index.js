@@ -38,10 +38,23 @@ function Order() {
         }
       };
 
+    // const deleteOrder = async (orderid) => {
+    //     const result = await axios.delete(`http://localhost:5000/OrderDetails/${orderid}`)
+    //     loadOrders()
+    // }
+
     const deleteOrder = async (orderid) => {
-        const result = await axios.delete(`http://localhost:5000/OrderDetails/${orderid}`)
-        loadOrders()
-    }
+        // Show a confirmation popup
+        const confirmDelete = window.confirm("Are you sure you want to delete this order");
+        if (confirmDelete) {
+        // Delete the category
+        await axios.delete(`http://localhost:5000/OrderDetails/${orderid}`);
+        loadOrders();
+        } else {
+        // Do not delete the category
+        console.log("Order was not deleted.");
+        }
+    };
 
     const confirmOrder = async (orderId) => {
         try {

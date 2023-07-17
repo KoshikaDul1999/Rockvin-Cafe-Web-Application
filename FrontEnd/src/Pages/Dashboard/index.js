@@ -1,6 +1,7 @@
 import { DollarCircleOutlined, ShoppingCartOutlined, ShoppingOutlined, UserOutlined, ContainerOutlined } from "@ant-design/icons";
 import { Card, Space, Statistic, Table, Typography } from "antd"
 import { useEffect, useState } from "react";
+import { Link, useParams } from 'react-router-dom';
 import { getCustomers, getInventory, getOrders, getRevenue } from "../../API";
 import SideMenu from '../../Components/SideMenu';
 import PageContent from '../../Components/PageContent';
@@ -201,42 +202,105 @@ function DashboardCard({title,value ,icon}){
 }
 
 function RecentOrders() {
-    const [dataSource, setDataSource] = useState([])
-    const [loading, setLoading] = useState(false) 
+    // const [dataSource, setDataSource] = useState([])
+    // const [loading, setLoading] = useState(false) 
+
+    // useEffect(() => {
+    //     setLoading(true);
+    //     getOrders().then(res=>{
+    //         setDataSource(res.products.splice(0, 3));
+    //         setLoading(false);
+    //     });  
+    // }, []);
+
+    // return (
+    //     <>
+    //     <Typography.Text strong style={{ fontSize: 18 }}>Recent Orders</Typography.Text>
+    //     <Table
+    //         columns={[
+    //             {
+    //                 title: "Title",
+    //                 dataIndex: "title",
+    //             },
+    //             {
+    //                 title: "Quantity",
+    //                 dataIndex: "quantity",
+    //             },
+    //             {
+    //                 title: "Price",
+    //                 dataIndex: "price",
+    //                 render:(value)=><span>Rs.{value}</span>
+    //             },
+    //         ]}
+    //         loading={loading}
+    //         dataSource={dataSource}
+    //         pagination={false}
+    //     ></Table>
+    //     </>
+    // );
+    const [orders,setOrders]=useState([]);
+    const { orderid }=useParams()
 
     useEffect(() => {
-        setLoading(true);
-        getOrders().then(res=>{
-            setDataSource(res.products.splice(0, 3));
-            setLoading(false);
-        });  
-    }, []);
+        loadOrders();
+    },[]);
 
+    const loadOrders = async () => {
+        try {
+          const result = await axios.get("http://localhost:5000/OrderDetails");
+          const orders = result.data;
+          // Fetch food details for each order
+          const orderDetailsWithFood = await Promise.all(
+            orders.map(async (order) => {
+              const foodResult = await axios.get(`http://localhost:5000/Foods/${order.food_id}`);
+              const food = foodResult.data;
+              return { ...order, food_name: food.food_name };
+            })
+          );
+          setOrders(orderDetailsWithFood);
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
+      
     return (
-        <>
-        <Typography.Text strong style={{ fontSize: 18 }}>Recent Orders</Typography.Text>
-        <Table
-            columns={[
-                {
-                    title: "Title",
-                    dataIndex: "title",
-                },
-                {
-                    title: "Quantity",
-                    dataIndex: "quantity",
-                },
-                {
-                    title: "Price",
-                    dataIndex: "price",
-                    render:(value)=><span>Rs.{value}</span>
-                },
-            ]}
-            loading={loading}
-            dataSource={dataSource}
-            pagination={false}
-        ></Table>
-        </>
-    );
+            <div>
+                <Typography.Title level={4}>Recent Orders</Typography.Title>
+                <div className="container">
+                    <div className="py-4">
+                        <table className="table border shadow-inner, table-primary">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th scope="col">Order ID</th>
+                                <th scope="col">Food Name</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            orders.map((orderdetails,index)=>(
+                                <tr key={index}>
+                                    <th scope="row">{index + 1}</th>
+                                    <td>{orderdetails.food_name}</td>
+                                    <td>{orderdetails.quantity}</td>
+                                    <td>
+                                        <Link className='btn btn-primary mx-2'
+                                            to={`/vieworder/${orderdetails.orderid}`}
+                                        >
+                                            Show
+                                        </Link>
+
+                                    </td>
+                                </tr> 
+                            ))
+                        }
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        );
 }
 
 function DashboardChart(){
