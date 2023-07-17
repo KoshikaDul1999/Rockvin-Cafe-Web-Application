@@ -4,7 +4,7 @@ import multer from 'multer';
 import { getCategories, getCategoryById, createCategory, updateCategory, deleteCategory, getCategoryCount} from "../controllers/CategoryController.js";
 import { getFoods, getFoodById, updateFood, createFood, deleteFood, getFoodByName, getFoodsCount, uploadFoodImage, deleteFoodImage } from "../controllers/FoodController.js";
 import { deleteOrderDetails, updateOrderDetails, getOrderDetailsById, getOrderDetails, createOrderDetails, getOrderDetailsCount } from "../controllers/OrderDetailsController.js";
-import { getAdmins, getAdminById, createAdmin, updateAdmin, deleteAdmin} from "../controllers/AdminController.js";
+import { getAdmins, getAdminById, createAdmin, updateAdmin, deleteAdmin} from "../controllers/SystemUserController.js";
 import {getChefs, getChefById, createChef, updateChef, deleteChef} from "../controllers/ChefController.js";
 import {getUsers, getUserById, createUser, updateUser, deleteUser, getCustomersCount} from "../controllers/UserController.js";
 
