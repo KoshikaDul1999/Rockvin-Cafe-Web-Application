@@ -40,6 +40,8 @@ import AddProduct from "./Products/AddProduct";
 import EditProduct from "./Products/EditProduct";
 import ViewProduct from "./Products/ViewProduct";
 
+//import ViewCustomer from "./"
+
 import AddOfferProduct from "./OffProFoods/AddOffFoods";
 
 import AddRecomendedProduct from "./RecProFoods/AddRecProducts";

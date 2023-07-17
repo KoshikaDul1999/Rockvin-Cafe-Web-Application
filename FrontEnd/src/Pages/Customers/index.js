@@ -5,7 +5,7 @@ import axios from 'axios';
 import SideMenu from '../../Components/SideMenu';
 import PageContent from '../../Components/PageContent';
 
-function Cutomer() {
+function Customer() {
 
     const [users,setUsers]=useState([]);
 
@@ -20,7 +20,7 @@ function Cutomer() {
         setUsers(result.data);
     };
 
-    const deleteUser = async (customer_id) => {
+    const deleteUser = async (user_id) => {
         const result = await axios.delete(`http://localhost:5000/user/${user_id}`)
         loadUsers();
     }
@@ -31,7 +31,7 @@ function Cutomer() {
         <PageContent></PageContent>
             <div>
                 <Typography.Title level={4}>Our Users</Typography.Title>
-                {/* <Link className='btn btn-primary' to="/addnewcategory">Add New Customer</Link> */}
+                {/* <Link className='btn btn-primary' to="/addnewcustomer">Add New Customer</Link> */}
                 <div className="container">
                     <div className="py-4">
                         <table className="table border shadow-inner, table-primary">
@@ -60,13 +60,13 @@ function Cutomer() {
                                     <td>{user.emailaddress}</td>
                                     <td>
                                         <Link className='btn btn-primary mx-2'
-                                            to={`/viewcategory/${user.userid}`}
+                                            to={`/viewcustomer/${user.userid}`}
                                         >
                                             View
                                         </Link>
 
                                         <Link className='btn btn-outline-primary mx-2'
-                                        to={`/editcategory/${user.userid}`}
+                                        to={`/editcustomer/${user.userid}`}
                                         >
                                             Edit
                                         </Link>
@@ -88,4 +88,4 @@ function Cutomer() {
         </div>
     ); 
 }
-export default Cutomer
+export default Customer
