@@ -3,12 +3,13 @@ import db from "../config/Database.js";
  
 const {DataTypes} = Sequelize;
  
-const Admins = db.define('systemusers',{
+const SystemUsers = db.define('systemusers',{
     sysusr_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey:true
-    },
+        primaryKey: true,
+        autoIncrement: true
+      },      
     sysusr_name: {
         type:DataTypes.STRING,
         allowNull:false,
@@ -29,7 +30,7 @@ const Admins = db.define('systemusers',{
     freezeTableName:true
 });
  
-export default Admins;
+export default SystemUsers;
  
 (async()=>{
     await db.sync();

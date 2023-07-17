@@ -53,9 +53,7 @@ function Order() {
                                 <th scope="col">Order ID</th>
                                 <th scope="col">Food Name</th>
                                 <th scope="col">Quantity</th>
-                                <th scope="col">Price</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">time</th>
                                 <th scope="col">pickup_time</th>
                                 <th scope="col">Action</th>
                             </tr>
@@ -68,9 +66,7 @@ function Order() {
                                     <td>{orderdetails.orderid}</td>
                                     <td>{orderdetails.foodid}</td>
                                     <td>{orderdetails.quantity}</td>
-                                    <td>{orderdetails.price}</td>
                                     <td>{orderdetails.status}</td>
-                                    <td>{orderdetails.time}</td>
                                     <td>{orderdetails.pickup_time}</td>
                                     <td>
                                         <Link className='btn btn-primary mx-2'
@@ -79,11 +75,11 @@ function Order() {
                                             View
                                         </Link>
 
-                                        {/* <Link className='btn btn-outline-primary mx-2'
+                                        <Link className='btn btn-outline-primary mx-2'
                                         to={`/editorder/${orderdetails.orderid}`}
                                         >
                                             Edit
-                                        </Link> */}
+                                        </Link>
 
                                         <button className='btn btn-outline-primary mx-2'
                                             onClick={() => confirmOrder(orderdetails.orderid)}
