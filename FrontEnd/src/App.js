@@ -40,6 +40,9 @@ import AddProduct from "./Products/AddProduct";
 import EditProduct from "./Products/EditProduct";
 import ViewProduct from "./Products/ViewProduct";
 
+import ViewCustomer from "./Customers/ViewCustomer";
+import EditCustomer from "./Customers/EditCustomer";
+
 import AddOfferProduct from "./OffProFoods/AddOffFoods";
 
 import AddRecomendedProduct from "./RecProFoods/AddRecProducts";
@@ -100,6 +103,9 @@ function App() {
           <Route exact path="/addnewproduct" element={<AddProduct />} />
           <Route exact path="/editproduct/:product_id" element={<EditProduct />} />
           <Route exact path="/viewproduct/:product_id" element={<ViewProduct />} />
+
+          <Route exact path="/viewcustomer/:customer_id" element={<ViewCustomer />} />
+          <Route exact path="/editcustomer/:customer_id" element={<EditCustomer />} />
 
           <Route exact path="/addnewofferfoodproduct" element={<AddOfferProduct />} />
 
