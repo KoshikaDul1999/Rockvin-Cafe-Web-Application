@@ -47,6 +47,9 @@ import EditCustomer from "./Customers/EditCustomer";
 import ViewOrder from "./Orders/ViewOrder";
 import EditOrder from "./Orders/EditOrder";
 
+import ChefViewOrder from "./OrderChef/ViewOrder";
+import ChefEditOrder from "./OrderChef/EditOrder";
+
 import AddOfferProduct from "./OffProFoods/AddOffFoods";
 
 import AddRecomendedProduct from "./RecProFoods/AddRecProducts";
@@ -113,6 +116,9 @@ function App() {
 
           <Route exact path="/vieworder/:order_id" element={<ViewOrder />} />
           <Route exact path="/editorder/:order_id" element={<EditOrder />} />
+
+          <Route exact path="/chefvieworder/:order_id" element={<ChefViewOrder />} />
+          <Route exact path="/chefeditorder/:order_id" element={<ChefEditOrder />} />
 
           <Route exact path="/addnewofferfoodproduct" element={<AddOfferProduct />} />
 
