@@ -3,40 +3,56 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Typography, Container, Card, CardHeader, List, ListItem, ListItemText, Button } from '@material-ui/core';
 
-export default function ViewCategory() {
-  const [category, setCategory] = useState({
-    cate_name: '',
-    cate_desc: '',
+export default function ViewCustomer() {
+  const [customer, setCustomer] = useState({
+    phoneno: '',
+    fname: '',
+    lname: '',
+    address: '',
+    city: '',
+    emailaddress: '',
   });
 
-  const { category_id } = useParams();
+  const { customer_id } = useParams();
 
   useEffect(() => {
-    loadCategory();
+    loadCustomer();
   }, []);
 
-  const loadCategory = async () => {
-    const result = await axios.get(`http://localhost:5000/category/${category_id}`);
-    setCategory(result.data);
+  const loadCustomer = async () => {
+    const result = await axios.get(`http://localhost:5000/user/${customer_id}`);
+    setCustomer(result.data);
   };
 
   return (
     <Container maxWidth="md">
       <Card variant="outlined" style={{ marginTop: '2rem' }}>
-        <CardHeader title={<Typography variant="h4">Category Details</Typography>} />
+        <CardHeader title={<Typography variant="h4">Customer Details</Typography>} />
         <List>
           <ListItem>
-            <ListItemText primary="Category ID" secondary={category.cate_id} />
+            <ListItemText primary="Customer ID" secondary={customer.userid} />
           </ListItem>
           <ListItem>
-            <ListItemText primary="Category Name" secondary={category.cate_name} />
+            <ListItemText primary="Customer First Name" secondary={customer.fname} />
           </ListItem>
           <ListItem>
-            <ListItemText primary="Category Description" secondary={category.cate_desc} />
+            <ListItemText primary="Customer Last Name" secondary={customer.lname} />
+          </ListItem>
+          <ListItem>
+            <ListItemText primary="Customer Phone number" secondary={customer.phoneno} />
+          </ListItem>
+          <ListItem>
+            <ListItemText primary="Customer Address" secondary={customer.address} />
+          </ListItem>
+          <ListItem>
+            <ListItemText primary="Customer City" secondary={customer.city} />
+          </ListItem>
+          <ListItem>
+            <ListItemText primary="Customer Email" secondary={customer.emailaddress} />
           </ListItem>
         </List>
       </Card>
-      <Button component={Link} to="/category" variant="contained" color="primary" style={{ marginTop: '1rem' }}>
+      <Button component={Link} to="/customers" variant="contained" color="primary" style={{ marginTop: '1rem' }}>
         Back to Home
       </Button>
     </Container>
