@@ -1,6 +1,5 @@
 import OrderDetails from "../models/OrderDetailsModel.js";
 
-
 // require('dotenv').config();
 // const twilio = require('twilio');
 
@@ -76,7 +75,7 @@ export const getOrderDetailsCount = async (req, res) => {
         res.status(500).json({error: "Internal Server Error "});
     }
 }
-
+  
 
 // export const updateOrderDetails = async (req, res) => {
 //     try {
