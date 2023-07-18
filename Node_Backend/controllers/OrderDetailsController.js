@@ -1,14 +1,6 @@
 import OrderDetails from "../models/OrderDetailsModel.js";
 
-// require('dotenv').config();
-// const twilio = require('twilio');
 
-// const accountSid = process.env.TWILIO_ACCOUNT_SID;
-// const authToken = process.env.TWILIO_AUTH_TOKEN;
-// const client = twilio(accountSid, authToken);
-// const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
-
- 
 export const getOrderDetails = async(req, res) =>{
     try {
         const response = await OrderDetails.findAll();
@@ -77,29 +69,4 @@ export const getOrderDetailsCount = async (req, res) => {
 }
   
 
-// export const updateOrderDetails = async (req, res) => {
-//     try {
-//       await OrderDetails.update(req.body, {
-//         where: {
-//           id: req.params.id,
-//         },
-//       });
-  
-//       // Send notification to the customer
-//       const order = await OrderDetails.findByPk(req.params.id);
-//       const { customerId } = order; // Replace with the actual customer ID field in your OrderDetails model
-  
-//       const message = 'Your order has been confirmed!'; // Customize the message as needed
-  
-//       await client.messages.create({
-//         body: message,
-//         from: twilioPhoneNumber,
-//         to: customerId,
-//       });
-  
-//       res.status(200).json({ msg: 'OrderDetails Updated' });
-//     } catch (error) {
-//       console.log(error.message);
-//     }
-//   };
   
