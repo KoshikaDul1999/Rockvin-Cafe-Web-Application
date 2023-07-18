@@ -42,10 +42,12 @@ function Reports() {
     }
   };
 
+ 
+
   return (
     <div className="SideMenuAndPageContent">
       <SideMenu />
-      <PageContent>
+      <PageContent></PageContent>
         <div>
           <Typography.Title level={4}>Reports</Typography.Title>
           {/* Render the daily, weekly, and monthly sales reports */}
@@ -89,7 +91,7 @@ function Reports() {
             </div>
           )}
         </div>
-      </PageContent>
+      
     </div>
   );
 }
