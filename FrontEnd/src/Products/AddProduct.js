@@ -46,11 +46,17 @@ const ProductUploadForm = () => {
     formData.append('food_image', food_image);
     // formData.append('food_image', food_image.name);
     formData.append('food_desc', food_desc);
+
+    const matchingCategory = categories.find((category) => category.cate_name === food_cat_id);
+
+    console.log(matchingCategory.cate_id)
+
     formData.append(
-      'food_category', 
-      categories.find((category) => category.name === food_cat_id)?.id);
-  
-    axios.post('http://localhost:5000/upload', formData)
+      'food_cat_id', matchingCategory.cate_id);
+
+    console.log(formData);
+
+    axios.post('http://localhost:5000/foods', formData)
       .then((response) => {
         // Handle the response from the server
         console.log('Form submitted successfully');

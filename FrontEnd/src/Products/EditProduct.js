@@ -87,7 +87,14 @@ export default function EditFood() {
           margin="normal"
         />
         <input type="file" name="food_img" onChange={(e) => onInputChange(e)} /> {/* Add file input for image selection */}
-        {food_img && <img src={URL.createObjectURL(food_img)} alt={food_name} className="product-image" style={{ width: '150px', height: '200px' }} />} {/* Display the selected image */}
+        {food_img && food_img instanceof File && (
+          <img
+            src={URL.createObjectURL(food_img)}
+            alt={food_name}
+            className="product-image"
+            style={{ width: '150px', height: '200px' }}
+          />
+        )} {/* Display the selected image */}
         <TextField
           label="Food Description"
           variant="outlined"
@@ -116,6 +123,7 @@ export default function EditFood() {
     </Container>
   );
 }
+
 
 
 
