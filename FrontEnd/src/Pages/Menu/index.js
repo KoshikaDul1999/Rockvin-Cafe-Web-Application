@@ -25,22 +25,52 @@ function Product() {
         setProducts(result.data);
     };
 
-    const deleteProduct = async (product_id) => {
-        try {
-          await axios.delete(`http://localhost:5000/foods/${product_id}`);
-          setProducts(products.filter((product) => product.food_id !== product_id));
-          console.log('Food deleted');
-        } catch (error) {
-          console.log('Failed to delete food');
-        }
-      };
-
     // const deleteProduct = async (product_id) => {
     //     const result = await axios.delete(`http://localhost:5000/foods/${product_id}`)
     //     loadProducts()
     // };
 
+    // const deleteProduct = async (product_id) => {
+    //     try {
+    //       await axios.delete(`http://localhost:5000/foods/${product_id}`);
+    //       setProducts(products.filter((product) => product.food_id !== product_id));
+    //       console.log('Food deleted');
+    //     } catch (error) {
+    //       console.log('Failed to delete food');
+    //     }
+    //   };
+
+    // const deleteProduct = async (product_id) => {
+    //     // Show a confirmation popup
+    //     const confirmDelete = window.confirm("Are you sure you want to delete this product?");
+    //     if (confirmDelete) {
+    //     // Delete the category
+    //     await axios.delete(`http://localhost:5000/foods/${product_id}`);
+    //     loadProducts();
+    //     } else {
+    //     // Do not delete the category
+    //     console.log("Product was not deleted.");
+    //     }
+    // };
+
     // Pagination change event handler
+    
+    const deleteProduct = async (product_id) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this product?");
+        
+        if (confirmDelete) {
+          try {
+            await axios.delete(`http://localhost:5000/foods/${product_id}`);
+            setProducts(products.filter((product) => product.food_id !== product_id));
+            console.log('Food deleted');
+          } catch (error) {
+            console.log('Failed to delete food');
+          }
+        } else {
+          console.log("Product was not deleted.");
+        }
+      };
+
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
