@@ -10,6 +10,7 @@ import Foods from "./models/FoodModel.js";
 import OrderDetails from "./models/OrderDetailsModel.js";
 import User from "./models/UserModel.js";
 import SystemUsers from "./models/SystemUserModel.js";
+import DeletedOrderDetails from "./models/DeletedOrderDetails.js";
 //import Chefs from "./models/ChefModel.js";
 //import Admins from "./models/AdminModel.js";
 //import OfferFoods from "./models/OfferFoodModel.js";
