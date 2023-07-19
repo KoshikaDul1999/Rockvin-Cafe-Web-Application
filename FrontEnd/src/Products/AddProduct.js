@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import {
-  TextField,
-  Button,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Container,
-  Box,
-} from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import { Typography, Container, Grid, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core';
+import {Select,MenuItem,FormControl,InputLabel,Box} from '@mui/material';
+import { FaCheckCircle } from 'react-icons/fa';
 import axios from 'axios';
+
 
 // const categories = ['Breakfast', 'Lunch', 'Dinner', 'Beverages', 'Dessert']; // Replace with your actual categories
 
@@ -21,6 +16,10 @@ const ProductUploadForm = () => {
   const [food_desc, setFoodDescription] = useState('');
   const [food_cat_id, setFoodCategory] = useState('');
   const [categories, setCategories] = useState([]);
+
+  const [isAdded, setIsAdded] = useState(false);
+
+  let navigate = useNavigate();
 
   useEffect(() => {
     fetchCategories();
@@ -76,6 +75,11 @@ const ProductUploadForm = () => {
 
   const handleFileChange = (e) => {
     setFoodImage(e.target.files[0]);
+  };
+
+  const handleClose = () => {
+    setIsAdded(false);
+    navigate('/menu');
   };
 
   return (
@@ -136,6 +140,20 @@ const ProductUploadForm = () => {
           </Box>
         </form>
       </Box>
+      <Dialog open={isAdded} onClose={handleClose}>
+        <DialogTitle>Success</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1">
+            <FaCheckCircle style={{ marginRight: 5 }} />
+            Successfully Added.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 };
