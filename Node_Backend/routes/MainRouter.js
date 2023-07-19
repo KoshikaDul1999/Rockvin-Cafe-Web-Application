@@ -33,7 +33,7 @@ router.get('/CategoryCount', getCategoryCount);
 router.get('/foods', getFoods);
 router.get('/foods/:id', getFoodById);
 router.post('/foods', multer().single('food_image'), createFood); // Use the multer middleware for the /foods POST route
-router.patch('/foods/:id', multer().single('food_image'), updateFood); // Use the multer middleware for the /foods PATCH route
+router.put('/foods/:id', multer().single('food_image'), updateFood); // Use the multer middleware for the /foods PATCH route
 router.delete('/foods/:id', deleteFood);
 router.get('/foodsname/:id', getFoodByName);
 router.get('/FoodsCount', getFoodsCount);
