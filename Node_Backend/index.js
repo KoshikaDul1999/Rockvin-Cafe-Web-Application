@@ -10,6 +10,7 @@ import Foods from "./models/FoodModel.js";
 import OrderDetails from "./models/OrderDetailsModel.js";
 import User from "./models/UserModel.js";
 import SystemUsers from "./models/SystemUserModel.js";
+import DeletedOrderDetails from "./models/DeletedOrderDetails.js";
 //import Chefs from "./models/ChefModel.js";
 //import Admins from "./models/AdminModel.js";
 //import OfferFoods from "./models/OfferFoodModel.js";
@@ -25,6 +26,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../FrontEnd"))); // Serve the frontend files
+app.use('/images/foods', express.static(path.join(__dirname, '../foods'))); // Serve the uploaded images
 
 // Create a storage object for multer
 const storage = multer.diskStorage({

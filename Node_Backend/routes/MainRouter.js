@@ -7,6 +7,7 @@ import { deleteOrderDetails, updateOrderDetails, getOrderDetailsById, getOrderDe
 import { getAdmins, getAdminById, createAdmin, updateAdmin, deleteAdmin} from "../controllers/SystemUserController.js";
 import {getChefs, getChefById, createChef, updateChef, deleteChef} from "../controllers/ChefController.js";
 import {getUsers, getUserById, createUser, updateUser, deleteUser, getCustomersCount} from "../controllers/UserController.js";
+import { getDailySales, getWeeklySales, getMonthlySales } from '../controllers/salesController.js';
 
 const router = express.Router();
 
@@ -32,7 +33,7 @@ router.get('/CategoryCount', getCategoryCount);
 router.get('/foods', getFoods);
 router.get('/foods/:id', getFoodById);
 router.post('/foods', multer().single('food_image'), createFood); // Use the multer middleware for the /foods POST route
-router.patch('/foods/:id', multer().single('food_image'), updateFood); // Use the multer middleware for the /foods PATCH route
+router.put('/foods/:id', multer().single('food_image'), updateFood); // Use the multer middleware for the /foods PATCH route
 router.delete('/foods/:id', deleteFood);
 router.get('/foodsname/:id', getFoodByName);
 router.get('/FoodsCount', getFoodsCount);
@@ -67,4 +68,41 @@ router.put('/user/:id', updateUser);
 router.delete('/user/:id', deleteUser);
 router.get('/CustomersCount', getCustomersCount);
 
+// Sales routes
+router.get('/api/sales/daily', getDailySales);
+router.get('/api/sales/weekly', getWeeklySales);
+router.get('/api/sales/monthly', getMonthlySales);
+
 export default router;
+
+
+// // Sales reports routes
+// router.get('/sales/daily', async (req, res) => {
+//     try {
+//       const dailySalesReport = await getDailySalesReport();
+//       res.status(200).json(dailySalesReport);
+//     } catch (error) {
+//       console.log(error.message);
+//       res.status(500).json({ error: 'Internal Server Error' });
+//     }
+//   });
+  
+//   router.get('/sales/weekly', async (req, res) => {
+//     try {
+//       const weeklySalesReport = await getWeeklySalesReport();
+//       res.status(200).json(weeklySalesReport);
+//     } catch (error) {
+//       console.log(error.message);
+//       res.status(500).json({ error: 'Internal Server Error' });
+//     }
+//   });
+  
+//   router.get('/sales/monthly', async (req, res) => {
+//     try {
+//       const monthlySalesReport = await getMonthlySalesReport();
+//       res.status(200).json(monthlySalesReport);
+//     } catch (error) {
+//       console.log(error.message);
+//       res.status(500).json({ error: 'Internal Server Error' });
+//     }
+//   });
