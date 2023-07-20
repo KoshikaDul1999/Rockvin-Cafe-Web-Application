@@ -55,22 +55,43 @@ const ProductUploadForm = () => {
 
     console.log(formData);
 
-    axios.post('http://localhost:5000/foods', formData)
-      .then((response) => {
-        // Handle the response from the server
-        console.log('Form submitted successfully');
-        // Reset the form fields
-        setFoodID('');
-        setFoodName('');
-        setFoodPrice('');
-        setFoodImage(null);
-        setFoodDescription('');
-        setFoodCategory('');
-      })
-      .catch((error) => {
-        // Handle the error
-        console.error('Error submitting form:', error);
-      });
+  
+    // axios.post('http://localhost:5000/foods', formData)
+    //   .then((response) => {
+    //     // Handle the response from the server
+    //     console.log('Form submitted successfully');
+    //     // Reset the form fields
+    //     setFoodID('');
+    //     setFoodName('');
+    //     setFoodPrice('');
+    //     setFoodImage(null);
+    //     setFoodDescription('');
+    //     setFoodCategory('');
+    //   })
+    //   .catch((error) => {
+    //     // Handle the error
+    //     console.error('Error submitting form:', error);
+    //   });
+    try {
+      axios.post('http://localhost:5000/foods', formData);
+      axios.post('http://localhost:5000/upload', formData);
+
+      setIsAdded(true);
+
+      // Handle successful form submission
+      console.log('Form submitted successfully');
+
+      // Reset the form fields
+      setFoodID('');
+      setFoodName('');
+      setFoodPrice('');
+      setFoodImage(null);
+      setFoodDescription('');
+      setFoodCategory('');
+    } catch (error) {
+      // Handle the error
+      console.error('Error submitting form:', error);
+    }
   };
 
   const handleFileChange = (e) => {
