@@ -39,7 +39,7 @@ export default function ViewFood() {
           </ListItem>
           <ListItem>
             <ListItemText primary="Food Image" />
-            <img src={`/images/foods/${food.food_img}`} alt={food.food_name} className="product-image" style={{ width: '150px', height: '200px' }} />
+            <img src={`/images/foods/${food.food_img}`} alt={food.food_img.name} className="product-image" style={{ width: '150px', height: '200px' }} />
           </ListItem>
           <ListItem>
             <ListItemText primary="Food Description" secondary={food.food_desc} />
