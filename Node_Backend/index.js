@@ -26,6 +26,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../FrontEnd"))); // Serve the frontend files
+app.use('/images/foods', express.static(path.join(__dirname, '../foods'))); // Serve the uploaded images
 
 // Create a storage object for multer
 const storage = multer.diskStorage({
