@@ -73,8 +73,13 @@ function Reports() {
       title: 'Total Amount',
       dataIndex: 'totalprice * quantity',
       render: (text, record) => record.totalprice * record.quantity,
-    }
+    },
   ];
+
+  // Calculate the total income for the selected date
+  const dailyTotalIncome = dailySales
+    ? dailySales.reduce((acc, sale) => acc + sale.totalprice * sale.quantity, 0)
+    : 0;
 
   return (
     <div className="SideMenuAndPageContent">
@@ -93,6 +98,11 @@ function Reports() {
             />
           ) : (
             <Typography.Text>Select the date</Typography.Text>
+          )}
+          {selectedDate && (
+            <div>
+              Total income on {selectedDate.format('MMMM Do, YYYY')}: Rs. {dailyTotalIncome}
+            </div>
           )}
         </div>
     </div>
