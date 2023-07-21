@@ -107,13 +107,13 @@ export const getWeeklySales = async (req, res) => {
 // Fetch monthly sales report with username, foodname, and total price
 export const getMonthlySales = async (req, res) => {
   try {
-    const today = new Date();
-    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-    const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    const { month, year } = req.query;
+    const startOfMonth = new Date(year, month - 1, 1);
+    const endOfMonth = new Date(year, month, 0);
 
     const sales = await DeletedOrderDetails.findAll({
       where: {
-        createdAt: {
+        pickup_time: {
           [Op.between]: [startOfMonth, endOfMonth],
         },
       },
