@@ -9,6 +9,21 @@ function Reports() {
   const [month, setMonth] = useState('');
   const [year, setYear] = useState('');
 
+  const monthNameToNumber = {
+    January: 1,
+    February: 2,
+    March: 3,
+    April: 4,
+    May: 5,
+    June: 6,
+    July: 7,
+    August: 8,
+    September: 9,
+    October: 10,
+    November: 11,
+    December: 12,
+  };
+
   const columns = [
     {
       title: 'Order ID',
@@ -34,8 +49,12 @@ function Reports() {
 
   const fetchMonthlySales = async () => {
     try {
+      // Convert the month name to its numeric equivalent
+      const numericMonth = monthNameToNumber[month];
+
+      // Make the API call with the numeric month value
       const response = await axios.get(
-        `http://localhost:5000/api/sales/monthly?month=${month}&year=${year}`
+        `http://localhost:5000/api/sales/monthly?month=${numericMonth}&year=${year}`
       );
       setMonthlySales(response.data);
     } catch (error) {
