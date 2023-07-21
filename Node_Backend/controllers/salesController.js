@@ -9,7 +9,7 @@ export const getDailySales = async (req, res) => {
     const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
 
-    const sales = await OrderDetails.findAll({
+    const sales = await DeletedOrderDetails.findAll({
       where: {
         createdAt: {
           [Op.between]: [startOfDay, endOfDay],
@@ -31,7 +31,7 @@ export const getWeeklySales = async (req, res) => {
     const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay());
     const endOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 7);
 
-    const sales = await OrderDetails.findAll({
+    const sales = await DeletedOrderDetails.findAll({
       where: {
         createdAt: {
           [Op.between]: [startOfWeek, endOfWeek],
@@ -53,7 +53,7 @@ export const getMonthlySales = async (req, res) => {
     const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
     const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
-    const sales = await OrderDetails.findAll({
+    const sales = await DeletedOrderDetails.findAll({
       where: {
         createdAt: {
           [Op.between]: [startOfMonth, endOfMonth],
