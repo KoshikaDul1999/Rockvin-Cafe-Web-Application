@@ -7,7 +7,7 @@ import { deleteOrderDetails, updateOrderDetails, getOrderDetailsById, getOrderDe
 import { getAdmins, getAdminById, createAdmin, updateAdmin, deleteAdmin} from "../controllers/SystemUserController.js";
 import {getChefs, getChefById, createChef, updateChef, deleteChef} from "../controllers/ChefController.js";
 import {getUsers, getUserById, createUser, updateUser, deleteUser, getCustomersCount} from "../controllers/UserController.js";
-import { getDailySales, getWeeklySales, getMonthlySales } from '../controllers/salesController.js';
+import { getDailySales, getWeeklySales, getMonthlySales, getSalesByDateRange } from '../controllers/salesController.js';
 
 const router = express.Router();
 
@@ -69,6 +69,7 @@ router.delete('/user/:id', deleteUser);
 router.get('/CustomersCount', getCustomersCount);
 
 // Sales routes
+router.get('/api/sales', getSalesByDateRange); 
 router.get('/api/sales/daily', getDailySales);
 router.get('/api/sales/weekly', getWeeklySales);
 router.get('/api/sales/monthly', getMonthlySales);

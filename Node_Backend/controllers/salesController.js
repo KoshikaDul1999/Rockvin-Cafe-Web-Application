@@ -3,6 +3,38 @@ import DeletedOrderDetails from '../models/DeletedOrderDetailsModel.js';
 import User from "../models/UserModel.js";
 import Foods from "../models/FoodModel.js";
 
+// Fetch sales report with username, foodname, and total price for a specific date range
+export const getSalesByDateRange = async (req, res) => {
+  try {
+    const { startDate, endDate } = req.query;
+
+    const sales = await DeletedOrderDetails.findAll({
+      where: {
+        pickup_time: {
+          [Op.between]: [startDate, endDate],
+        },
+      },
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['fname', 'lname'],
+        },
+        {
+          model: Foods,
+          as: 'food',
+          attributes: ['food_name'],
+        },
+      ],
+    });
+
+    res.json(sales);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 // Fetch daily sales report with username, foodname, and total price
 export const getDailySales = async (req, res) => {
   try {
@@ -105,7 +137,6 @@ export const getMonthlySales = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-
 
 
 // import { Op } from 'sequelize';
