@@ -50,6 +50,10 @@ import EditOrder from "./Orders/EditOrder";
 import ChefViewOrder from "./OrderChef/ViewOrder";
 import ChefEditOrder from "./OrderChef/EditOrder";
 
+import DailyReport from "./Reports/DailyReport";
+import WeeklyReport from "./Reports/WeeklyReport";
+import MonthlyReport from "./Reports/MonthlyReport";
+
 import AddOfferProduct from "./OffProFoods/AddOffFoods";
 
 import AddRecomendedProduct from "./RecProFoods/AddRecProducts";
@@ -119,6 +123,10 @@ function App() {
 
           <Route exact path="/chefvieworder/:order_id" element={<ChefViewOrder />} />
           <Route exact path="/chefeditorder/:order_id" element={<ChefEditOrder />} />
+
+          <Route exact path="/reports/daily" element={<DailyReport />} />
+          <Route exact path="/reports/weekly" element={<WeeklyReport />} />
+          <Route exact path="/reports/monthly" element={<MonthlyReport />} />
 
           <Route exact path="/addnewofferfoodproduct" element={<AddOfferProduct />} />
 
