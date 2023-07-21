@@ -53,7 +53,9 @@ const OrderDetails = db.define(
     freezeTableName: true
   }
 );
- 
+
+
+
 export default OrderDetails;
  
 (async()=>{

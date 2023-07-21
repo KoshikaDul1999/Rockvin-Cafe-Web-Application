@@ -2,6 +2,7 @@ import { Op } from 'sequelize';
 import OrderDetails from "../models/OrderDetailsModel.js";
 import DeletedOrderDetails from '../models/DeletedOrderDetailsModel.js';
 
+
 export const getOrderDetails = async(req, res) =>{
     try {
         const response = await OrderDetails.findAll();

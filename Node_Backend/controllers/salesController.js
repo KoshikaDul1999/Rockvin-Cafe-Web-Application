@@ -1,8 +1,9 @@
 import { Op } from 'sequelize';
-import OrderDetails from '../models/OrderDetailsModel.js';
 import DeletedOrderDetails from '../models/DeletedOrderDetailsModel.js';
+import User from "../models/UserModel.js";
+import Foods from "../models/FoodModel.js";
 
-// Fetch daily sales report
+// Fetch daily sales report with username, foodname, and total price
 export const getDailySales = async (req, res) => {
   try {
     const today = new Date();
@@ -15,6 +16,18 @@ export const getDailySales = async (req, res) => {
           [Op.between]: [startOfDay, endOfDay],
         },
       },
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['fname', 'lname'],
+        },
+        {
+          model: Foods,
+          as: 'food',
+          attributes: ['food_name'],
+        },
+      ],
     });
 
     res.json(sales);
@@ -24,7 +37,7 @@ export const getDailySales = async (req, res) => {
   }
 };
 
-// Fetch weekly sales report
+// Fetch weekly sales report with username, foodname, and total price
 export const getWeeklySales = async (req, res) => {
   try {
     const today = new Date();
@@ -37,6 +50,18 @@ export const getWeeklySales = async (req, res) => {
           [Op.between]: [startOfWeek, endOfWeek],
         },
       },
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['fname', 'lname'],
+        },
+        {
+          model: Foods,
+          as: 'food',
+          attributes: ['food_name'],
+        },
+      ],
     });
 
     res.json(sales);
@@ -46,7 +71,7 @@ export const getWeeklySales = async (req, res) => {
   }
 };
 
-// Fetch monthly sales report
+// Fetch monthly sales report with username, foodname, and total price
 export const getMonthlySales = async (req, res) => {
   try {
     const today = new Date();
@@ -59,6 +84,18 @@ export const getMonthlySales = async (req, res) => {
           [Op.between]: [startOfMonth, endOfMonth],
         },
       },
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['fname', 'lname'],
+        },
+        {
+          model: Foods,
+          as: 'food',
+          attributes: ['food_name'],
+        },
+      ],
     });
 
     res.json(sales);
@@ -67,3 +104,74 @@ export const getMonthlySales = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+
+
+// import { Op } from 'sequelize';
+// import DeletedOrderDetails from '../models/DeletedOrderDetailsModel.js';
+
+// // Fetch daily sales report
+// export const getDailySales = async (req, res) => {
+//   try {
+//     const today = new Date();
+//     const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+//     const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+
+//     const sales = await DeletedOrderDetails.findAll({
+//       where: {
+//         createdAt: {
+//           [Op.between]: [startOfDay, endOfDay],
+//         },
+//       },
+//     });
+
+//     res.json(sales);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// };
+
+// // Fetch weekly sales report
+// export const getWeeklySales = async (req, res) => {
+//   try {
+//     const today = new Date();
+//     const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay());
+//     const endOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 7);
+
+//     const sales = await DeletedOrderDetails.findAll({
+//       where: {
+//         createdAt: {
+//           [Op.between]: [startOfWeek, endOfWeek],
+//         },
+//       },
+//     });
+
+//     res.json(sales);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// };
+
+// // Fetch monthly sales report
+// export const getMonthlySales = async (req, res) => {
+//   try {
+//     const today = new Date();
+//     const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+//     const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+//     const sales = await DeletedOrderDetails.findAll({
+//       where: {
+//         createdAt: {
+//           [Op.between]: [startOfMonth, endOfMonth],
+//         },
+//       },
+//     });
+
+//     res.json(sales);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// };

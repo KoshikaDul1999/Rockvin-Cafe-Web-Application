@@ -58,7 +58,9 @@ function Reports() {
               {dailySales.map((sale) => (
                 <div key={sale.orderid}>
                   <p>Order ID: {sale.orderid}</p>
-                  <p>User ID: {sale.user_id}</p>
+                  <p>User: {sale.user.fname} {sale.user.lname}</p>
+                  <p>Food: {sale.food.food_name}</p>
+                  <p>Total Price: {sale.totalprice}</p>
                   {/* Display other relevant fields */}
                 </div>
               ))}
@@ -71,7 +73,9 @@ function Reports() {
               {weeklySales.map((sale) => (
                 <div key={sale.orderid}>
                   <p>Order ID: {sale.orderid}</p>
-                  <p>User ID: {sale.user_id}</p>
+                  <p>User: {sale.user.fname} {sale.user.lname}</p>
+                  <p>Food: {sale.food.food_name}</p>
+                  <p>Total Price: {sale.totalprice}</p>
                   {/* Display other relevant fields */}
                 </div>
               ))}
@@ -84,7 +88,9 @@ function Reports() {
               {monthlySales.map((sale) => (
                 <div key={sale.orderid}>
                   <p>Order ID: {sale.orderid}</p>
-                  <p>User ID: {sale.user_id}</p>
+                  <p>User: {sale.user.fname} {sale.user.lname}</p>
+                  <p>Food: {sale.food.food_name}</p>
+                  <p>Total Price: {sale.totalprice}</p>                  
                   {/* Display other relevant fields */}
                 </div>
               ))}
