@@ -1,44 +1,101 @@
 import React, { useEffect, useState } from 'react';
-import { Typography } from 'antd';
+import { Typography, DatePicker, Space, Table } from 'antd';
 import SideMenu from '../Components/SideMenu';
 import PageContent from '../Components/PageContent';
 import axios from 'axios';
+import moment from 'moment';
 
 function Reports() {
   const [dailySales, setDailySales] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(null);
+
   useEffect(() => {
     fetchDailySales();
-  }, []);
+  }, [selectedDate]);
 
   const fetchDailySales = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/sales/daily');
-      setDailySales(response.data);
+      if (!selectedDate) {
+        setDailySales(null);
+        return;
+      }
+
+      const response = await axios.get(
+        `http://localhost:5000/api/sales/daily?date=${selectedDate.format('YYYY-MM-DD')}`
+      );
+
+      const salesData = response.data;
+
+      // Check if there are sales data for the selected date
+      if (salesData.length > 0) {
+        setDailySales(salesData);
+      } else {
+        setDailySales(null); // Reset the dailySales state to null
+      }
     } catch (error) {
       console.error(error);
     }
   };
 
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
+  const columns = [
+    {
+      title: 'Order ID',
+      dataIndex: 'orderid',
+      key: 'orderid',
+    },
+    {
+      title: 'User Name',
+      dataIndex: 'user',
+      key: 'user',
+      render: (user) => `${user.fname} ${user.lname}`,
+    },
+    {
+      title: 'Food',
+      dataIndex: 'food',
+      key: 'food',
+      render: (food) => food.food_name,
+    },
+    {
+      title: 'Unit Price',
+      dataIndex: 'totalprice',
+      key: 'totalprice',
+    },
+    {
+      title: 'Quantity',
+      dataIndex: 'quantity',
+      key: 'quantity',
+    },
+    {
+      title: 'Total Amount',
+      dataIndex: 'totalprice * quantity',
+      render: (text, record) => record.totalprice * record.quantity,
+    }
+  ];
+
   return (
     <div className="SideMenuAndPageContent">
       <SideMenu />
       <PageContent></PageContent>
-        <div>
+      <div>
           <Typography.Title level={4}>Daily Sales Report</Typography.Title>
-          {dailySales && (
-            <div>
-              {dailySales.map((sale) => (
-                <div key={sale.orderid}>
-                  <p>Order ID: {sale.orderid}</p>
-                  <p>User: {sale.user.fname} {sale.user.lname}</p>
-                  <p>Food: {sale.food.food_name}</p>
-                  <p>Total Price: {sale.totalprice}</p>
-                </div>
-              ))}
-            </div>
+          <Space direction="vertical" style={{ marginBottom: 16 }}>
+            <DatePicker onChange={handleDateChange} />
+          </Space>
+          {dailySales && dailySales.length > 0 ? (
+            <Table
+              columns={columns}
+              dataSource={dailySales}
+              rowKey={(record) => record.orderid}
+            />
+          ) : (
+            <Typography.Text>Select the date</Typography.Text>
           )}
         </div>
-      </div>
+    </div>
   );
 }
 

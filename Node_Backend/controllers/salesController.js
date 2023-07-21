@@ -6,13 +6,14 @@ import Foods from "../models/FoodModel.js";
 // Fetch daily sales report with username, foodname, and total price
 export const getDailySales = async (req, res) => {
   try {
-    const today = new Date();
-    const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+    const { date } = req.query;
+    const selectedDate = new Date(date);
+    const startOfDay = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+    const endOfDay = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate() + 1);
 
     const sales = await DeletedOrderDetails.findAll({
       where: {
-        createdAt: {
+        pickup_time: {
           [Op.between]: [startOfDay, endOfDay],
         },
       },
