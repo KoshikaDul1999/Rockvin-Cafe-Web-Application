@@ -73,6 +73,7 @@ router.get('/api/sales', getSalesByDateRange);
 router.get('/api/sales/daily', getDailySales);
 router.get('/api/sales/weekly', getWeeklySales);
 router.get('/api/sales/monthly', getMonthlySales);
+//router.get('/api/sales/total', getTotalSalesAmount);
 
 export default router;
 

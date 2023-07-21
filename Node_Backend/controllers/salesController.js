@@ -138,6 +138,18 @@ export const getMonthlySales = async (req, res) => {
   }
 };
 
+// export const getTotalSalesAmount = async () => {
+//   try {
+//     const totalSalesAmount = await DeletedOrderDetails.sum(
+//       Sequelize.literal('totalprice * quantity')
+//     );
+//     return totalSalesAmount;
+//   } catch (error) {
+//     console.error(error);
+//     throw new Error('Error fetching total sales amount');
+//   }
+// };
+
 
 // import { Op } from 'sequelize';
 // import DeletedOrderDetails from '../models/DeletedOrderDetailsModel.js';
