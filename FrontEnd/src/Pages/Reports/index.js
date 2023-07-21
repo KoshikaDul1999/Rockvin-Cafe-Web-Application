@@ -1,23 +1,54 @@
 import React from 'react';
-import { Typography } from "antd";
+import { Typography, Tabs } from "antd";
 import { Link } from 'react-router-dom';
+import { RiBarChartLine, RiCalendar2Line, RiPieChartLine } from 'react-icons/ri'; 
 import SideMenu from '../../Components/SideMenu';
 import PageContent from '../../Components/PageContent';
+import './Reports.css'; 
+
+const { TabPane } = Tabs;
 
   function Reports() {
     return (
       <div className="SideMenuAndPageContent">
         <SideMenu></SideMenu>
         <PageContent></PageContent>
-  
-        <div>
-          <Typography.Title level={4}>Sales Reports</Typography.Title>
-          <div>
-            <Link to="/reports/daily">Daily</Link>
-            <Link to="/reports/weekly">Weekly</Link>
-            <Link to="/reports/monthly">Monthly</Link>
-          </div>
+        <div className="sales-reports-container">
+        <Typography.Title level={8} style={{ marginBottom: '120px' }}>
+          Sales Reports
+        </Typography.Title>
+        <div className="tabs-container">
+          <Tabs defaultActiveKey="1" centered className="custom-tabs">
+            <TabPane
+              tab={
+                <div className="tab-content">
+                  <RiBarChartLine className="tab-icon" />
+                  <Link to="/reports/daily">Daily Report</Link>
+                </div>
+              }
+              key="1"
+            />
+            <TabPane
+              tab={
+                <div className="tab-content">
+                  <RiCalendar2Line className="tab-icon" />
+                  <Link to="/reports/weekly">Weekly Report</Link>
+                </div>
+              }
+              key="2"
+            />
+            <TabPane
+              tab={
+                <div className="tab-content">
+                  <RiPieChartLine className="tab-icon" />
+                  <Link to="/reports/monthly">Monthly Report</Link>
+                </div>
+              }
+              key="3"
+            />
+          </Tabs>
         </div>
+      </div>
       </div>
     );
   }

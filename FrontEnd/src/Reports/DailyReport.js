@@ -25,24 +25,20 @@ function Reports() {
       <PageContent></PageContent>
         <div>
           <Typography.Title level={4}>Daily Sales Report</Typography.Title>
-          {/* Render the daily, weekly, and monthly sales reports */}
           {dailySales && (
             <div>
-              {/* Render the daily sales report */}
               {dailySales.map((sale) => (
                 <div key={sale.orderid}>
                   <p>Order ID: {sale.orderid}</p>
                   <p>User: {sale.user.fname} {sale.user.lname}</p>
                   <p>Food: {sale.food.food_name}</p>
                   <p>Total Price: {sale.totalprice}</p>
-                  {/* Display other relevant fields */}
                 </div>
               ))}
             </div>
           )}
         </div>
-      
-    </div>
+      </div>
   );
 }
 
