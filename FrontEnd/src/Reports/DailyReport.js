@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, DatePicker, Space, Table } from 'antd';
+import { Typography, DatePicker, Space, Table, Modal } from 'antd';
 import SideMenu from '../Components/SideMenu';
 import PageContent from '../Components/PageContent';
 import axios from 'axios';
@@ -8,6 +8,7 @@ import moment from 'moment';
 function Reports() {
   const [dailySales, setDailySales] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [showModal, setShowModal] = useState(false); // State to control the visibility of the modal
 
   useEffect(() => {
     fetchDailySales();
@@ -71,7 +72,7 @@ function Reports() {
     },
     {
       title: 'Total Amount',
-      dataIndex: 'totalprice * quantity',
+      key: 'totalamount',
       render: (text, record) => record.totalprice * record.quantity,
     },
   ];
@@ -81,29 +82,42 @@ function Reports() {
     ? dailySales.reduce((acc, sale) => acc + sale.totalprice * sale.quantity, 0)
     : 0;
 
+  // Function to show the modal
+  const showModalHandler = () => {
+    setShowModal(true);
+  };
+
+  // Function to hide the modal
+  const hideModalHandler = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className="SideMenuAndPageContent">
       <SideMenu />
-      <PageContent></PageContent>
-      <div>
+      <PageContent />
+        <div>
           <Typography.Title level={4}>Daily Sales Report</Typography.Title>
           <Space direction="vertical" style={{ marginBottom: 16 }}>
             <DatePicker onChange={handleDateChange} />
           </Space>
-          {dailySales && dailySales.length > 0 ? (
-            <Table
-              columns={columns}
-              dataSource={dailySales}
-              rowKey={(record) => record.orderid}
-            />
-          ) : (
-            <Typography.Text>Select the date</Typography.Text>
-          )}
-          {selectedDate && (
-            <div>
-              Total income on {selectedDate.format('MMMM Do, YYYY')}: Rs. {dailyTotalIncome}
-            </div>
-          )}
+          <button onClick={showModalHandler}>Show Details</button> {/* Button to show the modal */}
+          <Modal
+            title={`Total income on ${selectedDate?.format('MMMM Do, YYYY')}: Rs. ${dailyTotalIncome}`}
+            visible={showModal}
+            onCancel={hideModalHandler}
+            footer={null}
+          >
+            {dailySales && dailySales.length > 0 ? (
+              <Table
+                columns={columns}
+                dataSource={dailySales}
+                rowKey={(record) => record.orderid}
+              />
+            ) : (
+              <Typography.Text>Select the date</Typography.Text>
+            )}
+          </Modal>
         </div>
     </div>
   );
