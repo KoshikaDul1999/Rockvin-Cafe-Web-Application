@@ -53,6 +53,10 @@ const DeletedOrderDetails = db.define(
     freezeTableName: true
   }
 );
+
+// Define the associations between DeletedOrderDetails and User/Foods
+DeletedOrderDetails.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+DeletedOrderDetails.belongsTo(Foods, { foreignKey: 'food_id', as: 'food' });
  
 export default DeletedOrderDetails;
  
