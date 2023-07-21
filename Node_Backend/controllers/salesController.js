@@ -1,5 +1,6 @@
 import { Op } from 'sequelize';
 import OrderDetails from '../models/OrderDetailsModel.js';
+import DeletedOrderDetails from '../models/DeletedOrderDetailsModel.js';
 
 // Fetch daily sales report
 export const getDailySales = async (req, res) => {
