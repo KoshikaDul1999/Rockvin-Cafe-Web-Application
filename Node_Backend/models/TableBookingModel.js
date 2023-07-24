@@ -43,6 +43,15 @@ const TableBooking = db.define(
 );
 
 
+TableBooking.belongsTo(User, {
+  foreignKey: 'user_id',
+  as: 'user',
+});
+
+TableBooking.belongsTo(Table, {
+  foreignKey: 'table_id',
+  as: 'table',
+});
 
 export default TableBooking;
  

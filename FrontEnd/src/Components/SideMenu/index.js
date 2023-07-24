@@ -1,5 +1,5 @@
 import { Menu } from "antd";
-import { AppstoreOutlined, MenuFoldOutlined, ShoppingCartOutlined, UserOutlined, DesktopOutlined, FileDoneOutlined, IdcardOutlined, HolderOutlined, LogoutOutlined, ShopOutlined, CoffeeOutlined } from "@ant-design/icons";
+import { AppstoreOutlined, MenuFoldOutlined, ShoppingCartOutlined, UserOutlined, DesktopOutlined, FileDoneOutlined, IdcardOutlined, HolderOutlined, FormOutlined, ProjectOutlined, LogoutOutlined, ShopOutlined, CoffeeOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useCookies } from 'react-cookie';
@@ -61,6 +61,16 @@ function SideMenu(){
                     icon: <UserOutlined />,
                     key:'/customers',
                 },
+                {
+                    label: "Table Details",
+                    icon: <ProjectOutlined />,
+                    key:'/tables',
+                },{
+                    label: "Booking Details",
+                    icon: <FormOutlined />,
+                    key:'/booking',
+                },
+
                 // {
                 //     label: "Recomended Foods",
                 //     icon: <ShopOutlined />,
