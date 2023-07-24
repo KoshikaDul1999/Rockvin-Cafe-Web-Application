@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, DatePicker, Space, Table, Modal } from 'antd';
+import { Typography, DatePicker, Space, Table } from 'antd';
 import SideMenu from '../Components/SideMenu';
 import PageContent from '../Components/PageContent';
 import axios from 'axios';
@@ -8,7 +8,6 @@ import moment from 'moment';
 function Reports() {
   const [dailySales, setDailySales] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [showModal, setShowModal] = useState(false); // State to control the visibility of the modal
 
   useEffect(() => {
     fetchDailySales();
@@ -47,33 +46,45 @@ function Reports() {
       title: 'Order ID',
       dataIndex: 'orderid',
       key: 'orderid',
+      width: '15%',
+      align: 'center',
     },
     {
       title: 'User Name',
       dataIndex: 'user',
       key: 'user',
       render: (user) => `${user.fname} ${user.lname}`,
+      width: '25%',
+      align: 'center',
     },
     {
       title: 'Food',
       dataIndex: 'food',
       key: 'food',
       render: (food) => food.food_name,
+      width: '20%',
+      align: 'center',
     },
     {
       title: 'Unit Price',
       dataIndex: 'totalprice',
       key: 'totalprice',
+      width: '15%',
+      align: 'center',
     },
     {
       title: 'Quantity',
       dataIndex: 'quantity',
       key: 'quantity',
+      width: '15%',
+      align: 'center',
     },
     {
       title: 'Total Amount',
-      key: 'totalamount',
+      dataIndex: 'totalprice * quantity',
       render: (text, record) => record.totalprice * record.quantity,
+      width: '20%',
+      align: 'center',
     },
   ];
 
@@ -82,43 +93,57 @@ function Reports() {
     ? dailySales.reduce((acc, sale) => acc + sale.totalprice * sale.quantity, 0)
     : 0;
 
-  // Function to show the modal
-  const showModalHandler = () => {
-    setShowModal(true);
-  };
-
-  // Function to hide the modal
-  const hideModalHandler = () => {
-    setShowModal(false);
-  };
-
   return (
-    <div className="SideMenuAndPageContent">
+    <div className="SideMenuAndPageContent" style={{ display: 'flex' }}>
       <SideMenu />
       <PageContent />
-        <div>
-          <Typography.Title level={4}>Daily Sales Report</Typography.Title>
-          <Space direction="vertical" style={{ marginBottom: 16 }}>
-            <DatePicker onChange={handleDateChange} />
-          </Space>
-          <button onClick={showModalHandler}>Show Details</button> {/* Button to show the modal */}
-          <Modal
-            title={`Total income on ${selectedDate?.format('MMMM Do, YYYY')}: Rs. ${dailyTotalIncome}`}
-            visible={showModal}
-            onCancel={hideModalHandler}
-            footer={null}
-          >
-            {dailySales && dailySales.length > 0 ? (
-              <Table
-                columns={columns}
-                dataSource={dailySales}
-                rowKey={(record) => record.orderid}
-              />
-            ) : (
-              <Typography.Text>Select the date</Typography.Text>
-            )}
-          </Modal>
-        </div>
+      <div style={{ flex: 1, marginLeft: '20px' }}>
+        <Typography.Title level={4}>Daily Sales Report</Typography.Title>
+        <Space direction="vertical" style={{ marginBottom: 16 }}>
+          <DatePicker onChange={handleDateChange} />
+        </Space>
+        {dailySales && dailySales.length > 0 ? (
+          <Table
+            columns={columns}
+            dataSource={dailySales}
+            pagination={false}
+            bordered
+            summary={(pageData) => {
+              let totalQuantity = 0;
+              let totalAmount = 0;
+              pageData.forEach((data) => {
+                totalQuantity += data.quantity;
+                totalAmount += data.quantity * data.totalprice;
+              });
+
+              return (
+                <>
+                  <Table.Summary.Row style={{ background: '#f2f2f2' }}>
+                    <Table.Summary.Cell index={0} colSpan={4} align="center">
+                      Total
+                    </Table.Summary.Cell>
+                    <Table.Summary.Cell index={1} align="center">
+                      {totalQuantity}
+                    </Table.Summary.Cell>
+                    <Table.Summary.Cell index={2} align="center">
+                      {totalAmount.toFixed(2)}
+                    </Table.Summary.Cell>
+                  </Table.Summary.Row>
+                </>
+              );
+            }}
+          />
+        ) : (
+          <div style={{ marginTop: '20px' }}>
+            <Typography.Text>Select the date</Typography.Text>
+          </div>
+        )}
+        {selectedDate && (
+          <div style={{ marginTop: '20px' }}>
+            Total income on {selectedDate.format('MMMM Do, YYYY')}: Rs. {dailyTotalIncome}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

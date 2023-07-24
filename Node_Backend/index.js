@@ -11,6 +11,8 @@ import OrderDetails from "./models/OrderDetailsModel.js";
 import User from "./models/UserModel.js";
 import SystemUsers from "./models/SystemUserModel.js";
 import DeletedOrderDetails from "./models/DeletedOrderDetailsModel.js";
+import Table from "./models/TableModel.js";
+import TableBooking from "./models/TableBookingModel.js";
 //import Chefs from "./models/ChefModel.js";
 //import Admins from "./models/AdminModel.js";
 //import OfferFoods from "./models/OfferFoodModel.js";
