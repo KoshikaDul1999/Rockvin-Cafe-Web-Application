@@ -11,7 +11,6 @@ function Profile() {
 
   const { email } = useParams();
   const [admins, setAdmins] = useState([]);
-  const { admin_id } = useParams();
   const [editingAdmin, setEditingAdmin] = useState(false);
 
   const [systemusers, setSystemusers] = useState({
@@ -60,21 +59,21 @@ function Profile() {
     navigate('/profile');
   };
 
-  const loadSystemusers = async () => {
-    const result = await axios.get(`http://localhost:5000/admin/${email}`);
-    setSystemusers(result.data);
-  };
+  // const loadSystemusers = async () => {
+  //   const result = await axios.get(`http://localhost:5000/admin/${email}`);
+  //   setSystemusers(result.data);
+  // };
 
   const onCancelEdit = () => {
     setEditingAdmin(false);
   };
 
-  const onUpdateAdmin = async (e) => {
-    e.preventDefault();
-    await axios.put(`http://localhost:5000/admin/${admin_id}`, systemusers);
-    setEditingAdmin(false);
-    loadAdmins();
-  };
+  // const onUpdateAdmin = async (e) => {
+  //   e.preventDefault();
+  //   await axios.put(`http://localhost:5000/admin/${email}`, systemusers);
+  //   setEditingAdmin(false);
+  //   loadAdmins();
+  // };
 
   return (
     <div className="SideMenuAndPageContent">
@@ -116,97 +115,7 @@ function Profile() {
                 ))}
               </tbody>
             </table>
-            {/* Add the EditAdmin form below the table */}
-            {editingAdmin && (
-              <div className="border rounded p-4 mt-2 shadow p-3 mb-2 bg-dark text-white">
-                <Typography variant="h4" align="center" gutterBottom>
-                  Edit System User
-                </Typography>
-
-                <form onSubmit={onUpdateAdmin}>
-                  {/* <div className="mb-3">
-                    <label htmlFor="ID" className="form-label">
-                      ID
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Enter System User ID"
-                      name="sysusr_id"
-                      value={sysusr_id}
-                      onChange={(e) => setSystemusers({ ...systemusers, sysusr_id: e.target.value })}
-                      fullWidth
-                    />
-                  </div> */}
-                  <div className="mb-3">
-                    <label htmlFor="Name" className="form-label">
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Enter System User Name"
-                      name="sysusr_name"
-                      value={sysusr_name}
-                      onChange={(e) => setSystemusers({ ...systemusers, sysusr_name: e.target.value })}
-                      fullWidth
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="Email" className="form-label">
-                      E-Mail
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Enter System User Email "
-                      name="sysusr_email"
-                      value={sysusr_email}
-                      onChange={(e) => setSystemusers({ ...systemusers, sysusr_email: e.target.value })}
-                      fullWidth
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="Password" className="form-label">
-                      Password
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Enter System User Password"
-                      name="sysusr_password"
-                      value={sysusr_password}
-                      onChange={(e) => setSystemusers({ ...systemusers, sysusr_password: e.target.value })}
-                      fullWidth
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="Role" className="form-label">
-                      Role
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Enter System User Role"
-                      name="role"
-                      value={role}
-                      onChange={(e) => setSystemusers({ ...systemusers, role: e.target.value })}
-                      fullWidth
-                    />
-                  </div>
-                  <Button type="submit" variant="outlined" color="primary">
-                    Update
-                  </Button>
-                  <button
-                    className="btn btn-outline-danger mx-2"
-                    onClick={() => onCancelEdit()}
-                  >
-                    Cancel
-                  </button>
-                </form>
-              </div>
-            )}
-
+          
             {/* Show the EditAdmin form without using edit button */}
             {!editingAdmin && (
               <div className="border rounded p-4 mt-2 shadow p-3 mb-2 bg-light text-white">
@@ -224,7 +133,7 @@ function Profile() {
                   className="form-control"
                   placeholder="Enter System User Name"
                   name="sysusr_name"
-                  value={sysusr_name}
+                  value={onEditAdmin.sysusr_name}
                   onChange={(e) => onInputChange(e)}
                   fullWidth
                 />
@@ -238,7 +147,7 @@ function Profile() {
                   className="form-control"
                   placeholder="Enter System User Email "
                   name="sysusr_email"
-                  value={sysusr_email}
+                  value={onEditAdmin.sysusr_email}
                   onChange={(e) => onInputChange(e)}
                   fullWidth
                 />
@@ -252,21 +161,7 @@ function Profile() {
                   className="form-control"
                   placeholder="Enter System User Password"
                   name="sysusr_password"
-                  value={sysusr_password}
-                  onChange={(e) => onInputChange(e)}
-                  fullWidth
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="Email" className="form-label">
-                  Role
-                </label>
-                <TextField
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter System User Email "
-                  name="role"
-                  value={role}
+                  value={onEditAdmin.sysusr_password}
                   onChange={(e) => onInputChange(e)}
                   fullWidth
                 />
