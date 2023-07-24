@@ -15,7 +15,7 @@ const POSDashboard = () => {
           className={selectedTab === 'cash' ? 'active' : ''}
           onClick={() => handleTabChange('cash')}
         >
-          Cash Payment
+          Cash Payment     
         </button>
         <button
           className={selectedTab === 'card' ? 'active' : ''}

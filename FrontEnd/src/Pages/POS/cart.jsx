@@ -63,6 +63,7 @@ const CartPage = () => {
 
   const updateprice = (id,value,price)=>{
     document.getElementById(id).innerHTML= `RS ${value*price}`;
+    updateTotal();
   }
 
   const handleRemoveItem = (itemId) => {
@@ -128,7 +129,7 @@ const CartPage = () => {
           ))}
         </tbody>
       </table>
-      {/* <div className="total-amount">Total: RS. {total}</div> */}
+      <div className="total-amount">Total: RS. {total}</div>
 
       <a href="/payMethod"> <button className="checkout-button">Checkout</button></a>
     </div>
