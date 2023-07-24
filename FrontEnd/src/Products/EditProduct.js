@@ -20,7 +20,7 @@ export default function EditFood() {
 
   const onInputChange = (e) => {
     if (e.target.name === 'food_img') {
-      setFood({ ...food, [e.target.name]: e.target.files[0] }); // Store the uploaded image file
+      setFood({ ...food, [e.target.name]: e.target.files[0] });
     } else {
       setFood({ ...food, [e.target.name]: e.target.value });
     }
@@ -38,19 +38,27 @@ export default function EditFood() {
     formData.append('food_price', food.food_price);
     formData.append('food_desc', food.food_desc);
     formData.append('food_cat_id', food.food_cat_id);
-    formData.append('food_img', food.food_img); // Append the image file to the form data
+    formData.append('food_img', food.food_img);
 
-    await axios.patch(`http://localhost:5000/foods/${product_id}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
-      },
-    });
-    navigate('/menu');
+    try {
+      await axios.put(`http://localhost:5000/foods/${product_id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      navigate('/menu');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const loadFood = async () => {
-    const result = await axios.get(`http://localhost:5000/foods/${product_id}`);
-    setFood(result.data);
+    try {
+      const response = await axios.get(`http://localhost:5000/foods/${product_id}`);
+      setFood(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -58,14 +66,14 @@ export default function EditFood() {
       <Typography variant="h4" align="center" gutterBottom>
         Edit Food
       </Typography>
-      <form onSubmit={(e) => onSubmit(e)}>
+      <form onSubmit={onSubmit}>
         <TextField
           label="Food ID"
           variant="outlined"
           fullWidth
           name="food_id"
           value={food_id}
-          onChange={(e) => onInputChange(e)}
+          onChange={onInputChange}
           margin="normal"
         />
         <TextField
@@ -74,7 +82,7 @@ export default function EditFood() {
           fullWidth
           name="food_name"
           value={food_name}
-          onChange={(e) => onInputChange(e)}
+          onChange={onInputChange}
           margin="normal"
         />
         <TextField
@@ -83,18 +91,25 @@ export default function EditFood() {
           fullWidth
           name="food_price"
           value={food_price}
-          onChange={(e) => onInputChange(e)}
+          onChange={onInputChange}
           margin="normal"
         />
-        <input type="file" name="food_img" onChange={(e) => onInputChange(e)} /> {/* Add file input for image selection */}
-        {food_img && <img src={URL.createObjectURL(food_img)} alt={food_name} className="product-image" style={{ width: '150px', height: '200px' }} />} {/* Display the selected image */}
+        <input type="file" name="food_img" onChange={onInputChange} />
+        {food_img && food_img instanceof File && (
+          <img
+            src={URL.createObjectURL(food_img)}
+            alt={food_name}
+            className="product-image"
+            style={{ width: '150px', height: '200px' }}
+          />
+        )}
         <TextField
           label="Food Description"
           variant="outlined"
           fullWidth
           name="food_desc"
           value={food_desc}
-          onChange={(e) => onInputChange(e)}
+          onChange={onInputChange}
           margin="normal"
         />
         <TextField
@@ -103,7 +118,7 @@ export default function EditFood() {
           fullWidth
           name="food_cat_id"
           value={food_cat_id}
-          onChange={(e) => onInputChange(e)}
+          onChange={onInputChange}
           margin="normal"
         />
         <Button type="submit" variant="contained" color="primary">
@@ -116,6 +131,8 @@ export default function EditFood() {
     </Container>
   );
 }
+
+
 
 
 

@@ -1,6 +1,6 @@
 import OrderDetails from "../models/OrderDetailsModel.js";
 
- 
+
 export const getOrderDetails = async(req, res) =>{
     try {
         const response = await OrderDetails.findAll();
@@ -67,6 +67,6 @@ export const getOrderDetailsCount = async (req, res) => {
         res.status(500).json({error: "Internal Server Error "});
     }
 }
-
+  
 
   
