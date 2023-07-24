@@ -144,7 +144,7 @@ const CartPage = () => {
                   style={{ width: '50px' }}
                 />
               </td>
-              <td id={item.food_id}>RS.{item.food_price * item.quantity}</td>
+              <td id={item.food_id}>RS.{item.food_price * item.quantity || item.food_price * 1}</td>
               <td>
                 <button className="delete-button" onClick={() => handleRemoveItem(item.food_id)}>
                   Delete
