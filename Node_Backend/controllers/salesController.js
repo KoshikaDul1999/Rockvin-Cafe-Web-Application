@@ -108,8 +108,9 @@ export const getWeeklySales = async (req, res) => {
 export const getMonthlySales = async (req, res) => {
   try {
     const { month, year } = req.query;
-    const startOfMonth = new Date(year, month - 1, 1);
-    const endOfMonth = new Date(year, month, 0);
+    const numericMonth = parseInt(month, 10);
+    const startOfMonth = new Date(year, numericMonth - 1, 1);
+    const endOfMonth = new Date(year, numericMonth, 0);
 
     const sales = await DeletedOrderDetails.findAll({
       where: {
