@@ -1,50 +1,158 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import "./CashPaymentReceipt.css"; // Import the corresponding CSS file
 
+const NavigationBar = () => {
+  return (
+    <nav className="navigation-bar">
+      <ul className="navigation-list">
+        <li><a href="../Dashboard/"><i className="fa-solid fa-home"></i></a></li>
+        <li><a href="/productView">Breakfast</a></li>
+        <li><a href="/lunchView">Lunch</a></li>
+        <li><a href="/dinnerView">Dinner</a></li>
+        <li><a href="beveragesView">Beverages</a></li>
+        <li><a href="/viewcart" className='btn btn-primary'><i class="fa-solid fa-cart-shopping"></i></a></li>
+      </ul>
+    </nav>
+  );
+};
+
 function CashPaymentReceipt() {
+  const [cartItems, setCartItems] = useState([]);
+  const [newcartItems, setnewCartItems] = useState([]);
+  const [amountPaid, setAmountPaid] = useState(0);
+  const totalAmount = 4300;
+  const [temp, setTemp] = useState([]);
+
+  // Function to calculate the change
+  const calculateChange = () => {
+    return amountPaid - totalAmount;
+  };
+
+  // Function to handle amount paid input change
+  const handleAmountPaidChange = (event) => {
+    setAmountPaid(parseInt(event.target.value));
+  };
+
+  const getSessionData = () => {
+    const data = JSON.parse(sessionStorage.getItem('cart'));
+    const newdata = JSON.parse(sessionStorage.getItem('newcart'));
+    if (data) {
+      setCartItems(data);
+      console.log(data);
+    }
+    setnewCartItems(newdata);
+    console.log(newdata);
+
+    const temarr = []
+    data.forEach((d) => {
+      newdata.forEach((n) => {
+        if (d.food_id === n.itemId) {
+          const newarr = {
+            food_name: d.food_name,
+            price: d.food_price,
+            qun: n.quantity
+          };
+          temarr.push(newarr);
+        }
+      });
+    });
+    setTemp(temarr);
+  };
+
+  useEffect(() => {
+    getSessionData();
+  }, []);
+
+  // Function to handle the print button click
+  const handlePrint = () => {
+    const printableElement = document.querySelector(".printable");
+    if (printableElement) {
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write('<html><head><title>Print Receipt</title>');
+      printWindow.document.write('</head><body >');
+      printWindow.document.write(printableElement.innerHTML);
+      printWindow.document.write('</body></html>');
+      printWindow.document.close();
+      printWindow.print();
+      printWindow.close();
+    }
+  };
+
   return (
     <div className="receipt">
-      <div className="header">
-        <h1>RECEIPT</h1>
-      </div>
-      <div className="store-info">
-        <p className="store-name">RockVin Cafe</p>
-        <p className="store-address">Midigama</p>
-        <p className="date">Date</p>
-        <p className="time">Time</p>
-      </div>
-      <hr className="divider" />
-      <div className="item-details">
-        <div className="item">
-          <p className="item-name">Item 1</p>
-          <p className="price">Price</p>
-          <p className="quantity">Qty</p>
+      <NavigationBar /><br /><br />
+      <div className="printable">
+
+        <div className="header">
+          <h1>RECEIPT</h1>
+        </div>
+        <div className="store-info">
+          <p className="store-name">RockVin Cafe</p>
+          <p className="store-address">Midigama</p>
+          <p className="date">Date</p>
         </div>
         <hr className="divider" />
-        <div className="product">
-          <p className="product-name">Product 1</p>
-          <p className="product-price">Rs. 1000</p>
-          <p className="product-quantity">2</p>
+        <div className="item-details">
+          <table>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Qty</th>
+              </tr>
+            </thead>
+            <tbody>
+              {temp.map((item) => (
+                <tr>
+                  <td className="product-name">{item.food_name}</td>
+                  <td className="product-price">Rs. {item.price}</td>
+
+
+                  <td className="product-quantity">{item.qun}</td>
+
+
+                </tr>
+              ))}
+              {/* <tr>
+                <td>Product 1</td>
+                <td>Rs. 1000</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Product 2</td>
+                <td>Rs. 2300</td>
+                <td>1</td>
+              </tr> */}
+            </tbody>
+          </table>
         </div>
-        <div className="product">
-          <p className="product-name">Product 2</p>
-          <p className="product-price">Rs. 2300</p>
-          <p className="product-quantity">1</p>
+        <hr className="divider" />
+        <div className="totals">
+          <p className="total">Total: RS {totalAmount}</p>
         </div>
+        <hr className="divider" />
+        <div className="payment">
+          <label htmlFor="amount-input">Amount Paid: Rs.</label>
+          <input
+            type="number"
+            id="amount-input"
+            value={amountPaid}
+            onChange={handleAmountPaidChange}
+          />
+          <hr className="divider" />
+          <hr className="divider" />
+          <p className="change">
+            Change: Rs.
+            {amountPaid >= totalAmount ? calculateChange() : "Insufficient amount"}
+          </p>
+        </div>
+        <hr className="divider" />
+        <div className="thank-you">
+          <p>Thank you for ordering! 🍽️</p>
+        </div>
+
       </div>
-      <hr className="divider" />
-      <div className="totals">
-        <p className="total">Total: RS 4300</p>
-      </div>
-      <hr className="divider" />
-      <div className="payment">
-        <p className="amount-paid">Amount Paid: Rs.5000</p>
-        <p className="change">Change: Rs.700</p>
-      </div>
-      <hr className="divider" />
-      <div className="thank-you">
-        <p>Thank you for shopping!</p>
-      </div>
+      <button onClick={handlePrint}>Print Receipt</button>
     </div>
   );
 }
