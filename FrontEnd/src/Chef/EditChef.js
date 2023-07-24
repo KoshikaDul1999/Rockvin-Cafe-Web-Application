@@ -9,7 +9,6 @@ export default function EditChef() {
   const { c_id } = useParams();
 
   const [chef, setChef] = useState({
-    chef_id: '',
     chef_name: '',
     chef_email: '',
     chef_password: '',
@@ -17,7 +16,7 @@ export default function EditChef() {
     chef_telephone: '',
   });
 
-  const { chef_id, chef_name, chef_email, chef_password, chef_address, chef_telephone } = chef;
+  const { chef_name, chef_email, chef_password, chef_address, chef_telephone } = chef;
 
   const onInputChange = (e) => {
     setChef({ ...chef, [e.target.name]: e.target.value });
@@ -48,20 +47,6 @@ export default function EditChef() {
             </Typography>
 
             <form onSubmit={(e) => onSubmit(e)}>
-              <div className="mb-3">
-                <label htmlFor="ID" className="form-label">
-                  ID
-                </label>
-                <TextField
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Chef ID"
-                  name="chef_id"
-                  value={chef_id}
-                  onChange={(e) => onInputChange(e)}
-                  fullWidth
-                />
-              </div>
               <div className="mb-3">
                 <label htmlFor="Name" className="form-label">
                   Name
@@ -132,65 +117,6 @@ export default function EditChef() {
                   fullWidth
                 />
               </div>
-            {/* <TextField
-                label="ID"
-                fullWidth
-                placeholder="Enter Chef ID"
-                name="chef_id"
-                value={chef_id}
-                onChange={(e) => onInputChange(e)}
-                margin="normal"
-            />
-
-            <TextField
-                label="Name"
-                fullWidth
-                placeholder="Enter Chef Name"
-                name="chef_name"
-                value={chef_name}
-                onChange={(e) => onInputChange(e)}
-                margin="normal"
-            />
-
-            <TextField
-                label="Email"
-                fullWidth
-                placeholder="Enter Chef Email"
-                name="chef_email"
-                value={chef_email}
-                onChange={(e) => onInputChange(e)}
-                margin="normal"
-            />
-
-            <TextField
-                label="Password"
-                fullWidth
-                placeholder="Enter Chef Password"
-                name="chef_password"
-                value={chef_password}
-                onChange={(e) => onInputChange(e)}
-                margin="normal"
-            />
-
-            <TextField
-                label="Address"
-                fullWidth
-                placeholder="Enter Chef Address"
-                name="chef_address"
-                value={chef_address}
-                onChange={(e) => onInputChange(e)}
-                margin="normal"
-            />   
-
-            <TextField
-                label="Telephone"
-                fullWidth
-                placeholder="Enter Chef Telephone"
-                name="chef_telephone"
-                value={chef_telephone}
-                onChange={(e) => onInputChange(e)}
-                margin="normal"
-            />    */}
 
               <Button
                 type="submit"

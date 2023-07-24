@@ -104,7 +104,7 @@ function Profile() {
                     </div>
                 </div> */}
                 <Typography.Title level={4}>Chef Profile</Typography.Title>
-                <Link className='btn btn-info' to="/addnewchef">Add New Chef</Link>
+                {/* <Link className='btn btn-info' to="/addnewchef">Add New Chef</Link> */}
                 <div className="container">
                     <div className="py-4">
                         <table className="table border shadow-inner, table-info">
