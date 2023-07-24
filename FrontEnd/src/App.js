@@ -20,10 +20,13 @@ import POS from "./Pages/POS";
 import Reports from "./Pages/Reports";
 import Profile from "./Pages/Profile";
 import Category from "./Pages/Category";
+import Table from './Pages/Tables';
+import Booking from './Pages/Bookings';
 import OfferFoodsProduct from "./Pages/OfferFoods";
 import RecomendedFoodsProduct from "./Pages/RecomendedFoods";
 import ChefOrders from "./Pages/ChefOrders";
 import ChefProfile from "./Pages/ChefProfile";
+
 
 import AddAdmin from "./Admins/AddAdmin";
 import EditAdmin from "./Admins/EditAdmin";
@@ -53,6 +56,8 @@ import ChefEditOrder from "./OrderChef/EditOrder";
 import DailyReport from "./Reports/DailyReport";
 import WeeklyReport from "./Reports/WeeklyReport";
 import MonthlyReport from "./Reports/MonthlyReport";
+
+import EditTable from './Tables/EditTables';
 
 import AddOfferProduct from "./OffProFoods/AddOffFoods";
 
@@ -94,6 +99,8 @@ function App() {
           <Route path="/pos" element={<POS />}></Route>
           <Route path="/reports" element={<Reports />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
+          <Route path="/tables" element={<Table />}></Route>
+          <Route path="/booking" element={<Booking />}></Route>
           <Route path="/offerfoods" element={<OfferFoodsProduct />}></Route>
           <Route path="/recomendedfoods" element={<RecomendedFoodsProduct />}></Route>
           <Route path="/cheforders" element={<ChefOrders />}></Route>
@@ -127,6 +134,8 @@ function App() {
           <Route exact path="/reports/daily" element={<DailyReport />} />
           <Route exact path="/reports/weekly" element={<WeeklyReport />} />
           <Route exact path="/reports/monthly" element={<MonthlyReport />} />
+
+          <Route exact path="/edittable/:table_id" element={<EditTable />} />
 
           <Route exact path="/addnewofferfoodproduct" element={<AddOfferProduct />} />
 

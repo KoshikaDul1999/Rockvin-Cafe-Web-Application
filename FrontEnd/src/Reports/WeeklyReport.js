@@ -106,7 +106,7 @@ function Reports() {
             </tbody>
           </table>
         ) : (
-          <p>No sales data available for the selected week.</p>
+          <p>Select the week</p>
         )}
 
         {weeklyTotalIncome !== null && (

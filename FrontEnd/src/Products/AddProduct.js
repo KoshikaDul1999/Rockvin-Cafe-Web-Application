@@ -9,7 +9,7 @@ import axios from 'axios';
 // const categories = ['Breakfast', 'Lunch', 'Dinner', 'Beverages', 'Dessert']; // Replace with your actual categories
 
 const ProductUploadForm = () => {
-  const [food_id, setFoodID] = useState('');
+  //const [food_id, setFoodID] = useState('');
   const [food_name, setFoodName] = useState('');
   const [food_price, setFoodPrice] = useState('');
   const [food_image, setFoodImage] = useState(null);
@@ -39,7 +39,7 @@ const ProductUploadForm = () => {
   
     // Create a FormData object and append form data
     const formData = new FormData();
-    formData.append('food_id', food_id);
+    //formData.append('food_id', food_id);
     formData.append('food_name', food_name);
     formData.append('food_price', food_price);
     formData.append('food_image', food_image);
@@ -82,7 +82,7 @@ const ProductUploadForm = () => {
       console.log('Form submitted successfully');
 
       // Reset the form fields
-      setFoodID('');
+      //setFoodID('');
       setFoodName('');
       setFoodPrice('');
       setFoodImage(null);
@@ -107,12 +107,12 @@ const ProductUploadForm = () => {
     <Container maxWidth="sm">
       <Box mt={2}>
         <form onSubmit={handleFormSubmit}>
-          <TextField
+          {/* <TextField
             label="Product ID"
             fullWidth
             value={food_id}
             onChange={(e) => setFoodID(e.target.value)}
-          />
+          /> */}
           <TextField
             label="Product Name"
             fullWidth
