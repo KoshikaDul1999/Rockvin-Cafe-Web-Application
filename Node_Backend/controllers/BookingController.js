@@ -3,12 +3,31 @@ import TableBooking from '../models/TableBookingModel.js';
 
 export const getBookingDetails = async (req, res) => {
     try {
+      const { time, table } = req.query;
+
+      let whereCondition = {};
+
+      if (time) {
+        whereCondition.time = {
+          [Op.like]: `%${time}%`,
+        };
+      }
+
+      if (table) {
+        whereCondition['$table.table_name$'] = {
+          [Op.like]: `%${table}%`,
+        };
+      }
+
       const response = await TableBooking.findAll({
         include: ['user', 'table'],
+        where: whereCondition,
       });
+
       res.status(200).json(response);
     } catch (error) {
       console.log(error.message);
+      res.status(500).json({ error: 'Internal Server Error' });
     }
 }
  
