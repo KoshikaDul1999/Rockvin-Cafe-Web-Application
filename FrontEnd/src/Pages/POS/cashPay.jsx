@@ -18,8 +18,10 @@ const NavigationBar = () => {
 
 function CashPaymentReceipt() {
   const [cartItems, setCartItems] = useState([]);
+  const [newcartItems, setnewCartItems] = useState([]);
   const [amountPaid, setAmountPaid] = useState(0);
   const totalAmount = 4300;
+  const [temp, setTemp] = useState([]);
 
   // Function to calculate the change
   const calculateChange = () => {
@@ -33,10 +35,28 @@ function CashPaymentReceipt() {
 
   const getSessionData = () => {
     const data = JSON.parse(sessionStorage.getItem('cart'));
+    const newdata = JSON.parse(sessionStorage.getItem('newcart'));
     if (data) {
       setCartItems(data);
       console.log(data);
     }
+    setnewCartItems(newdata);
+    console.log(newdata);
+
+    const temarr = []
+    data.forEach((d) => {
+      newdata.forEach((n) => {
+        if (d.food_id === n.itemId) {
+          const newarr = {
+            food_name: d.food_name,
+            price: d.food_price,
+            qun: n.quantity
+          };
+          temarr.push(newarr);
+        }
+      });
+    });
+    setTemp(temarr);
   };
 
   useEffect(() => {
@@ -82,11 +102,15 @@ function CashPaymentReceipt() {
               </tr>
             </thead>
             <tbody>
-              {cartItems.map((item) => (
+              {temp.map((item) => (
                 <tr>
                   <td className="product-name">{item.food_name}</td>
-                  <td className="product-price">Rs. {item.food_price}</td>
-                  <td className="product-quantity">{item.quantity}</td>
+                  <td className="product-price">Rs. {item.price}</td>
+
+
+                  <td className="product-quantity">{item.qun}</td>
+
+
                 </tr>
               ))}
               {/* <tr>
