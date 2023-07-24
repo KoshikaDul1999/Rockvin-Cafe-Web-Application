@@ -26,6 +26,7 @@ ChartJS.register(
     Tooltip,
     Legend
   );
+  
 
 function Dashboard() {
 
@@ -72,12 +73,18 @@ function Dashboard() {
             .catch((error) => {
                 console.log(error);
             })
-
-      getOrders().then((res) => {
-        setRevenue(res.discountedTotal);
-      });
-    }, []);
-    
+        
+        axios
+            .get("http://localhost:5000/api/sales/total")
+            .then((res) => {
+              const totalRevenue = res.data.totalSalesAmount;
+              setRevenue(totalRevenue);
+            })
+            .catch((error) => {
+              console.log(error);
+            })   
+      
+    }, []);    
 
     return (
         <div className="SideMenuAndPageContent">
