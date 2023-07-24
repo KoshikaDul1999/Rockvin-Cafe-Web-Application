@@ -106,10 +106,13 @@ const CartPage = () => {
     sessionStorage.setItem('cart', JSON.stringify(updatedCartItems));
   };
 
-
   useEffect(() => {
     getSessionData();
   }, []);
+
+  useEffect(() => {
+    updateTotal(); // Update the total whenever newcartItems changes
+  }, [newcartItems]);
 
   return (
     <div>
@@ -157,6 +160,7 @@ const CartPage = () => {
       <div className="total-amount">Total: RS. {total}</div>
       <a href="/payMethod"> <button className="checkout-button">Checkout</button></a>
     </div>
+    
   );
 };
 
