@@ -13,32 +13,46 @@ function Reports() {
       title: 'Order ID',
       dataIndex: 'orderid',
       key: 'orderid',
+      width: '15%',
+      align: 'center',
     },
     {
-      title: 'User',
+      title: 'User Name',
       dataIndex: 'user',
+      key: 'user',
       render: (user) => `${user.fname} ${user.lname}`,
+      width: '25%',
+      align: 'center',
     },
     {
       title: 'Food',
       dataIndex: 'food',
+      key: 'food',
       render: (food) => food.food_name,
+      width: '20%',
+      align: 'center',
     },
     {
       title: 'Unit Price',
       dataIndex: 'totalprice',
       key: 'totalprice',
+      width: '15%',
+      align: 'center',
     },
     {
       title: 'Quantity',
       dataIndex: 'quantity',
       key: 'quantity',
+      width: '15%',
+      align: 'center',
     },
     {
       title: 'Total Amount',
       dataIndex: 'totalAmount',
       key: 'totalAmount',
       render: (_, record) => record.quantity * record.totalprice,
+      width: '20%',
+      align: 'center',
     },
   ];
 
@@ -61,11 +75,17 @@ function Reports() {
     }
   };
 
+  let totalIncome = 0;
+  if (monthlySales.length > 0) {
+    // Calculate the total income for the selected month
+    totalIncome = monthlySales.reduce((total, sale) => total + sale.totalprice, 0);
+  }
+
   return (
-    <div className="SideMenuAndPageContent">
+    <div className="SideMenuAndPageContent" style={{ display: 'flex' }}>
       <SideMenu />
-      <PageContent></PageContent>
-      <div>
+      <PageContent />
+      <div style={{ flex: 1, marginLeft: '20px' }}>
         <Typography.Title level={4}>Monthly Report</Typography.Title>
         <DatePicker.MonthPicker
           allowClear={false}
@@ -77,14 +97,49 @@ function Reports() {
           Fetch Monthly Sales
         </Button>
         {monthlySales.length > 0 ? (
-          <div style={{ marginTop: '20px' }}>
-            <Table dataSource={monthlySales} columns={columns} />
-          </div>
+          <Table
+            dataSource={monthlySales}
+            columns={columns}
+            pagination={false}
+            bordered
+            summary={(pageData) => {
+              let totalQuantity = 0;
+              let totalAmount = 0;
+              pageData.forEach((data) => {
+                totalQuantity += data.quantity;
+                totalAmount += data.quantity * data.totalprice;
+              });
+
+              return (
+                <>
+                  <Table.Summary.Row style={{ background: '#f2f2f2' }}>
+                    <Table.Summary.Cell index={0} colSpan={4} align="center">
+                      Total
+                    </Table.Summary.Cell>
+                    <Table.Summary.Cell index={1} align="center">
+                      {totalQuantity}
+                    </Table.Summary.Cell>
+                    <Table.Summary.Cell index={2} align="center">
+                      {totalAmount.toFixed(2)}
+                    </Table.Summary.Cell>
+                  </Table.Summary.Row>
+                </>
+              );
+            }}
+          />
         ) : (
           <div style={{ marginTop: '20px' }}>
-            <Typography.Text>No data available for the selected month.</Typography.Text>
+            <Typography.Text>Select the Month</Typography.Text>
           </div>
         )}
+
+        {/* {monthlySales.length > 0 && (
+          <div style={{ marginTop: '20px', fontSize: '20px', fontWeight: 'bold' }}>
+            <Typography.Text>
+              Total income of {selectedMonth?.format('MMMM YYYY')}: Rs. {totalIncome.toFixed(2)}
+            </Typography.Text>
+          </div>
+        )} */}
       </div>
     </div>
   );
