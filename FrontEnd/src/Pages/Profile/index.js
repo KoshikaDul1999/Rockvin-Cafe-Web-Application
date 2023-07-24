@@ -49,7 +49,7 @@ function Profile() {
   };
 
   const onEditAdmin = async (id) => {
-    const result = await axios.get(`http://localhost:5000/admin/${id}`);
+    const result = await axios.get(`http://localhost:5000/admin/${email}`);
     setSystemusers(result.data);
     setEditingAdmin(true);
   };
@@ -58,6 +58,11 @@ function Profile() {
     e.preventDefault();
     await axios.put(`http://localhost:5000/admin/${email}`, systemusers);
     navigate('/profile');
+  };
+
+  const loadSystemusers = async () => {
+    const result = await axios.get(`http://localhost:5000/admin/${email}`);
+    setSystemusers(result.data);
   };
 
   const onCancelEdit = () => {
