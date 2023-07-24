@@ -48,7 +48,7 @@ function Booking() {
                     <div className="py-4">
 
                         {/* Search bars */}
-                        <div>
+                        <div style={{ marginBottom: "15px", display: "flex", alignItems: "center" }}>
                             <input
                                 type="text"
                                 placeholder="Search by Time"
@@ -57,7 +57,7 @@ function Booking() {
                             />
                             <button onClick={() => setSearchTime('')}>Clear</button>
                         </div>
-                        <div>
+                        <div style={{ marginBottom: "15px", display: "flex", alignItems: "center" }}>
                             <input
                                 type="text"
                                 placeholder="Search by Table"
@@ -126,6 +126,8 @@ function Booking() {
 }
 
 export default Booking;
+
+
 
 
 
