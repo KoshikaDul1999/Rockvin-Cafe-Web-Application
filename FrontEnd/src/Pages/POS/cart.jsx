@@ -22,6 +22,7 @@ const CartPage = () => {
   const imageSrc = `/images/foods/`;
   const [total, setTotal] = useState(0);
   const newdata = [];
+  let totalPrice = 0;
 
   const getSessionData = () => {
     const data = JSON.parse(sessionStorage.getItem('cart'));
@@ -96,7 +97,16 @@ const CartPage = () => {
   const updateprice = (id, value, price, item) => {
     createNewSessionStorage(item, id, value)
     document.getElementById(id).innerHTML = `RS ${value * price}`;
-    updateTotal();
+    calculateTotal(cartItems);
+    const updatedCartItems = cartItems.map((cartItem) =>
+    cartItem.food_id === id ? { ...cartItem, quantity: parseInt(value) } : cartItem
+  );
+  // Update cartItems with the modified item list
+  setCartItems(updatedCartItems);
+
+  // Recalculate the total and update the total state
+  const newTotal = calculateTotal(updatedCartItems);
+  setTotal(newTotal);
   };
 
   const handleRemoveItem = (itemId) => {
@@ -106,6 +116,14 @@ const CartPage = () => {
     sessionStorage.setItem('cart', JSON.stringify(updatedCartItems));
   };
 
+  function calculateTotal(cartItems) {
+    let sum = 0;
+    cartItems.forEach(item => {
+      sum += item.food_price * item.quantity || item.food_price * 1;
+    });
+    return sum;
+  }
+  
   useEffect(() => {
     getSessionData();
   }, []);
@@ -149,6 +167,7 @@ const CartPage = () => {
               </td>
               <td id={item.food_id}>RS.{item.food_price * item.quantity || item.food_price * 1}</td>
               <td>
+             
                 <button className="delete-button" onClick={() => handleRemoveItem(item.food_id)}>
                   Delete
                 </button>
@@ -157,7 +176,7 @@ const CartPage = () => {
           ))}
         </tbody>
       </table>
-      <div className="total-amount">Total: RS. {total}</div>
+      <div className="total-amount">Total: RS.{calculateTotal(cartItems)}</div>
       <a href="/payMethod"> <button className="checkout-button">Checkout</button></a>
     </div>
     
