@@ -14,7 +14,7 @@ export const getAdminById = async(req, res) =>{
     try {
         const response = await SystemUsers.findOne({
             where:{
-                sysusr_email : req.params.id
+                sysusr_id : req.params.id
             }
         });
         res.status(200).json(response);

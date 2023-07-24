@@ -14,16 +14,18 @@ import {
 export default function ViewAdmin() {
   const [systemusers, setSystemusers] = useState(null);
 
-  const { id } = useParams();
+  const { sysusr_email } = useParams();
+
+console.log("email"+sysusr_email);
 
   useEffect(() => {
     loadSystemusers();
   }, []);
 
   const loadSystemusers = async () => {
-    console.log(id);
+    console.log(sysusr_email);
     try {
-      const response = await axios.get(`http://localhost:5000/admin/${id}`);
+      const response = await axios.get(`http://localhost:5000/admin/${sysusr_email}`);
       console.log(response.data);
       setSystemusers(response.data);
     } catch (error) {

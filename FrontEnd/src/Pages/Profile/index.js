@@ -20,10 +20,21 @@ function Profile() {
         setAdmins(result.data);
     };
 
+    // const deleteAdmin = async (id) => {
+    //     const result = await axios.delete(`http://localhost:5000/admin/${id}`)
+    //     loadAdmins()
+    // }
+
     const deleteAdmin = async (id) => {
-        const result = await axios.delete(`http://localhost:5000/admin/${id}`)
-        loadAdmins()
-    }
+        // Show a confirmation popup
+        const confirmDelete = window.confirm("Are you sure you want to delete this system user?");
+        if (confirmDelete) {
+            await axios.delete(`http://localhost:5000/admin/${id}`);
+            loadAdmins();
+        } else {
+            console.log("System User was not deleted.");
+        }
+    };
 
 
 
