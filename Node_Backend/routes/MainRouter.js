@@ -9,7 +9,7 @@ import { getChefs, getChefById, createChef, updateChef, deleteChef} from "../con
 import { getUsers, getUserById, createUser, updateUser, deleteUser, getCustomersCount} from "../controllers/UserController.js";
 import { getDailySales, getWeeklySales, getMonthlySales, getSalesByDateRange } from '../controllers/salesController.js';
 import { getTables, getTableById, updateTable, deleteTable } from "../controllers/TableController.js";
-import { getBookingDetails, getBookingDetailsById, createBookingDetails, updateBookingDetails, deleteBookingDetails } from "../controllers/BookingController.js";
+import { getBookingDetails, getBookingDetailsById, createBookingDetails, updateBookingDetails, deleteBookingDetails, getBookingCount } from "../controllers/BookingController.js";
 
 const router = express.Router();
 
@@ -87,6 +87,7 @@ router.get('/bookings/:id', getBookingDetailsById);
 router.post('/bookings', createBookingDetails);
 router.put('/bookings/:id', updateBookingDetails);
 router.delete('/bookings/:id', deleteBookingDetails);
+router.get('/BookingCount', getBookingCount);
 
 export default router;
 

@@ -1,160 +1,156 @@
-import { Typography } from "antd";
-import { Link, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Container, TextField, Button, Typography, Grid, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import axios from 'axios';
 import ChefSideMenu from '../../Components/ChefSideMenu';
 import PageContent from '../../Components/PageContent';
+import { FaCheckCircle } from 'react-icons/fa';
 
 function Profile() {
+  let navigate = useNavigate();
+  const { c_id } = useParams();
 
-    // const [admins,setAdmins]=useState([]);
+  const [chef, setChef] = useState({
+    chef_name: '',
+    chef_email: '',
+    chef_password: '',
+    chef_address: '',
+    chef_telephone: '',
+  });
 
-    // const {admin_id}=useParams()
+  const [isUpdated, setIsUpdated] = useState(false);
 
-    // useEffect(() => {
-    //     loadAdmins();
-    // },[]);
+  const { chef_name, chef_email, chef_password, chef_address, chef_telephone } = chef;
 
-    // const loadAdmins = async () => {
-    //     const result = await axios.get("http://localhost:5000/admins");
-    //     setAdmins(result.data);
-    // };
+  const onInputChange = (e) => {
+    setChef({ ...chef, [e.target.name]: e.target.value });
+  };
 
-    // const deleteAdmin = async (id) => {
-    //     const result = await axios.delete(`http://localhost:5000/admin/${id}`)
-    //     loadAdmins()
-    // }
+  useEffect(() => {
+    loadChef();
+  }, []);
 
-
-
-    const [chefs,setChefs]=useState([]);
-
-    const {chef_id}=useParams()
-
-    useEffect(() => {
-        loadChefs();
-    },[]);
-
-    const loadChefs = async () => {
-        const result = await axios.get("http://localhost:5000/chefs");
-        setChefs(result.data);
-    };
-
-    const deleteChef = async (id) => {
-        const result = await axios.delete(`http://localhost:5000/chef/${id}`)
-        loadChefs()
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(`http://localhost:5000/chef/${c_id}`, chef);
+      setIsUpdated(true);
+    } catch (error) {
+      console.error(error);
     }
+  };
 
+  const handleClose = () => {
+    setIsUpdated(false);
+    navigate('/');
+  };
 
+  const loadChef = async () => {
+    const result = await axios.get(`http://localhost:5000/chef/${c_id}`);
+    setChef(result.data);
+  };
 
-    return (
-        <div className="SideMenuAndPageContent">
-        <ChefSideMenu></ChefSideMenu>
-        <PageContent></PageContent>
+  return (
+    <div className="SideMenuAndPageContent">
+      <ChefSideMenu />
+      <PageContent />
 
-            <div>
-                {/* <Typography.Title level={4}>System User Profiles</Typography.Title>
-                <Link className='btn btn-dark' to="/addnewadmin">Add New System User</Link>
-                <div className="container">
-                    <div className="py-4">
-                        <table className="table border shadow-inner, table-dark">
-                        <thead className="thead-dark">
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">E-mail</th>
-                                <th scope="col">Password</th>
-                                <th scope="col">Role</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            admins.map((systemuser,index)=>(
-                                <tr>
-                                    <th scope="row" key={index}>{index+1}</th>
-                                    <td>{systemuser.sysusr_name}</td>
-                                    <td>{systemuser.sysusr_email}</td>
-                                    <td>{systemuser.sysusr_password}</td>
-                                    <td>{systemuser.role}</td>
-                                    <td>
-                                        <Link className='btn btn-primary mx-2'
-                                            to={`/viewadmin/${systemuser.sysusr_id}`}
-                                        >
-                                            View
-                                        </Link>
-
-                                        <Link className='btn btn-outline-primary mx-2'
-                                        to={`/editadmin/${systemuser.sysusr_id}`}
-                                        >
-                                            Edit
-                                        </Link>
-
-                                        <button className='btn btn-danger mx-2'
-                                            onClick={() => deleteAdmin(systemuser.sysusr_id)}
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr> 
-                            ))
-        }
-                        </tbody>
-                        </table>
-                    </div>
-                </div> */}
-                <Typography.Title level={4}>Chef Profile</Typography.Title>
-                {/* <Link className='btn btn-info' to="/addnewchef">Add New Chef</Link> */}
-                <div className="container">
-                    <div className="py-4">
-                        <table className="table border shadow-inner, table-info">
-                        <thead className="thead-dark">
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">E-mail</th>
-                                <th scope="col">Password</th>
-                                <th scope="col">Role</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            chefs.map((systemuser,index)=>(
-                                <tr>
-                                    <th scope="row" key={index}>{index+1}</th>
-                                    <td>{systemuser.sysusr_name}</td>
-                                    <td>{systemuser.sysusr_email}</td>
-                                    <td>{systemuser.sysusr_password}</td>
-                                    <td>{systemuser.role}</td>
-                                    <td>
-                                        <Link className='btn btn-primary mx-2'
-                                            to={`/viewchef/${systemuser.sysusr_id}`}
-                                        >
-                                            View
-                                        </Link>
-
-                                        <Link className='btn btn-outline-primary mx-2'
-                                        to={`/editchef/${systemuser.sysusr_id}`}
-                                        >
-                                            Edit
-                                        </Link>
-
-                                        <button className='btn btn-danger mx-2'
-                                            onClick={() => deleteChef(systemuser.sysusr_id)}
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr> 
-                            ))
-                        }
-                        </tbody>
-                        </table>
-                    </div>
-                </div> 
+      <Container maxWidth="md">
+        <div className="row">
+          <div className="col-md-12">
+            <div className="border rounded p-4 mt-2 shadow p-3 mb-2 bg-info text-white">
+              <Typography variant="h4" align="center" gutterBottom>
+                Edit Profile
+              </Typography>
+              <form onSubmit={(e) => onSubmit(e)}>
+                <Grid container spacing={3}>
+                  <Grid item xs={12}>
+                    <TextField
+                      label="Name"
+                      variant="outlined"
+                      fullWidth
+                      name="chef_name"
+                      value={chef_name}
+                      onChange={(e) => onInputChange(e)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      label="Email"
+                      variant="outlined"
+                      fullWidth
+                      name="chef_email"
+                      value={chef_email}
+                      onChange={(e) => onInputChange(e)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      label="Password"
+                      variant="outlined"
+                      fullWidth
+                      name="chef_password"
+                      value={chef_password}
+                      onChange={(e) => onInputChange(e)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      label="Address"
+                      variant="outlined"
+                      fullWidth
+                      name="chef_address"
+                      value={chef_address}
+                      onChange={(e) => onInputChange(e)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      label="Telephone"
+                      variant="outlined"
+                      fullWidth
+                      name="chef_telephone"
+                      value={chef_telephone}
+                      onChange={(e) => onInputChange(e)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button type="submit" variant="contained" color="primary">
+                      Update
+                    </Button>
+                    <Button
+                      component={Link}
+                      to="/chefprofile"
+                      variant="contained"
+                      color="secondary"
+                      style={{ marginLeft: 10 }}
+                    >
+                      Cancel
+                    </Button>
+                  </Grid>
+                </Grid>
+              </form>
             </div>
+          </div>
         </div>
-    ); 
+      </Container>
+
+      <Dialog open={isUpdated} onClose={handleClose}>
+        <DialogTitle>Success</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1" align="center">
+            <FaCheckCircle style={{ marginRight: 5 }} />
+            Successfully updated.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
 }
-export default Profile
+
+export default Profile;
