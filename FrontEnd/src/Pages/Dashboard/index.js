@@ -34,7 +34,7 @@ function Dashboard() {
     const [categories, setCategories] = useState(0);
     const [menu, setInventry] = useState(0);
     const [customers, setCustomers] = useState(0);
-    const [revenue, setRevenue] = useState(0);
+    const [booking, setBooking] = useState(0);
 
     useEffect(() => {
 
@@ -75,10 +75,9 @@ function Dashboard() {
             })
         
         axios
-            .get("http://localhost:5000/api/sales/total")
+            .get("http://localhost:5000/BookingCount")
             .then((res) => {
-              const totalRevenue = res.data.totalSalesAmount;
-              setRevenue(totalRevenue);
+              setBooking(res.data.count);
             })
             .catch((error) => {
               console.log(error);
@@ -181,10 +180,10 @@ function Dashboard() {
                     } 
                         title={
                             <Typography.Text strong style={{ fontSize: 16 }}>
-                                Revenue
+                                Bookings
                             </Typography.Text>
                         } 
-                        value={revenue} 
+                        value={booking} 
                     />  
                 </Space>
                 <Space>

@@ -78,3 +78,13 @@ export const deleteBookingDetails = async(req, res) =>{
         console.log(error.message);
     }
 }
+
+export const getBookingCount = async (req, res) => {
+    try {
+        const count = await TableBooking.count();
+        res.status(200).json({count});
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({error: "Internal Server Error "});
+    }
+}
