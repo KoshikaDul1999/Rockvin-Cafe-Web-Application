@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, DatePicker, Space, Table, Modal } from 'antd';
+import { Typography, DatePicker, Space, Table, Button } from 'antd';
 import SideMenu from '../Components/SideMenu';
 import PageContent from '../Components/PageContent';
 import axios from 'axios';
 import moment from 'moment';
+import { Bar } from 'react-chartjs-2';
+import { PDFDownloadLink} from '@react-pdf/renderer';
+import PdfReport from './DailyPdfReport';
+
 
 function Reports() {
   const [dailySales, setDailySales] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [showModal, setShowModal] = useState(false); // State to control the visibility of the modal
+  const [generatePdf, setGeneratePdf] = useState(false);
 
   useEffect(() => {
     fetchDailySales();
@@ -47,33 +51,45 @@ function Reports() {
       title: 'Order ID',
       dataIndex: 'orderid',
       key: 'orderid',
+      width: '15%',
+      align: 'center',
     },
     {
       title: 'User Name',
       dataIndex: 'user',
       key: 'user',
       render: (user) => `${user.fname} ${user.lname}`,
+      width: '25%',
+      align: 'center',
     },
     {
       title: 'Food',
       dataIndex: 'food',
       key: 'food',
       render: (food) => food.food_name,
+      width: '20%',
+      align: 'center',
     },
     {
       title: 'Unit Price',
       dataIndex: 'totalprice',
       key: 'totalprice',
+      width: '15%',
+      align: 'center',
     },
     {
       title: 'Quantity',
       dataIndex: 'quantity',
       key: 'quantity',
+      width: '15%',
+      align: 'center',
     },
     {
       title: 'Total Amount',
-      key: 'totalamount',
+      dataIndex: 'totalprice * quantity',
       render: (text, record) => record.totalprice * record.quantity,
+      width: '20%',
+      align: 'center',
     },
   ];
 
@@ -82,43 +98,116 @@ function Reports() {
     ? dailySales.reduce((acc, sale) => acc + sale.totalprice * sale.quantity, 0)
     : 0;
 
-  // Function to show the modal
-  const showModalHandler = () => {
-    setShowModal(true);
-  };
+  const getMostOrderedFood = () => {
+      if (!dailySales || dailySales.length === 0) {
+        return null;
+  }
 
-  // Function to hide the modal
-  const hideModalHandler = () => {
-    setShowModal(false);
-  };
+  const foodCountMap = dailySales.reduce((map, sale) => {
+        const foodName = sale.food.food_name;
+        map[foodName] = (map[foodName] || 0) + sale.quantity;
+        return map;
+  }, {});
+  
+  const mostOrderedFood = Object.keys(foodCountMap).reduce((a, b) =>
+        foodCountMap[a] > foodCountMap[b] ? a : b
+  );
+  
+      return mostOrderedFood;
+    };
+  
+    const mostOrderedFood = getMostOrderedFood();
+  
+    // Chart data and options
+    const chartData = {
+      labels: dailySales ? dailySales.map((sale) => sale.food.food_name) : [],
+      datasets: [
+        {
+          label: 'Quantity',
+          data: dailySales ? dailySales.map((sale) => sale.quantity) : [],
+          backgroundColor: 'rgba(75,192,192,0.2)',
+          borderColor: 'rgba(75,192,192,1)',
+          borderWidth: 1,
+        },
+      ],
+    };
+  
+    const chartOptions = {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+      maintainAspectRatio: false, // Disable aspect ratio to control height and width
+      height: 400, // Set the height of the chart
+      width: '100%', // Set the width of the chart to 100% of its container
+    };
 
   return (
-    <div className="SideMenuAndPageContent">
+    <div className="SideMenuAndPageContent" style={{ display: 'flex' }}>
       <SideMenu />
       <PageContent />
-        <div>
-          <Typography.Title level={4}>Daily Sales Report</Typography.Title>
-          <Space direction="vertical" style={{ marginBottom: 16 }}>
-            <DatePicker onChange={handleDateChange} />
-          </Space>
-          <button onClick={showModalHandler}>Show Details</button> {/* Button to show the modal */}
-          <Modal
-            title={`Total income on ${selectedDate?.format('MMMM Do, YYYY')}: Rs. ${dailyTotalIncome}`}
-            visible={showModal}
-            onCancel={hideModalHandler}
-            footer={null}
-          >
-            {dailySales && dailySales.length > 0 ? (
-              <Table
-                columns={columns}
-                dataSource={dailySales}
-                rowKey={(record) => record.orderid}
-              />
-            ) : (
-              <Typography.Text>Select the date</Typography.Text>
-            )}
-          </Modal>
-        </div>
+      <div style={{ flex: 1, marginLeft: '20px' }}>
+        <Typography.Title level={4}>Daily Sales Report</Typography.Title>
+        <Space direction="vertical" style={{ marginBottom: 16 }}>
+          <DatePicker onChange={handleDateChange} />
+          <Button type="primary" onClick={() => setGeneratePdf(true)}>
+            Download as PDF
+          </Button>
+        </Space>
+        {dailySales && dailySales.length > 0 ? (
+          <Table
+            columns={columns}
+            dataSource={dailySales}
+            pagination={false}
+            bordered
+            summary={(pageData) => {
+              let totalQuantity = 0;
+              let totalAmount = 0;
+              pageData.forEach((data) => {
+                totalQuantity += data.quantity;
+                totalAmount += data.quantity * data.totalprice;
+              });
+
+              return (
+                <>
+                  <Table.Summary.Row style={{ background: '#f2f2f2' }}>
+                    <Table.Summary.Cell index={0} colSpan={4} align="center">
+                      Total
+                    </Table.Summary.Cell>
+                    <Table.Summary.Cell index={1} align="center">
+                      {totalQuantity}
+                    </Table.Summary.Cell>
+                    <Table.Summary.Cell index={2} align="center">
+                      {totalAmount.toFixed(2)}
+                    </Table.Summary.Cell>
+                  </Table.Summary.Row>
+                  <div style={{ marginTop: '20px' }}>
+                    Most ordered food item: {mostOrderedFood}
+                  </div>
+                  <div style={{ marginTop: '20px', height: '400px', width: '100%' }}>
+                    <Bar data={chartData} options={chartOptions} />
+                  </div>
+                  {generatePdf && (
+                    <PDFDownloadLink
+                      document={<PdfReport dailySales={dailySales} mostOrderedFood={mostOrderedFood} />}
+                      fileName="daily_sales_report.pdf"
+                    >
+                      {({ blob, url, loading, error }) =>
+                        loading ? 'Loading document...' : 'Download now!'
+                      }
+                    </PDFDownloadLink>
+                  )}
+                </>
+              );
+            }}
+          />
+        ) : (
+          <div style={{ marginTop: '20px' }}>
+            <Typography.Text>Select the date</Typography.Text>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

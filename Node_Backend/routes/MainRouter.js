@@ -5,9 +5,11 @@ import { getCategories, getCategoryById, createCategory, updateCategory, deleteC
 import { getFoods, getFoodById, updateFood, createFood, deleteFood, getFoodByName, getFoodsCount, uploadFoodImage, deleteFoodImage } from "../controllers/FoodController.js";
 import { deleteOrderDetails, updateOrderDetails, getOrderDetailsById, getOrderDetails, createOrderDetails, getOrderDetailsCount } from "../controllers/OrderDetailsController.js";
 import { getAdmins, getAdminById, createAdmin, updateAdmin, deleteAdmin} from "../controllers/SystemUserController.js";
-import {getChefs, getChefById, createChef, updateChef, deleteChef} from "../controllers/ChefController.js";
-import {getUsers, getUserById, createUser, updateUser, deleteUser, getCustomersCount} from "../controllers/UserController.js";
+import { getChefs, getChefById, createChef, updateChef, deleteChef} from "../controllers/ChefController.js";
+import { getUsers, getUserById, createUser, updateUser, deleteUser, getCustomersCount} from "../controllers/UserController.js";
 import { getDailySales, getWeeklySales, getMonthlySales, getSalesByDateRange } from '../controllers/salesController.js';
+import { getTables, getTableById, updateTable, deleteTable } from "../controllers/TableController.js";
+import { getBookingDetails, getBookingDetailsById, createBookingDetails, updateBookingDetails, deleteBookingDetails, getBookingCount } from "../controllers/BookingController.js";
 
 const router = express.Router();
 
@@ -73,7 +75,18 @@ router.get('/api/sales', getSalesByDateRange);
 router.get('/api/sales/daily', getDailySales);
 router.get('/api/sales/weekly', getWeeklySales);
 router.get('/api/sales/monthly', getMonthlySales);
-//router.get('/api/sales/total', getTotalSalesAmount);
+
+router.get('/tables/', getTables);
+router.get('/tables/:id', getTableById);
+router.put('/tables/:id', updateTable);
+router.delete('/tables/:id', deleteTable);
+
+router.get('/bookings', getBookingDetails);
+router.get('/bookings/:id', getBookingDetailsById);
+router.post('/bookings', createBookingDetails);
+router.put('/bookings/:id', updateBookingDetails);
+router.delete('/bookings/:id', deleteBookingDetails);
+router.get('/BookingCount', getBookingCount);
 
 export default router;
 

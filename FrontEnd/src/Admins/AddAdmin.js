@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Container, Typography, TextField, Button } from '@material-ui/core';
+import { Container, Typography, TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
+import { FaCheckCircle } from 'react-icons/fa';
 import { RollerSkating } from '@mui/icons-material';
 
 export default function AddAdmin() {
@@ -14,6 +15,8 @@ export default function AddAdmin() {
     role: '',
   });
 
+  const [isAdded, setIsAdded] = useState(false);
+
   const { sysusr_name, sysusr_email, sysusr_password, role } = systemusers;
 
   const onInputChange = (e) => {
@@ -23,6 +26,11 @@ export default function AddAdmin() {
   const onSubmit = async (e) => {
     e.preventDefault();
     await axios.post('http://localhost:5000/admin', systemusers);
+    setIsAdded(true);
+  };
+
+  const handleClose = () => {
+    setIsAdded(false);
     navigate('/profile');
   };
 
@@ -108,6 +116,20 @@ export default function AddAdmin() {
           </div>
         </div>
       </div>
+      <Dialog open={isAdded} onClose={handleClose}>
+        <DialogTitle>Success</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1">
+            <FaCheckCircle style={{ marginRight: 5 }} />
+            Successfully Added.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 }

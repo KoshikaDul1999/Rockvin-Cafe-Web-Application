@@ -65,13 +65,12 @@ export const getFoodByName = async(req, res) =>{
 
 export const createFood = async (req, res) => {
     try {
-      const { food_id, food_name, food_price, food_desc, food_cat_id } = req.body;
+      const { food_name, food_price, food_desc, food_cat_id } = req.body;
       const food_image = req.file.originalname; // Get the filename of the uploaded image
 
       console.log("RRREEEQQQ", req.file)
   
       await Foods.create({
-        food_id,
         food_name,
         food_price,
         food_desc,
