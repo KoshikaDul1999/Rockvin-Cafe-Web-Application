@@ -2,26 +2,28 @@ import { Typography } from "antd";
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useCookies } from 'react-cookie'; 
 import { Button, TextField } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
+import { FaCheckCircle } from 'react-icons/fa';
 import SideMenu from '../../Components/SideMenu';
 import PageContent from '../../Components/PageContent';
 
 function Profile() {
+
   let navigate = useNavigate();
+
+  const [cookies] = useCookies(['email']);
+  console.log(cookies.email)
 
   const { email } = useParams();
   const [admins, setAdmins] = useState([]);
   const [editingAdmin, setEditingAdmin] = useState(false);
 
-  const [systemusers, setSystemusers] = useState({
-    sysusr_name: '',
-    sysusr_email: '',
-    sysusr_password: '',
-    role: '',
-  });
-
+  const [systemusers, setSystemusers] = useState([]);
 
   const { sysusr_name, sysusr_email, sysusr_password, role } = systemusers;
+  const [isUpdated, setIsUpdated] = useState(false);
 
   const onInputChange = (e) => {
     setSystemusers({ ...systemusers, [e.target.name]: e.target.value });
@@ -29,6 +31,7 @@ function Profile() {
 
   useEffect(() => {
     loadAdmins();
+    onEditAdmin();
   },[]);
 
   const loadAdmins = async () => {
@@ -48,32 +51,22 @@ function Profile() {
   };
 
   const onEditAdmin = async (id) => {
-    const result = await axios.get(`http://localhost:5000/admin/${email}`);
+    const result = await axios.get(`http://localhost:5000/admin/${cookies.email}`);
     setSystemusers(result.data);
+    console.log(result.data)
     setEditingAdmin(true);
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`http://localhost:5000/admin/${email}`, systemusers);
+    await axios.put(`http://localhost:5000/admin/${cookies.email}`, systemusers);
+    setIsUpdated(true); 
+  };
+
+  const handleClose = () => {
+    setIsUpdated(false);
     navigate('/profile');
   };
-
-  // const loadSystemusers = async () => {
-  //   const result = await axios.get(`http://localhost:5000/admin/${email}`);
-  //   setSystemusers(result.data);
-  // };
-
-  const onCancelEdit = () => {
-    setEditingAdmin(false);
-  };
-
-  // const onUpdateAdmin = async (e) => {
-  //   e.preventDefault();
-  //   await axios.put(`http://localhost:5000/admin/${email}`, systemusers);
-  //   setEditingAdmin(false);
-  //   loadAdmins();
-  // };
 
   return (
     <div className="SideMenuAndPageContent">
@@ -117,7 +110,7 @@ function Profile() {
             </table>
           
             {/* Show the EditAdmin form without using edit button */}
-            {!editingAdmin && (
+            {editingAdmin && (
               <div className="border rounded p-4 mt-2 shadow p-3 mb-2 bg-light text-white">
                 <Typography variant="h1" align="center" gutterBottom>
                   Update Admin Profile
@@ -133,7 +126,7 @@ function Profile() {
                   className="form-control"
                   placeholder="Enter System User Name"
                   name="sysusr_name"
-                  value={onEditAdmin.sysusr_name}
+                  value={systemusers.sysusr_name}
                   onChange={(e) => onInputChange(e)}
                   fullWidth
                 />
@@ -147,7 +140,7 @@ function Profile() {
                   className="form-control"
                   placeholder="Enter System User Email "
                   name="sysusr_email"
-                  value={onEditAdmin.sysusr_email}
+                  value={systemusers.sysusr_email}
                   onChange={(e) => onInputChange(e)}
                   fullWidth
                 />
@@ -161,7 +154,7 @@ function Profile() {
                   className="form-control"
                   placeholder="Enter System User Password"
                   name="sysusr_password"
-                  value={onEditAdmin.sysusr_password}
+                  value={systemusers.sysusr_password}
                   onChange={(e) => onInputChange(e)}
                   fullWidth
                 />
@@ -177,8 +170,24 @@ function Profile() {
             )}
           </div>
         </div>
+        <Dialog open={isUpdated} onClose={handleClose}>
+        <DialogTitle>Success</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1" align="center">
+            <FaCheckCircle style={{ marginRight: 5 }} />
+            Successfully updated.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
       </div>
+      
     </div>
+    
   );
 }
 

@@ -83,7 +83,7 @@ const CartPage = () => {
     newcartItems.forEach((item) => {
       totalPrice += item.food_price * item.quantity; // Multiply price by quantity
     });
-    setTotal(totalPrice);
+    setTotal(totalPrice.toFixed(2));
   };
 
   const handleDelete = (itemId) => {
@@ -104,7 +104,7 @@ const CartPage = () => {
 
     // Recalculate the total and update the total state
     const newTotal = calculateTotal(updatedCartItems);
-    setTotal(newTotal);
+    setTotal(newTotal.toFixed(2));
   };
 
   const handleRemoveItem = (itemId) => {
@@ -158,7 +158,7 @@ const CartPage = () => {
   type="number"
   min="1"
   value={item.quantity || 1}
-  onChange={(e) => updateprice(item.food_id, e.target.value, item.food_price, item)}
+  onChange={(e) => updateprice(item.food_id, e.target.value, item.food_price.toFixed(2), item)}
   style={{ width: '50px' }}
 />
 

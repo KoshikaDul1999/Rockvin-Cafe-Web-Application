@@ -32,7 +32,14 @@ const Product = ({ product, addToCart }) => {
 
     if (temp != null) {
       temp.forEach((d) => {
-        data.push(d);
+        
+        if(d.food_id === value.food_id){
+          alert("product is alredy added");
+          return;
+        }
+        else{
+          data.push(d);
+        }
       });
     }
 

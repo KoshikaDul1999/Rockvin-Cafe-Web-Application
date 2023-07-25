@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, DatePicker, Space, Table, Button } from 'antd';
+import { Typography, DatePicker, Space, Table } from 'antd';
 import SideMenu from '../Components/SideMenu';
 import PageContent from '../Components/PageContent';
 import axios from 'axios';
 import moment from 'moment';
 import { Bar } from 'react-chartjs-2';
-import { PDFDownloadLink} from '@react-pdf/renderer';
-import PdfReport from './DailyPdfReport';
+
 
 
 function Reports() {
   const [dailySales, setDailySales] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [generatePdf, setGeneratePdf] = useState(false);
 
   useEffect(() => {
     fetchDailySales();
@@ -143,6 +141,21 @@ function Reports() {
       width: '100%', // Set the width of the chart to 100% of its container
     };
 
+  //   // Function to handle the print button click
+  // const handlePrint = () => {
+  //   const printableElement = document.querySelector(".printable");
+  //   if (printableElement) {
+  //     const printWindow = window.open('', '_blank');
+  //     printWindow.document.write('<html><head><title>Dialy Report</title>');
+  //     printWindow.document.write('</head><body >');
+  //     printWindow.document.write(printableElement.innerHTML);
+  //     printWindow.document.write('</body></html>');
+  //     printWindow.document.close();
+  //     printWindow.print();
+  //     printWindow.close();
+  //   }
+  // };
+
   return (
     <div className="SideMenuAndPageContent" style={{ display: 'flex' }}>
       <SideMenu />
@@ -151,10 +164,8 @@ function Reports() {
         <Typography.Title level={4}>Daily Sales Report</Typography.Title>
         <Space direction="vertical" style={{ marginBottom: 16 }}>
           <DatePicker onChange={handleDateChange} />
-          <Button type="primary" onClick={() => setGeneratePdf(true)}>
-            Download as PDF
-          </Button>
         </Space>
+        
         {dailySales && dailySales.length > 0 ? (
           <Table
             columns={columns}
@@ -182,22 +193,14 @@ function Reports() {
                       {totalAmount.toFixed(2)}
                     </Table.Summary.Cell>
                   </Table.Summary.Row>
+                  {/* <button onClick={handlePrint}>Download as PDF</button> */}
                   <div style={{ marginTop: '20px' }}>
                     Most ordered food item: {mostOrderedFood}
                   </div>
                   <div style={{ marginTop: '20px', height: '400px', width: '100%' }}>
                     <Bar data={chartData} options={chartOptions} />
                   </div>
-                  {generatePdf && (
-                    <PDFDownloadLink
-                      document={<PdfReport dailySales={dailySales} mostOrderedFood={mostOrderedFood} />}
-                      fileName="daily_sales_report.pdf"
-                    >
-                      {({ blob, url, loading, error }) =>
-                        loading ? 'Loading document...' : 'Download now!'
-                      }
-                    </PDFDownloadLink>
-                  )}
+                  
                 </>
               );
             }}
@@ -207,6 +210,7 @@ function Reports() {
             <Typography.Text>Select the date</Typography.Text>
           </div>
         )}
+        
       </div>
     </div>
   );
