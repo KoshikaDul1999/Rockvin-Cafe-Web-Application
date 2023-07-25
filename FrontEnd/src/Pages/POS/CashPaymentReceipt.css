@@ -1,36 +1,107 @@
 /* CashPaymentReceipt.css */
 
 .receipt {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    width: 300px;
-    margin: 0 auto;
-  }
-  
-  .header {
-    text-align: center;
-  }
-  
-  .store-info {
-    margin-bottom: 20px;
-  }
-  
-  .store-name {
-    font-weight: bold;
-  }
-  
-  .item-details {
-    margin-bottom: 20px;
-  }
-  
-  .item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
-  }
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+}
+
+.store-info {
+  margin-bottom: 20px;
+}
+
+.store-name {
+  font-weight: bold;
+}
+
+.item-details {
+  margin-bottom: 20px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.totals {
+  text-align: right;
+}
+
+.payment {
+  margin-bottom: 20px;
+}
+
+.change {
+  font-weight: bold;
+  text-align: right;
+}
+
+.thank-you {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.divider {
+  border-top: 1px solid #ccc;
+}
+
+.navigation-bar {
+  background-color: #333;
+  padding: 10px 0;
+}
+
+.navigation-list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.navigation-list li {
+  margin: 0 10px;
+}
+
+.navigation-list li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.product-name {
+  font-weight: bold;
+}
+
+.product-price {
+  text-align: right;
+}
+
+.product-quantity {
+  text-align: right;
+}
+
   
   /* .product {
     display: flex;

@@ -33,7 +33,7 @@ export const createOrderDetails = async(req, res) =>{
         console.log(error.message);
     }
 }
- 
+  
 export const updateOrderDetails = async(req, res) =>{
     try {
         await OrderDetails.update(req.body,{
