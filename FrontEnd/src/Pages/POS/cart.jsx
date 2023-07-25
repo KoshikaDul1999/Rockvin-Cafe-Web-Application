@@ -31,41 +31,39 @@ const CartPage = () => {
       const newItemData = {
         itemId: item.food_id,
         food_name: item.food_name,
-        food_price:item.price,
+        food_price: item.price,
         quantity: item.quantity,
       };
 
       newdata.push(newItemData);
-    },[]);
+    });
     setNewCartItems(newdata);
     sessionStorage.setItem('newcart', JSON.stringify(newdata));
     updateTotal();
   };
 
   const createNewSessionStorage = (value, itemId, qun) => {
+    const updatedCartItems = newcartItems.filter((item) => item.itemId !== value.food_id);
     
-      const updatedCartItems = newcartItems.filter((item) => item.itemId !== value.food_id);
-      
-      sessionStorage.removeItem('newcart');
+    sessionStorage.removeItem('newcart');
 
+    const newItemData = {
+      itemId: value.food_id,
+      food_name: value.food_name,
+      food_price: value.price,
+      quantity: qun,
+    };
+    newdata.push(newItemData);
+
+    updatedCartItems.forEach((item, index) => {
       const newItemData = {
-        itemId: value.food_id,
-        food_name: value.food_name,
-        food_price: value.price,
-        quantity: qun,
+        itemId: item.itemId,
+        food_name: item.food_name,
+        food_price: item.food_price,
+        quantity: item.quantity,
       };
       newdata.push(newItemData);
-
-
-      updatedCartItems.forEach((item, index) => {
-        const newItemData = {
-          itemId: item.itemId,
-          food_name: item.food_name,
-          food_price: item.food_price,
-          quantity: item.quantity,
-        };
-        newdata.push(newItemData);
-      });
+    });
 
     sessionStorage.setItem('newcart', JSON.stringify(newdata));
     setNewCartItems(newdata);
@@ -95,18 +93,18 @@ const CartPage = () => {
   };
 
   const updateprice = (id, value, price, item) => {
-    createNewSessionStorage(item, id, value)
+    createNewSessionStorage(item, id, value);
     document.getElementById(id).innerHTML = `RS ${value * price}`;
     calculateTotal(cartItems);
     const updatedCartItems = cartItems.map((cartItem) =>
-    cartItem.food_id === id ? { ...cartItem, quantity: parseInt(value) } : cartItem
-  );
-  // Update cartItems with the modified item list
-  setCartItems(updatedCartItems);
+      cartItem.food_id === id ? { ...cartItem, quantity: parseInt(value) } : cartItem
+    );
+    // Update cartItems with the modified item list
+    setCartItems(updatedCartItems);
 
-  // Recalculate the total and update the total state
-  const newTotal = calculateTotal(updatedCartItems);
-  setTotal(newTotal);
+    // Recalculate the total and update the total state
+    const newTotal = calculateTotal(updatedCartItems);
+    setTotal(newTotal);
   };
 
   const handleRemoveItem = (itemId) => {
@@ -123,7 +121,7 @@ const CartPage = () => {
     });
     return sum;
   }
-  
+
   useEffect(() => {
     getSessionData();
   }, []);
@@ -134,8 +132,8 @@ const CartPage = () => {
 
   return (
     <div>
-      <NavigationBar /><br></br><br></br>
-      <h1>Shopping Cart</h1><br></br>
+      <NavigationBar /><br /><br />
+      <h1>Shopping Cart</h1><br /><br />
       <table className="cart-items">
         <thead>
           <tr>
@@ -149,7 +147,6 @@ const CartPage = () => {
         </thead>
         <tbody>
           {cartItems.map((item) => (
-            
             <tr className="cart-item" key={item.food_id}>
               <td>
                 <img src={`${imageSrc}${item.food_img}`} alt={item.food_name} className="cart-item-image" />
@@ -167,7 +164,6 @@ const CartPage = () => {
               </td>
               <td id={item.food_id}>RS.{item.food_price * item.quantity || item.food_price * 1}</td>
               <td>
-             
                 <button className="delete-button" onClick={() => handleRemoveItem(item.food_id)}>
                   Delete
                 </button>
@@ -177,9 +173,14 @@ const CartPage = () => {
         </tbody>
       </table>
       <div className="total-amount">Total: RS.{calculateTotal(cartItems)}</div>
-      <a href="/payMethod"> <button className="checkout-button">Checkout</button></a>
+      <div>
+        {(() => {
+          sessionStorage.setItem('total', calculateTotal(cartItems));
+          console.log(sessionStorage.getItem('total'));
+        })()}
+      </div>
+      <a href="/payMethod"><button className="checkout-button">Checkout</button></a>
     </div>
-    
   );
 };
 
