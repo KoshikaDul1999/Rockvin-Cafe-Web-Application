@@ -6,8 +6,6 @@ import { FaCheckCircle } from 'react-icons/fa';
 import axios from 'axios';
 
 
-// const categories = ['Breakfast', 'Lunch', 'Dinner', 'Beverages', 'Dessert']; // Replace with your actual categories
-
 const ProductUploadForm = () => {
   //const [food_id, setFoodID] = useState('');
   const [food_name, setFoodName] = useState('');
@@ -18,8 +16,32 @@ const ProductUploadForm = () => {
   const [categories, setCategories] = useState([]);
 
   const [isAdded, setIsAdded] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({});
 
   let navigate = useNavigate();
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!food_name.trim()) {
+      newErrors.food_name = "Food Name is required";
+    }
+
+    if (!food_price.trim()) {
+      newErrors.food_price = "Price is required";
+    // } else if (!/^\d+(\.\d{1,2})?$/.test(food_price)) {
+    //   newErrors.food_price = "Invalid price format. Use decimal form (e.g., 10.99)";
+    }
+    
+    if (!food_desc.trim()) {
+      newErrors.food_desc = "Description is required";
+    }
+
+    setValidationErrors(newErrors);
+
+    // Return true if there are no errors, false otherwise
+    return Object.keys(newErrors).length === 0;
+  }
 
   useEffect(() => {
     fetchCategories();
@@ -36,14 +58,15 @@ const ProductUploadForm = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
+    const isFormValid = validateForm();
   
+    if (isFormValid) {
     // Create a FormData object and append form data
     const formData = new FormData();
-    //formData.append('food_id', food_id);
     formData.append('food_name', food_name);
     formData.append('food_price', food_price);
     formData.append('food_image', food_image);
-    // formData.append('food_image', food_image.name);
     formData.append('food_desc', food_desc);
 
     const matchingCategory = categories.find((category) => category.cate_name === food_cat_id);
@@ -55,23 +78,6 @@ const ProductUploadForm = () => {
 
     console.log(formData);
 
-  
-    // axios.post('http://localhost:5000/foods', formData)
-    //   .then((response) => {
-    //     // Handle the response from the server
-    //     console.log('Form submitted successfully');
-    //     // Reset the form fields
-    //     setFoodID('');
-    //     setFoodName('');
-    //     setFoodPrice('');
-    //     setFoodImage(null);
-    //     setFoodDescription('');
-    //     setFoodCategory('');
-    //   })
-    //   .catch((error) => {
-    //     // Handle the error
-    //     console.error('Error submitting form:', error);
-    //   });
     try {
       axios.post('http://localhost:5000/foods', formData);
       axios.post('http://localhost:5000/upload', formData);
@@ -92,6 +98,7 @@ const ProductUploadForm = () => {
       // Handle the error
       console.error('Error submitting form:', error);
     }
+  }
   };
 
   const handleFileChange = (e) => {
@@ -118,12 +125,16 @@ const ProductUploadForm = () => {
             fullWidth
             value={food_name}
             onChange={(e) => setFoodName(e.target.value)}
+            error={Boolean(validationErrors.food_name)}
+            helperText={validationErrors.food_name}
           />
           <TextField
             label="Product Price"
             fullWidth
             value={food_price}
             onChange={(e) => setFoodPrice(e.target.value)}
+            error={Boolean(validationErrors.food_price)}
+            helperText={validationErrors.food_price}
           />
           <Box mt={2}>
             <input
@@ -139,6 +150,8 @@ const ProductUploadForm = () => {
             rows={4}
             value={food_desc}
             onChange={(e) => setFoodDescription(e.target.value)}
+            error={Boolean(validationErrors.food_desc)}
+            helperText={validationErrors.food_desc}
           />
           <FormControl fullWidth>
             <InputLabel id="category-label">Product Category</InputLabel>
@@ -178,5 +191,6 @@ const ProductUploadForm = () => {
     </Container>
   );
 };
+
 
 export default ProductUploadForm;

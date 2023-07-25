@@ -14,8 +14,25 @@ export default function AddCategory() {
   });
 
   const [isAdded, setIsAdded] = useState(false);
-
   const { cate_name, cate_desc } = category;
+  const [validationErrors, setValidationErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!cate_name.trim()) {
+      newErrors.cate_name = "Category name is required";
+    }
+
+    if (!cate_desc.trim()) {
+      newErrors.cate_desc = "Category description is required";
+    }
+
+    setValidationErrors(newErrors);
+
+    // Return true if there are no errors, false otherwise
+    return Object.keys(newErrors).length === 0;
+  }
 
   const onInputChange = (e) => {
     setCategory({ ...category, [e.target.name]: e.target.value });
@@ -23,8 +40,16 @@ export default function AddCategory() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('http://localhost:5000/category', category);
-    setIsAdded(true);
+    const isFormValid = validateForm();
+
+    if (isFormValid) {
+      try {
+        await axios.post('http://localhost:5000/category', category);
+        setIsAdded(true);
+      } catch (error) {
+        console.error('Error submitting form:', error);
+      }
+    }
   };
 
   const handleClose = () => {
@@ -39,16 +64,6 @@ export default function AddCategory() {
       </Typography>
       <form onSubmit={(e) => onSubmit(e)}>
         <Grid container spacing={3}>
-          {/* <Grid item xs={12}>
-            <TextField
-              label="Category ID"
-              variant="outlined"
-              fullWidth
-              name="cate_id"
-              value={cate_id}
-              onChange={(e) => onInputChange(e)}
-            />
-          </Grid> */}
           <Grid item xs={12}>
             <TextField
               label="Category Name"
@@ -57,6 +72,8 @@ export default function AddCategory() {
               name="cate_name"
               value={cate_name}
               onChange={(e) => onInputChange(e)}
+              error={Boolean(validationErrors.cate_name)}
+              helperText={validationErrors.cate_name}
             />
           </Grid>
           <Grid item xs={12}>
@@ -67,6 +84,8 @@ export default function AddCategory() {
               name="cate_desc"
               value={cate_desc}
               onChange={(e) => onInputChange(e)}
+              error={Boolean(validationErrors.cate_desc)}
+              helperText={validationErrors.cate_desc}
             />
           </Grid>
           <Grid item xs={12}>
