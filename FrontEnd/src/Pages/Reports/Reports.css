@@ -1,8 +1,8 @@
 .sales-reports-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-bottom: 80px; /* Add some space between the "Sales Reports" title and tabs */
+    align-items: left;
+    margin-bottom: 1px; /* Add some space between the "Sales Reports" title and tabs */
   }
   
   .custom-tabs .ant-tabs-nav {
@@ -10,16 +10,16 @@
   }
   
   .custom-tabs .ant-tabs-tab {
-    font-size: 40px; /* Increase the font size of the tab labels */
+    font-size: 20px; /* Increase the font size of the tab labels */
     font-weight: bold;
   }
 
   .custom-tabs .ant-tabs-tab:nth-child(1) {
-    margin-right: 200px; /* Add some margin between the second tab (Weekly Report) and the third tab (Monthly Report) */
+    margin-right: 80px; /* Add some margin between the second tab (Weekly Report) and the third tab (Monthly Report) */
   }
   
   .custom-tabs .ant-tabs-tab:nth-child(2) {
-    margin-right: 200px; /* Add some margin between the second tab (Weekly Report) and the third tab (Monthly Report) */
+    margin-right: 80px; /* Add some margin between the second tab (Weekly Report) and the third tab (Monthly Report) */
   }
   
   .tab-content {
@@ -30,6 +30,6 @@
   
   .tab-icon {
     font-size: 60px; /* Increase the size of the icons */
-    margin-bottom: 18px;
+    margin-bottom: 12px;
   }
   
