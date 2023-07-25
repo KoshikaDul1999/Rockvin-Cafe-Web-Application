@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useCookies } from 'react-cookie'; 
 import { Button, TextField } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
+import { FaCheckCircle } from 'react-icons/fa';
 import ChefSideMenu from '../../Components/ChefSideMenu';
 import PageContent from '../../Components/PageContent';
 
@@ -18,6 +20,7 @@ function Profile() {
   const [editingAdmin, setEditingAdmin] = useState(false);
   
   const [systemusers, setSystemusers] = useState([]);
+  const [isUpdated, setIsUpdated] = useState(false);
 
   const { sysusr_name, sysusr_email, sysusr_password, role } = systemusers;
 
@@ -35,12 +38,15 @@ function Profile() {
   const onSubmit = async (e) => {
     e.preventDefault();
     await axios.put(`http://localhost:5000/admin/${cookies.email}`, systemusers);
+    setIsUpdated(true); 
     navigate('/chefprofile');
   };
 
-  const onCancelEdit = () => {
-    setEditingAdmin(false);
+  const handleClose = () => {
+    setIsUpdated(false);
+    navigate('/chefprofile');
   };
+
 
   useEffect(() => {
     onEditAdmin();
@@ -115,6 +121,20 @@ function Profile() {
             )}
           </div>
         </div>
+        <Dialog open={isUpdated} onClose={handleClose}>
+        <DialogTitle>Success</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1" align="center">
+            <FaCheckCircle style={{ marginRight: 5 }} />
+            Successfully updated.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
       </div>
     </div>
   );
