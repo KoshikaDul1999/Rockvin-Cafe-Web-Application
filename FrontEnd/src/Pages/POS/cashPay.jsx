@@ -22,6 +22,7 @@ function CashPaymentReceipt() {
   const [amountPaid, setAmountPaid] = useState(0);
   const totalAmount = sessionStorage.getItem('total');
   const [temp, setTemp] = useState([]);
+  const [currentDateTime, setCurrentDateTime] = useState('');
 
   // Function to calculate the change
   const calculateChange = () => {
@@ -55,6 +56,16 @@ function CashPaymentReceipt() {
       });
     });
     setTemp(temarr);
+
+
+    // Function to get the current date and time and update the state variable
+    const getCurrentDateTime = () => {
+      const now = new Date();
+      const formattedDateTime = now.toLocaleString(); // Adjust the format as needed
+      setCurrentDateTime(formattedDateTime);
+    };
+    getCurrentDateTime();
+
   };
 
   useEffect(() => {
@@ -86,7 +97,7 @@ function CashPaymentReceipt() {
         <div className="store-info">
           <p className="store-name">RockVin Cafe</p>
           <p className="store-address">Midigama</p>
-          <p className="date">Date</p>
+          <p className="date">Date : {currentDateTime}</p>
         </div>
         <hr className="divider" />
         <div className="item-details">
