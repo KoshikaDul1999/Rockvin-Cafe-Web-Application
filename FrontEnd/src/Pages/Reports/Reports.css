@@ -15,11 +15,11 @@
   }
 
   .custom-tabs .ant-tabs-tab:nth-child(1) {
-    margin-right: 250px; /* Add some margin between the second tab (Weekly Report) and the third tab (Monthly Report) */
+    margin-right: 200px; /* Add some margin between the second tab (Weekly Report) and the third tab (Monthly Report) */
   }
   
   .custom-tabs .ant-tabs-tab:nth-child(2) {
-    margin-right: 250px; /* Add some margin between the second tab (Weekly Report) and the third tab (Monthly Report) */
+    margin-right: 200px; /* Add some margin between the second tab (Weekly Report) and the third tab (Monthly Report) */
   }
   
   .tab-content {

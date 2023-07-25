@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, DatePicker, Space, Table } from 'antd';
+import { Typography, DatePicker, Space, Table, Button } from 'antd';
 import SideMenu from '../Components/SideMenu';
 import PageContent from '../Components/PageContent';
 import axios from 'axios';
 import moment from 'moment';
+import { Bar } from 'react-chartjs-2';
+import { PDFDownloadLink} from '@react-pdf/renderer';
+import PdfReport from './DailyPdfReport';
+
 
 function Reports() {
   const [dailySales, setDailySales] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [generatePdf, setGeneratePdf] = useState(false);
 
   useEffect(() => {
     fetchDailySales();
@@ -93,6 +98,51 @@ function Reports() {
     ? dailySales.reduce((acc, sale) => acc + sale.totalprice * sale.quantity, 0)
     : 0;
 
+  const getMostOrderedFood = () => {
+      if (!dailySales || dailySales.length === 0) {
+        return null;
+  }
+
+  const foodCountMap = dailySales.reduce((map, sale) => {
+        const foodName = sale.food.food_name;
+        map[foodName] = (map[foodName] || 0) + sale.quantity;
+        return map;
+  }, {});
+  
+  const mostOrderedFood = Object.keys(foodCountMap).reduce((a, b) =>
+        foodCountMap[a] > foodCountMap[b] ? a : b
+  );
+  
+      return mostOrderedFood;
+    };
+  
+    const mostOrderedFood = getMostOrderedFood();
+  
+    // Chart data and options
+    const chartData = {
+      labels: dailySales ? dailySales.map((sale) => sale.food.food_name) : [],
+      datasets: [
+        {
+          label: 'Quantity',
+          data: dailySales ? dailySales.map((sale) => sale.quantity) : [],
+          backgroundColor: 'rgba(75,192,192,0.2)',
+          borderColor: 'rgba(75,192,192,1)',
+          borderWidth: 1,
+        },
+      ],
+    };
+  
+    const chartOptions = {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+      maintainAspectRatio: false, // Disable aspect ratio to control height and width
+      height: 400, // Set the height of the chart
+      width: '100%', // Set the width of the chart to 100% of its container
+    };
+
   return (
     <div className="SideMenuAndPageContent" style={{ display: 'flex' }}>
       <SideMenu />
@@ -101,6 +151,9 @@ function Reports() {
         <Typography.Title level={4}>Daily Sales Report</Typography.Title>
         <Space direction="vertical" style={{ marginBottom: 16 }}>
           <DatePicker onChange={handleDateChange} />
+          <Button type="primary" onClick={() => setGeneratePdf(true)}>
+            Download as PDF
+          </Button>
         </Space>
         {dailySales && dailySales.length > 0 ? (
           <Table
@@ -129,6 +182,22 @@ function Reports() {
                       {totalAmount.toFixed(2)}
                     </Table.Summary.Cell>
                   </Table.Summary.Row>
+                  <div style={{ marginTop: '20px' }}>
+                    Most ordered food item: {mostOrderedFood}
+                  </div>
+                  <div style={{ marginTop: '20px', height: '400px', width: '100%' }}>
+                    <Bar data={chartData} options={chartOptions} />
+                  </div>
+                  {generatePdf && (
+                    <PDFDownloadLink
+                      document={<PdfReport dailySales={dailySales} mostOrderedFood={mostOrderedFood} />}
+                      fileName="daily_sales_report.pdf"
+                    >
+                      {({ blob, url, loading, error }) =>
+                        loading ? 'Loading document...' : 'Download now!'
+                      }
+                    </PDFDownloadLink>
+                  )}
                 </>
               );
             }}
@@ -136,11 +205,6 @@ function Reports() {
         ) : (
           <div style={{ marginTop: '20px' }}>
             <Typography.Text>Select the date</Typography.Text>
-          </div>
-        )}
-        {selectedDate && (
-          <div style={{ marginTop: '20px' }}>
-            Total income on {selectedDate.format('MMMM Do, YYYY')}: Rs. {dailyTotalIncome}
           </div>
         )}
       </div>

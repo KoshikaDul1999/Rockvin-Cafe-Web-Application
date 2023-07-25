@@ -43,7 +43,7 @@ function Customer() {
         <SideMenu></SideMenu>
         <PageContent></PageContent>
             <div>
-                <Typography.Title level={4}>Our Users</Typography.Title>
+                <Typography.Title level={4}>Our Customers</Typography.Title>
                 {/* <Link className='btn btn-primary' to="/addnewcustomer">Add New Customer</Link> */}
                 <div className="container">
                     <div className="py-4">
