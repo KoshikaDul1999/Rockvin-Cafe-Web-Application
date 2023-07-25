@@ -139,6 +139,9 @@ export const getMonthlySales = async (req, res) => {
   }
 };
 
+
+
+
 // export const getTotalSalesAmount = async () => {
 //   try {
 //     const totalSalesAmount = await DeletedOrderDetails.sum(

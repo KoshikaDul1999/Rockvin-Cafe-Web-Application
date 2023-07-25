@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, DatePicker, Space, Table } from 'antd';
+import { Typography, DatePicker, Space, Table, Button } from 'antd';
 import SideMenu from '../Components/SideMenu';
 import PageContent from '../Components/PageContent';
 import axios from 'axios';
 import moment from 'moment';
 import { Bar } from 'react-chartjs-2';
+import { PDFDownloadLink} from '@react-pdf/renderer';
+import PdfReport from './DailyPdfReport';
 
 
 function Reports() {
   const [dailySales, setDailySales] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [generatePdf, setGeneratePdf] = useState(false);
 
   useEffect(() => {
     fetchDailySales();
@@ -148,6 +151,9 @@ function Reports() {
         <Typography.Title level={4}>Daily Sales Report</Typography.Title>
         <Space direction="vertical" style={{ marginBottom: 16 }}>
           <DatePicker onChange={handleDateChange} />
+          <Button type="primary" onClick={() => setGeneratePdf(true)}>
+            Download as PDF
+          </Button>
         </Space>
         {dailySales && dailySales.length > 0 ? (
           <Table
@@ -176,13 +182,22 @@ function Reports() {
                       {totalAmount.toFixed(2)}
                     </Table.Summary.Cell>
                   </Table.Summary.Row>
-
                   <div style={{ marginTop: '20px' }}>
                     Most ordered food item: {mostOrderedFood}
                   </div>
                   <div style={{ marginTop: '20px', height: '400px', width: '100%' }}>
                     <Bar data={chartData} options={chartOptions} />
                   </div>
+                  {generatePdf && (
+                    <PDFDownloadLink
+                      document={<PdfReport dailySales={dailySales} mostOrderedFood={mostOrderedFood} />}
+                      fileName="daily_sales_report.pdf"
+                    >
+                      {({ blob, url, loading, error }) =>
+                        loading ? 'Loading document...' : 'Download now!'
+                      }
+                    </PDFDownloadLink>
+                  )}
                 </>
               );
             }}
