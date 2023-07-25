@@ -111,7 +111,7 @@ function CashPaymentReceipt() {
         </div>
         <hr className="divider" />
         <div className="totals">
-          <p className="total">Total: RS {totalAmount}</p>
+          <center><p className="total">Total: RS {totalAmount}</p></center>
         </div>
         <hr className="divider" />
         <div className="payment">
