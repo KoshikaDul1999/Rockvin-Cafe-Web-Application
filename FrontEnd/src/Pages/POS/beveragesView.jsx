@@ -32,7 +32,14 @@ const Product = ({ product, addToCart }) => {
 
     if (temp != null) {
       temp.forEach((d) => {
-        data.push(d);
+        
+        if(d.food_id === value.food_id){
+          alert("product is alredy added");
+          return;
+        }
+        else{
+          data.push(d);
+        }
       });
     }
 
@@ -71,7 +78,7 @@ const ProductView = () => {
     setCartItems((prevCartItems) => [...prevCartItems, product]);
   };
 
-  // Filter foods by food_cat_id === 4
+  // Filter foods by food_cat_id === 2
   const filteredFoods = foods.filter((product) => product.food_cat_id === 4);
 
   return (
