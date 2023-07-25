@@ -10,7 +10,7 @@ const NavigationBar = () => {
         <li><a href="/lunchView">Lunch</a></li>
         <li><a href="/dinnerView">Dinner</a></li>
         <li><a href="beveragesView">Beverages</a></li>
-        <li><a href="/viewcart" className='btn btn-primary'><i class="fa-solid fa-cart-shopping"></i></a></li>
+        <li><a href="/viewcart" className='btn btn-primary'><i className="fa-solid fa-cart-shopping"></i></a></li>
       </ul>
     </nav>
   );
@@ -18,9 +18,9 @@ const NavigationBar = () => {
 
 function CashPaymentReceipt() {
   const [cartItems, setCartItems] = useState([]);
-  const [newcartItems, setnewCartItems] = useState([]);
+  const [newcartItems, setNewCartItems] = useState([]);
   const [amountPaid, setAmountPaid] = useState(0);
-  const totalAmount = 4300;
+  const totalAmount = sessionStorage.getItem('total');
   const [temp, setTemp] = useState([]);
 
   // Function to calculate the change
@@ -38,12 +38,10 @@ function CashPaymentReceipt() {
     const newdata = JSON.parse(sessionStorage.getItem('newcart'));
     if (data) {
       setCartItems(data);
-      console.log(data);
     }
-    setnewCartItems(newdata);
-    console.log(newdata);
+    setNewCartItems(newdata);
 
-    const temarr = []
+    const temarr = [];
     data.forEach((d) => {
       newdata.forEach((n) => {
         if (d.food_id === n.itemId) {
@@ -82,7 +80,6 @@ function CashPaymentReceipt() {
     <div className="receipt">
       <NavigationBar /><br /><br />
       <div className="printable">
-
         <div className="header">
           <h1>RECEIPT</h1>
         </div>
@@ -102,27 +99,13 @@ function CashPaymentReceipt() {
               </tr>
             </thead>
             <tbody>
-              {temp.map((item) => (
-                <tr>
+              {temp.map((item, index) => (
+                <tr key={index}>
                   <td className="product-name">{item.food_name}</td>
                   <td className="product-price">Rs. {item.price}</td>
-
-
                   <td className="product-quantity">{item.qun}</td>
-
-
                 </tr>
               ))}
-              {/* <tr>
-                <td>Product 1</td>
-                <td>Rs. 1000</td>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td>Product 2</td>
-                <td>Rs. 2300</td>
-                <td>1</td>
-              </tr> */}
             </tbody>
           </table>
         </div>
@@ -140,17 +123,14 @@ function CashPaymentReceipt() {
             onChange={handleAmountPaidChange}
           />
           <hr className="divider" />
-          <hr className="divider" />
           <p className="change">
-            Change: Rs.
-            {amountPaid >= totalAmount ? calculateChange() : "Insufficient amount"}
+            Change: Rs. {amountPaid >= totalAmount ? calculateChange() : "Insufficient amount"}
           </p>
         </div>
         <hr className="divider" />
         <div className="thank-you">
           <p>Thank you for ordering! 🍽️</p>
         </div>
-
       </div>
       <button onClick={handlePrint}>Print Receipt</button>
     </div>
