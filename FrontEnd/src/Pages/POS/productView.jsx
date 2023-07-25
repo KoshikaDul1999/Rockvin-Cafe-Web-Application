@@ -19,23 +19,9 @@ const NavigationBar = () => {
 const Product = ({ product, addToCart }) => {
   const { food_name, food_price, food_img } = product;
   const imageSrc = `/images/foods/${food_img}`;
-  const data = [];
 
   const handleAddToCart = () => {
     addToCart(product);
-  };
-
-  const setSessionData = (value) => {
-    const temp = JSON.parse(sessionStorage.getItem('cart'));
-
-    if (temp != null) {
-      temp.forEach((d) => {
-        data.push(d);
-      });
-    }
-
-    data.push(value);
-    sessionStorage.setItem('cart', JSON.stringify(data));
   };
 
   return (
@@ -47,7 +33,7 @@ const Product = ({ product, addToCart }) => {
         <h3 className="product-name">{food_name}</h3>
         <p className="product-price">Rs {food_price}</p>
       </div>
-      <button className="add-to-cart-button" onClick={() => setSessionData(product)}>Add to Cart</button>
+      <button className="add-to-cart-button" onClick={handleAddToCart}>Add to Cart</button>
     </div>
   );
 };
@@ -70,7 +56,16 @@ const ProductView = () => {
   }, []);
 
   const addToCart = (product) => {
+    // Check if the product is already in the cartItems state
+    const isItemInCart = cartItems.some((item) => item.id === product.id);
+
+    if (isItemInCart) {
+      alert('Item has been added to the cart already!');
+      return; // Return early without adding to the cart or session
+    }
+
     setCartItems((prevCartItems) => [...prevCartItems, product]);
+    sessionStorage.setItem('cart', JSON.stringify([...cartItems, product])); // Store updated cartItems in sessionStorage
   };
 
   const filteredFoods = foods.filter((product) => product.food_cat_id === 1);
