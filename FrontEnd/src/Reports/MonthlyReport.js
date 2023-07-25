@@ -75,11 +75,7 @@ function Reports() {
     }
   };
 
-  let totalIncome = 0;
-  if (monthlySales.length > 0) {
-    // Calculate the total income for the selected month
-    totalIncome = monthlySales.reduce((total, sale) => total + sale.totalprice, 0);
-  }
+
 
   return (
     <div className="SideMenuAndPageContent" style={{ display: 'flex' }}>
