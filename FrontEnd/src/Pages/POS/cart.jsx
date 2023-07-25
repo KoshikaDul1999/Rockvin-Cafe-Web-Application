@@ -83,7 +83,7 @@ const CartPage = () => {
     newcartItems.forEach((item) => {
       totalPrice += item.food_price * item.quantity; // Multiply price by quantity
     });
-    setTotal(totalPrice);
+    setTotal(totalPrice.toFixed(2));
   };
 
   const handleDelete = (itemId) => {
@@ -104,7 +104,7 @@ const CartPage = () => {
 
     // Recalculate the total and update the total state
     const newTotal = calculateTotal(updatedCartItems);
-    setTotal(newTotal);
+    setTotal(newTotal.toFixed(2));
   };
 
   const handleRemoveItem = (itemId) => {
@@ -152,18 +152,18 @@ const CartPage = () => {
                 <img src={`${imageSrc}${item.food_img}`} alt={item.food_name} className="cart-item-image" />
               </td>
               <td>{item.food_name}</td>
-              <td>RS. {item.food_price}</td>
+              <td>RS. {item.food_price.toFixed(2)}</td>
               <td>
               <input
   type="number"
   min="1"
   value={item.quantity || 1}
-  onChange={(e) => updateprice(item.food_id, e.target.value, item.food_price, item)}
+  onChange={(e) => updateprice(item.food_id, e.target.value, item.food_price.toFixed(2), item)}
   style={{ width: '50px' }}
 />
 
               </td>
-              <td id={item.food_id}>RS.{item.food_price * item.quantity || item.food_price * 1}</td>
+              <td id={item.food_id}>RS. {(item.food_price * item.quantity || item.food_price * 1).toFixed(2)}</td>
               <td>
                 <button className="delete-button" onClick={() => handleRemoveItem(item.food_id)}>
                   Delete
@@ -173,7 +173,8 @@ const CartPage = () => {
           ))}
         </tbody>
       </table>
-      <div className="total-amount">Total: RS.{calculateTotal(cartItems)}</div>
+      <center><div className="total-amount"><b>
+        Total: RS.{calculateTotal(cartItems).toFixed(2)}</b></div></center>
       <div>
         {(() => {
           sessionStorage.setItem('total', calculateTotal(cartItems));
