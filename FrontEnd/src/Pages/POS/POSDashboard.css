@@ -219,7 +219,9 @@ body {
   background-color: #3b3838;
 }
 
-
+.total-amount {
+  margin-left: 1000px;
+}
 
 
 .navigation-list li.active a {

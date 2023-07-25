@@ -152,7 +152,7 @@ const CartPage = () => {
                 <img src={`${imageSrc}${item.food_img}`} alt={item.food_name} className="cart-item-image" />
               </td>
               <td>{item.food_name}</td>
-              <td>RS. {item.food_price}</td>
+              <td>RS. {item.food_price.toFixed(2)}</td>
               <td>
               <input
   type="number"
@@ -163,7 +163,7 @@ const CartPage = () => {
 />
 
               </td>
-              <td id={item.food_id}>RS.{item.food_price * item.quantity || item.food_price * 1}</td>
+              <td id={item.food_id}>RS. {(item.food_price * item.quantity || item.food_price * 1).toFixed(2)}</td>
               <td>
                 <button className="delete-button" onClick={() => handleRemoveItem(item.food_id)}>
                   Delete
@@ -173,7 +173,8 @@ const CartPage = () => {
           ))}
         </tbody>
       </table>
-      <div className="total-amount">Total: RS.{calculateTotal(cartItems)}</div>
+      <center><div className="total-amount"><b>
+        Total: RS.{calculateTotal(cartItems).toFixed(2)}</b></div></center>
       <div>
         {(() => {
           sessionStorage.setItem('total', calculateTotal(cartItems));
