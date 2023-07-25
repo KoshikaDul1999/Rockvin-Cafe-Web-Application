@@ -14,7 +14,7 @@ const { TabPane } = Tabs;
         <SideMenu></SideMenu>
         <PageContent></PageContent>
         <div className="sales-reports-container">
-        <Typography.Title level={8} style={{ marginBottom: '120px' }}>
+        <Typography.Title level={4} style={{ marginBottom: '50px' }}>
           Sales Reports
         </Typography.Title>
         <div className="tabs-container">

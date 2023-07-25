@@ -9,20 +9,24 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import img1 from "../Images/logo/res-logo.png";
 import { Image } from "antd";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-
-  const[email, setEmail] = useState("");
-  const[password, setPassword] = useState("");
-  const[err, setErr] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [err, setErr] = useState("");
+  const [errMessage, setErrMessage] = useState("");
+  const [openErrorDialog, setOpenErrorDialog] = useState(false);
 
   const navigate = useNavigate();
-
   const [cookies, setCookie] = useCookies(['admin']);
 
   useEffect(() =>{
@@ -31,7 +35,7 @@ export default function SignIn() {
             navigate("/dashboard");
         }
     }
-  })
+  },[cookies.admin, cookies.email, navigate]);
 
   const loginadmin = async(e) =>{
     e.preventDefault();
@@ -40,6 +44,12 @@ export default function SignIn() {
     try {
         const response = await axios.get(`http://localhost:5000/admin/${email}`);
         console.log();
+        if (!response.data) {
+          setErr("Invalid Email or Password");
+          setErrMessage("Email or Password is incorrect");
+          setOpenErrorDialog(true);
+          return;
+        }
         if (response.data.sysusr_password === password) {
             if (response.data.role === 1) {
                 setCookie('id', response.data.sysusr_id, { path: '/' });
@@ -58,44 +68,17 @@ export default function SignIn() {
             }
         }else{
             setErr("Email or Password is does not match");
+            setErrMessage("Email or Password is incorrect");
+            setOpenErrorDialog(true);
         }
     } catch (error) {
         console.log(error);
     }
-}
+};
 
-
-
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-
-  // const navigate = useNavigate();
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-
-  //   // Create an object with the form data
-  //   const formData = {
-  //     email,
-  //     password,
-  //   };
-
-  //   // Send a POST request to your Spring Boot endpoint
-  //   axios.post("http://localhost:5000/login", formData)
-  //     .then((response) => {
-  //       // Handle the response from the server
-  //       if (response.status === 200){
-  //         console.log("Success")
-  //         navigate('/dashboard');
-  //       }
-  //       console.log(response.data);
-  //     })
-  //     .catch((error) => {
-  //       // Handle any errors that occur during the request
-  //       alert("Invalid Emial or Password");
-  //       console.error(error);
-  //     });
-  // };
+    const handleDialogClose = () => {
+      setOpenErrorDialog(false);
+    };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -107,19 +90,10 @@ export default function SignIn() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            /*background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-            borderRadius: '10px',
-            padding: '20px',
-            boxShadow: '0px 3px 15px rgba(0, 0, 0, 0.2)',*/
           }}
         >
-        <Image
-          width={100}
-          src={img1}
-        >
-        </Image>
-
-          <Typography component="h1" variant="h5">
+        <Image width={100} src={img1} />
+        <Typography component="h1" variant="h5">
             Sign in
           </Typography>
           <Box component="form"  noValidate sx={{ mt: 1 }}>
@@ -148,10 +122,6 @@ export default function SignIn() {
               onChange={(e) => setPassword(e.target.value)}
               variant="outlined"
             />
-            {/*<FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-        />*/}
             <Button
               type="submit"
               fullWidth
@@ -161,21 +131,21 @@ export default function SignIn() {
             >
               Sign In
             </Button>
-            <Grid container>
-              {/*<Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-        </Grid>*/}
-              {/* <Grid item>
-                <Link href="/register" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid> */}
-            </Grid>
+            {err && <Typography color="error">{err}</Typography>}
           </Box>
         </Box>
       </Container>
+      <Dialog open={openErrorDialog} onClose={handleDialogClose}>
+        <DialogTitle>Error</DialogTitle>
+        <DialogContent>
+          <Typography>{errMessage}</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose} color="primary">
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
     </ThemeProvider>
   );
 }
