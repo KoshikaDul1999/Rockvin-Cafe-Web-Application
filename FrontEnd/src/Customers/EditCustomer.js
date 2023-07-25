@@ -17,8 +17,45 @@ export default function EditCustomer() {
     emailaddress: '',
   });
   const [isUpdated, setIsUpdated] = useState(false);
-
   const { phoneno, fname, lname, address, city, emailaddress } = customer;
+  const [validationErrors, setValidationErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!fname.trim()) {
+      newErrors.fname = "First Name is required";
+    }
+
+    if (!lname.trim()) {
+      newErrors.lname = "Last Name is required";
+    }
+
+    if (!emailaddress.trim()){
+      newErrors.emailaddress = "Email is required";
+    } else if (!/^\S+@\S+\.\S+$/.test(emailaddress)){
+      newErrors.emailaddress = "Invalid email format";
+    }
+
+    if (!phoneno.trim()) {
+      newErrors.phoneno = "Phone Number is required";
+    } else if (!/^[0-9]{10}$/.test(phoneno)) {
+      newErrors.phoneno = "Invalid telephone number";
+    }
+
+    if (!address.trim()) {
+      newErrors.address = "Address is required";
+    }
+    
+    if (!city.trim()) {
+      newErrors.city = "City is required";
+    }
+
+    setValidationErrors(newErrors);
+
+    // Return true if there are no errors, false otherwise
+    return Object.keys(newErrors).length === 0;
+  }
 
   const onInputChange = (e) => {
     setCustomer({ ...customer, [e.target.name]: e.target.value });
@@ -30,11 +67,14 @@ export default function EditCustomer() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await axios.put(`http://localhost:5000/user/${customer_id}`, customer);
-      setIsUpdated(true);
-    } catch (error) {
-      console.error(error);
+
+    if (validateForm()) {
+      try {
+        await axios.put(`http://localhost:5000/user/${customer_id}`, customer);
+        setIsUpdated(true);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -63,6 +103,8 @@ export default function EditCustomer() {
               name="fname"
               value={fname}
               onChange={(e) => onInputChange(e)}
+              error={Boolean(validationErrors.fname)}
+              helperText={validationErrors.fname}
             />
           </Grid>
           <Grid item xs={12}>
@@ -73,6 +115,8 @@ export default function EditCustomer() {
               name="lname"
               value={lname}
               onChange={(e) => onInputChange(e)}
+              error={Boolean(validationErrors.lname)}
+              helperText={validationErrors.lname}
             />
           </Grid>
           <Grid item xs={12}>
@@ -83,6 +127,8 @@ export default function EditCustomer() {
               name="phoneno"
               value={phoneno}
               onChange={(e) => onInputChange(e)}
+              error={Boolean(validationErrors.phoneno)}
+              helperText={validationErrors.phoneno}
             />
           </Grid>
           <Grid item xs={12}>
@@ -93,6 +139,8 @@ export default function EditCustomer() {
               name="address"
               value={address}
               onChange={(e) => onInputChange(e)}
+              error={Boolean(validationErrors.address)}
+              helperText={validationErrors.address}
             />
           </Grid>
           <Grid item xs={12}>
@@ -103,6 +151,8 @@ export default function EditCustomer() {
               name="city"
               value={city}
               onChange={(e) => onInputChange(e)}
+              error={Boolean(validationErrors.city)}
+              helperText={validationErrors.city}
             />
           </Grid>
           <Grid item xs={12}>
@@ -113,6 +163,8 @@ export default function EditCustomer() {
               name="emailaddress"
               value={emailaddress}
               onChange={(e) => onInputChange(e)}
+              error={Boolean(validationErrors.emailaddress)}
+              helperText={validationErrors.emailaddress}
             />
           </Grid>
           <Grid item xs={12}>
@@ -142,6 +194,7 @@ export default function EditCustomer() {
     </Container>
   );
 }
+
 
 
 
