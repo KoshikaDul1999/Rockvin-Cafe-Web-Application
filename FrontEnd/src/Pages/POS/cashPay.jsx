@@ -20,9 +20,11 @@ function CashPaymentReceipt() {
   const [cartItems, setCartItems] = useState([]);
   const [newcartItems, setNewCartItems] = useState([]);
   const [amountPaid, setAmountPaid] = useState(0);
-  const totalAmount = sessionStorage.getItem('total');
   const [temp, setTemp] = useState([]);
   const [currentDateTime, setCurrentDateTime] = useState('');
+  const totalAmountString = sessionStorage.getItem('total');
+  const totalAmount = parseFloat(totalAmountString);
+
 
   // Function to calculate the change
   const calculateChange = () => {
@@ -113,7 +115,7 @@ function CashPaymentReceipt() {
               {temp.map((item, index) => (
                 <tr key={index}>
                   <td className="product-name">{item.food_name}</td>
-                  <td className="product-price">Rs. {item.price}</td>
+                  <td className="product-price">Rs. {item.price.toFixed(2)}</td>
                   <td className="product-quantity">{item.qun}</td>
                 </tr>
               ))}
@@ -122,7 +124,9 @@ function CashPaymentReceipt() {
         </div>
         <hr className="divider" />
         <div className="totals">
-          <center><p className="total"><b>Total: RS {totalAmount}</b></p></center>
+          <center><p className="total">
+            <b>Total: RS {totalAmount.toFixed(2)}</b>
+          </p></center>
         </div>
         <hr className="divider" />
         <div className="payment">
@@ -134,7 +138,9 @@ function CashPaymentReceipt() {
             onChange={handleAmountPaidChange}
           />
           <hr className="divider" />
-          <p className="change"><center>Change: Rs. {amountPaid >= totalAmount ? calculateChange() : "Insufficient amount"}</center>
+          <p className="change"><center>
+          Change: Rs. {amountPaid >= totalAmount ? calculateChange().toFixed(2) : "Insufficient amount"}
+        </center>
             
           </p>
         </div>
