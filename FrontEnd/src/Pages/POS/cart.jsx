@@ -154,13 +154,14 @@ const CartPage = () => {
               <td>{item.food_name}</td>
               <td>RS. {item.food_price}</td>
               <td>
-                <input
-                  type="number"
-                  min="1"
-                  value={item.quantity}
-                  onChange={(e) => updateprice(item.food_id, e.target.value, item.food_price, item)}
-                  style={{ width: '50px' }}
-                />
+              <input
+  type="number"
+  min="1"
+  value={item.quantity || 1}
+  onChange={(e) => updateprice(item.food_id, e.target.value, item.food_price, item)}
+  style={{ width: '50px' }}
+/>
+
               </td>
               <td id={item.food_id}>RS.{item.food_price * item.quantity || item.food_price * 1}</td>
               <td>

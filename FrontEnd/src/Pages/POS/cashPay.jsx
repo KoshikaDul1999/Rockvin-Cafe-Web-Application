@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import "./CashPaymentReceipt.css"; // Import the corresponding CSS file
+import "./CashPaymentReceipt.css";
 
 const NavigationBar = () => {
   return (
@@ -61,7 +61,7 @@ function CashPaymentReceipt() {
     // Function to get the current date and time and update the state variable
     const getCurrentDateTime = () => {
       const now = new Date();
-      const formattedDateTime = now.toLocaleString(); // Adjust the format as needed
+      const formattedDateTime = now.toLocaleString();
       setCurrentDateTime(formattedDateTime);
     };
     getCurrentDateTime();
@@ -122,7 +122,7 @@ function CashPaymentReceipt() {
         </div>
         <hr className="divider" />
         <div className="totals">
-          <center><p className="total">Total: RS {totalAmount}</p></center>
+          <center><p className="total"><b>Total: RS {totalAmount}</b></p></center>
         </div>
         <hr className="divider" />
         <div className="payment">
@@ -134,8 +134,8 @@ function CashPaymentReceipt() {
             onChange={handleAmountPaidChange}
           />
           <hr className="divider" />
-          <p className="change">
-            Change: Rs. {amountPaid >= totalAmount ? calculateChange() : "Insufficient amount"}
+          <p className="change"><center>Change: Rs. {amountPaid >= totalAmount ? calculateChange() : "Insufficient amount"}</center>
+            
           </p>
         </div>
         <hr className="divider" />
