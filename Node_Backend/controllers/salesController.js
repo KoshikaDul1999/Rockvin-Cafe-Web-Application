@@ -73,14 +73,12 @@ export const getDailySales = async (req, res) => {
 // Fetch weekly sales report with username, foodname, and total price
 export const getWeeklySales = async (req, res) => {
   try {
-    const today = new Date();
-    const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay());
-    const endOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 7);
+    const { startDate, endDate } = req.query;
 
     const sales = await DeletedOrderDetails.findAll({
       where: {
-        createdAt: {
-          [Op.between]: [startOfWeek, endOfWeek],
+        pickup_time: {
+          [Op.between]: [startDate, endDate],
         },
       },
       include: [
