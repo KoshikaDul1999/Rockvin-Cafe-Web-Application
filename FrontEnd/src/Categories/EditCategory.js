@@ -14,8 +14,25 @@ export default function EditCategory() {
   });
 
   const [isUpdated, setIsUpdated] = useState(false);
-
   const { cate_name, cate_desc } = category;
+  const [validationErrors, setValidationErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!cate_name.trim()) {
+      newErrors.cate_name = "Category name is required";
+    }
+
+    if (!cate_desc.trim()) {
+      newErrors.cate_desc = "Category description is required";
+    }
+
+    setValidationErrors(newErrors);
+
+    // Return true if there are no errors, false otherwise
+    return Object.keys(newErrors).length === 0;
+  }
 
   const onInputChange = (e) => {
     setCategory({ ...category, [e.target.name]: e.target.value });
@@ -27,12 +44,14 @@ export default function EditCategory() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (validateForm()) {
     try {
       await axios.put(`http://localhost:5000/categories/${category_id}`, category);
       setIsUpdated(true);
     } catch (error) {
       console.error(error);
     }
+  }
   };
 
   const handleClose = () => {
@@ -52,16 +71,6 @@ export default function EditCategory() {
       </Typography>
       <form onSubmit={(e) => onSubmit(e)}>
         <Grid container spacing={3}>
-          {/* <Grid item xs={12}>
-            <TextField
-              label="Category ID"
-              variant="outlined"
-              fullWidth
-              name="cate_id"
-              value={cate_id}
-              onChange={(e) => onInputChange(e)}
-            />
-          </Grid> */}
           <Grid item xs={12}>
             <TextField
               label="Category Name"
@@ -70,6 +79,8 @@ export default function EditCategory() {
               name="cate_name"
               value={cate_name}
               onChange={(e) => onInputChange(e)}
+              error={Boolean(validationErrors.cate_name)}
+              helperText={validationErrors.cate_name}
             />
           </Grid>
           <Grid item xs={12}>
@@ -80,6 +91,8 @@ export default function EditCategory() {
               name="cate_desc"
               value={cate_desc}
               onChange={(e) => onInputChange(e)}
+              error={Boolean(validationErrors.cate_desc)}
+              helperText={validationErrors.cate_desc}
             />
           </Grid>
           <Grid item xs={12}>

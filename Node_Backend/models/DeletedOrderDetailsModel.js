@@ -13,7 +13,7 @@ const DeletedOrderDetails = db.define(
       autoIncrement: true
     },
     user_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
       references: {
         model: User,
