@@ -1,4 +1,4 @@
-import { Typography } from "antd";
+import { Typography, Modal  } from "antd";
 import { Link, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -8,17 +8,12 @@ import PageContent from '../../Components/PageContent';
 function Order() {
 
     const [orders,setOrders]=useState([]);
-
-    const { orderid }=useParams()
+    const [selectedOrder, setSelectedOrder] = useState(null);
+    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
         loadOrders();
     },[]);
-
-    // const loadOrders = async () => {
-    //     const result = await axios.get("http://localhost:5000/OrderDetails");
-    //     setOrders(result.data);
-    // };
 
     const loadOrders = async () => {
         try {
@@ -38,36 +33,45 @@ function Order() {
         }
       };
 
-    // const deleteOrder = async (orderid) => {
-    //     const result = await axios.delete(`http://localhost:5000/OrderDetails/${orderid}`)
-    //     loadOrders()
-    // }
-
-    const deleteOrder = async (orderid) => {
-        // Show a confirmation popup
-        const confirmDelete = window.confirm("Are you sure you want to delete this order");
-        if (confirmDelete) {
-        // Delete the category
-        await axios.delete(`http://localhost:5000/OrderDetails/${orderid}`);
-        loadOrders();
-        } else {
-        // Do not delete the category
-        console.log("Order was not deleted.");
+      const deleteOrder = async (orderid) => {
+        const orderToDelete = orders.find((order) => order.orderid === orderid);
+    
+        if (!orderToDelete) {
+          console.log("Order not found");
+          return;
         }
-    };
-
-    const confirmOrder = async (orderId) => {
-        try {
-          await axios.post('http://localhost:5000/send-notification', {
-            customerId: 'CUSTOMER_ID', // Replace with the actual customer ID
-          });
-          console.log('Notification sent successfully'); // Optional: log a success message
-        } catch (error) {
-          console.error('Failed to send notification:', error); // Optional: log any errors
+    
+        if (orderToDelete.status !== 2) {
+          setErrorMessage("Order is not prepared. Cannot delete.");
+          return;
         }
-      
-        // Perform other actions or update the UI as needed
+    
+        setSelectedOrder(orderToDelete);
       };
+    
+      const confirmDelete = async () => {
+        try {
+          await axios.delete(`http://localhost:5000/OrderDetails/${selectedOrder.orderid}`);
+          loadOrders();
+        } catch (error) {
+          console.log(error.message);
+        } finally {
+          setSelectedOrder(null);
+        }
+      };
+
+    // const deleteOrder = async (orderid) => {
+    //     // Show a confirmation popup
+    //     const confirmDelete = window.confirm("Are you sure you want to delete this order");
+    //     if (confirmDelete) {
+    //     // Delete the category
+    //     await axios.delete(`http://localhost:5000/OrderDetails/${orderid}`);
+    //     loadOrders();
+    //     } else {
+    //     // Do not delete the category
+    //     console.log("Order was not deleted.");
+    //     }
+    // };
 
     return (
         <div className="SideMenuAndPageContent">
@@ -85,7 +89,6 @@ function Order() {
                                 <th scope="col">Food Name</th>
                                 <th scope="col">Quantity</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">pickup_time</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -97,7 +100,6 @@ function Order() {
                                     <td>{orderdetails.food_name}</td>
                                     <td>{orderdetails.quantity}</td>
                                     <td>{orderdetails.status}</td>
-                                    <td>{orderdetails.pickup_time}</td>
                                     <td>
                                         <Link className='btn btn-primary mx-2'
                                             to={`/vieworder/${orderdetails.orderid}`}
@@ -110,12 +112,6 @@ function Order() {
                                         >
                                             Edit
                                         </Link>
-
-                                        <button className='btn btn-outline-primary mx-2'
-                                            onClick={() => confirmOrder(orderdetails.orderid)}
-                                        >
-                                            Confirm
-                                        </button>
 
                                         <button className='btn btn-danger mx-2'
                                             onClick={() => deleteOrder(orderdetails.orderid)}
@@ -130,7 +126,14 @@ function Order() {
                         </table>
                     </div>
                 </div>
+                
             </div>
+            <Modal title="Error" visible={Boolean(errorMessage)} onCancel={() => setErrorMessage("")} footer={null}>
+                {errorMessage}
+            </Modal>
+            <Modal title="Confirm Deletion" visible={Boolean(selectedOrder)} onCancel={() => setSelectedOrder(null)} onOk={confirmDelete}>
+                Are you sure you want to delete this order?
+            </Modal>
         </div>
     ); 
 }
