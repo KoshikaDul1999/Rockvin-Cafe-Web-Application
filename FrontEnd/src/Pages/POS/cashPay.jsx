@@ -17,7 +17,7 @@ const NavigationBar = () => {
   );
 };
 
-function CashPaymentReceipt() {
+const CashPaymentReceipt = () => {
   const [cartItems, setCartItems] = useState([]);
   const [newcartItems, setNewCartItems] = useState([]);
   const [amountPaid, setAmountPaid] = useState(0);
@@ -38,29 +38,25 @@ function CashPaymentReceipt() {
 
   // Function to get session data and update state
   const getSessionData = () => {
+    // Retrieve cart items from session storage
     const data = JSON.parse(sessionStorage.getItem('cart'));
-    const newdata = JSON.parse(sessionStorage.getItem('newcart'));
     if (data) {
       setCartItems(data);
-      console.log(data);
     }
+
+    // Retrieve newcart items from session storage
+    const newdata = JSON.parse(sessionStorage.getItem('newcart'));
     setNewCartItems(newdata);
 
-    const temarr = [];
-    data.forEach((d) => {
-      newdata.forEach((n) => {
-        if (d.food_id === n.itemId) {
-          const newarr = {
-            food_id: d.food_id,
-            food_name: d.food_name,
-            price: d.food_price,
-            qun: n.quantity
-          };
-          temarr.push(newarr);
-        }
-      });
+    const mergedData = data.map((d) => {
+      const newItem = {
+        ...d,
+        quantity: newdata.find((n) => n.itemId === d.food_id)?.quantity || d.quantity,
+        food_price: newdata.find((n) => n.itemId === d.food_id)?.food_price || d.food_price
+      };
+      return newItem;
     });
-    setTemp(temarr);
+    setTemp(mergedData);
 
     // Function to get the current date and time and update the state variable
     const getCurrentDateTime = () => {
@@ -94,8 +90,8 @@ function CashPaymentReceipt() {
           user_id: 4,
           food_id: item.food_id,
           food_name: item.food_name,
-          price: item.price.toFixed(2),
-          quantity: item.qun,
+          price: item.food_price.toFixed(2),
+          quantity: item.quantity,
           status: 1,
           order_from: "w",
           totalprice: amountPaid >= totalAmount ? calculateChange().toFixed(2) : "Insufficient amount",
@@ -133,7 +129,7 @@ function CashPaymentReceipt() {
           <p className="date">Date : {currentDateTime}</p>
         </div>
         <hr className="divider" />
-        <div className="item-details">
+        <div className="product-details">
           <table>
             <thead>
               <tr>
@@ -146,8 +142,8 @@ function CashPaymentReceipt() {
               {temp.map((item, index) => (
                 <tr key={index}>
                   <td className="product-name">{item.food_name}</td>
-                  <td className="product-price">Rs. {item.price.toFixed(2)}</td>
-                  <td className="product-quantity">{item.qun}</td>
+                  <td className="product-price">Rs. {item.food_price.toFixed(2)}</td>
+                  <td className="product-quantity">{item.quantity || 1}</td>
                 </tr>
               ))}
             </tbody>
@@ -185,6 +181,6 @@ function CashPaymentReceipt() {
       <button onClick={handlePrint}>Print Receipt</button>
     </div>
   );
-}
+};
 
 export default CashPaymentReceipt;
