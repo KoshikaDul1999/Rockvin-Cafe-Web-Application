@@ -17,7 +17,7 @@ const NavigationBar = () => {
   );
 };
 
-function CashPaymentReceipt() {
+const CashPaymentReceipt = () => {
   const [cartItems, setCartItems] = useState([]);
   const [newcartItems, setNewCartItems] = useState([]);
   const [amountPaid, setAmountPaid] = useState(0);
@@ -38,27 +38,25 @@ function CashPaymentReceipt() {
 
   // Function to get session data and update state
   const getSessionData = () => {
+    // Retrieve cart items from session storage
     const data = JSON.parse(sessionStorage.getItem('cart'));
-    const newdata = JSON.parse(sessionStorage.getItem('newcart'));
     if (data) {
       setCartItems(data);
     }
+
+    // Retrieve newcart items from session storage
+    const newdata = JSON.parse(sessionStorage.getItem('newcart'));
     setNewCartItems(newdata);
 
-    const temarr = [];
-    data.forEach((d) => {
-      newdata.forEach((n) => {
-        if (d.food_id === n.itemId) {
-          const newarr = {
-            food_name: d.food_name,
-            price: d.food_price,
-            qun: n.quantity
-          };
-          temarr.push(newarr);
-        }
-      });
+    const mergedData = data.map((d) => {
+      const newItem = {
+        ...d,
+        quantity: newdata.find((n) => n.itemId === d.food_id)?.quantity || d.quantity,
+        food_price: newdata.find((n) => n.itemId === d.food_id)?.food_price || d.food_price
+      };
+      return newItem;
     });
-    setTemp(temarr);
+    setTemp(mergedData);
 
     // Function to get the current date and time and update the state variable
     const getCurrentDateTime = () => {
@@ -77,36 +75,44 @@ function CashPaymentReceipt() {
   const handlePrint = () => {
     const printableElement = document.querySelector(".printable");
     if (printableElement) {
-      const printWindow = window.open('', '_blank');
-      printWindow.document.write('<html><head><title>Print Receipt</title>');
-      printWindow.document.write('</head><body >');
+      const printWindow = window.open("", "_blank");
+      printWindow.document.write("<html><head><title>Print Receipt</title>");
+      printWindow.document.write("</head><body >");
       printWindow.document.write(printableElement.innerHTML);
-      printWindow.document.write('</body></html>');
+      printWindow.document.write("</body></html>");
       printWindow.document.close();
       printWindow.print();
       printWindow.close();
 
-      // Prepare data to send to the backend
-      const dataToSend = temp.map((item) => ({
-        food_name: item.food_name,
-        price: item.price.toFixed(2),
-        qun: item.qun,
-        change: amountPaid >= totalAmount ? calculateChange().toFixed(2) : "Insufficient amount",
-      }));
+      // Loop through each product and send its order details to the backend
+      temp.forEach((item) => {
+        const dataToSend = {
+          user_id: 4,
+          food_id: item.food_id,
+          food_name: item.food_name,
+          price: item.food_price.toFixed(2),
+          quantity: item.quantity,
+          status: 1,
+          order_from: "w",
+          totalprice: amountPaid >= totalAmount ? calculateChange().toFixed(2) : "Insufficient amount",
+        };
 
-      // // Make the HTTP POST request to the backend
-      // axios.post('http://localhost:5000/orderdetails', dataToSend)
-      //   .then((response) => {
-      //     console.log("Data sent successfully:", response.data);
-      //   })
-      //   .catch((error) => {
-      //     console.error("Error sending data:", error);
-      //     if (error.response) {
-      //       console.error("Response data:", error.response.data);
-      //       console.error("Response status:", error.response.status);
-      //       console.error("Response headers:", error.response.headers);
-      //     }
-      //   });
+        console.log(dataToSend);
+
+        // Make the HTTP POST request to the backend for each product
+        axios.post("http://localhost:5000/orderdetails", dataToSend)
+          .then((response) => {
+            console.log("Data sent successfully:", response.data);
+          })
+          .catch((error) => {
+            console.error("Error sending data:", error);
+            if (error.response) {
+              console.error("Response data:", error.response.data);
+              console.error("Response status:", error.response.status);
+              console.error("Response headers:", error.response.headers);
+            }
+          });
+      });
     }
   };
 
@@ -123,7 +129,7 @@ function CashPaymentReceipt() {
           <p className="date">Date : {currentDateTime}</p>
         </div>
         <hr className="divider" />
-        <div className="item-details">
+        <div className="product-details">
           <table>
             <thead>
               <tr>
@@ -136,8 +142,8 @@ function CashPaymentReceipt() {
               {temp.map((item, index) => (
                 <tr key={index}>
                   <td className="product-name">{item.food_name}</td>
-                  <td className="product-price">Rs. {item.price.toFixed(2)}</td>
-                  <td className="product-quantity">{item.qun}</td>
+                  <td className="product-price">Rs. {item.food_price.toFixed(2)}</td>
+                  <td className="product-quantity">{item.quantity || 1}</td>
                 </tr>
               ))}
             </tbody>
@@ -145,9 +151,11 @@ function CashPaymentReceipt() {
         </div>
         <hr className="divider" />
         <div className="totals">
-          <center><p className="total">
-            <b>Total: RS {totalAmount.toFixed(2)}</b>
-          </p></center>
+          <center>
+            <p className="total">
+              <b>Total: RS {totalAmount.toFixed(2)}</b>
+            </p>
+          </center>
         </div>
         <hr className="divider" />
         <div className="payment">
@@ -173,6 +181,6 @@ function CashPaymentReceipt() {
       <button onClick={handlePrint}>Print Receipt</button>
     </div>
   );
-}
+};
 
 export default CashPaymentReceipt;

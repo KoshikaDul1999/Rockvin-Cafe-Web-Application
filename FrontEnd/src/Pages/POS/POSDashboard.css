@@ -123,6 +123,19 @@ body {
 
 /* product css */
 
+.product {
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* Adjust column widths as needed */
+  gap: 200px; /* Adjust gap between elements as needed */
+  align-items: center; /* Center align items vertically */
+}
+
+.product-price {
+  padding-right: 10px;
+}
+
+
+
 .product-list {
   /* display: flex; */
   flex-wrap: wrap;

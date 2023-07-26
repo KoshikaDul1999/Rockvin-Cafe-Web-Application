@@ -9,7 +9,7 @@ const NavigationBar = () => {
       <li><a href="../Dashboard/"><i className="fa-solid fa-home"></i></a></li>
         <li><a href="/productView">Breakfast</a></li>
         <li><a href="/lunchView">Lunch</a></li>
-        <li className="active"><a href="/dinnerView">Dinner</a></li>
+        <li  className="active"><a href="/dinnerView">Dinner</a></li>
         <li><a href="beveragesView">Beverages</a></li>
         <li><a href="/viewcart" className='btn btn-primary'><i class="fa-solid fa-cart-shopping"></i></a></li>
       </ul>
@@ -48,12 +48,18 @@ const Product = ({ product, addToCart }) => {
   };
 
   return (
-    <div className="product">
-      <img src={imageSrc} alt={food_name} className="product-image" style={{ width: '50px', height: '50px' }} />
-      <h3 className="product-name">{food_name}</h3>
-      <p className="product-price">Rs {food_price}</p>
-      <button className="add-to-cart-button" onClick={() => setSessionData(product)}>Add to Cart</button>
+    
+    <div class="product">
+    <img src={imageSrc} alt={food_name} class="product-image" style={{ width: '50px', height: '50px' }} />
+    <div class="product-info">
+      <h3 class="product-name">{food_name}</h3>
+      <p class="product-price"><b>Rs {food_price}</b></p>
     </div>
+    <button class="add-to-cart-button" onClick={() => setSessionData(product)}>Add to Cart</button>
+  </div>
+  
+
+
   );
 };
 
@@ -78,7 +84,7 @@ const ProductView = () => {
     setCartItems((prevCartItems) => [...prevCartItems, product]);
   };
 
-  // Filter foods by food_cat_id === 2
+  // Filter foods by food_cat_id === 3
   const filteredFoods = foods.filter((product) => product.food_cat_id === 3);
 
   return (
