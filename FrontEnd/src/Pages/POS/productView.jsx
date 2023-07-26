@@ -23,9 +23,9 @@ const Product = ({ product, addToCart }) => {
 
   const data = [];
 
-  const handleAddToCart = () => {
-    addToCart(product);
-  };
+  // const handleAddToCart = () => {
+  //   addToCart(product);
+  // };
 
   const setSessionData = (value) => {
     const temp = JSON.parse(sessionStorage.getItem('cart'));

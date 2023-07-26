@@ -91,6 +91,7 @@ const CartPage = () => {
       prevCartItems.filter((item) => item.id !== itemId)
     );
   };
+  
 
   const updateprice = (id, value, price, item) => {
     createNewSessionStorage(item, id, value);
@@ -108,10 +109,13 @@ const CartPage = () => {
   };
 
   const handleRemoveItem = (itemId) => {
-    const updatedCartItems = cartItems.filter((item) => item.food_id !== itemId);
-    setCartItems(updatedCartItems);
-    sessionStorage.removeItem('cart');
-    sessionStorage.setItem('cart', JSON.stringify(updatedCartItems));
+    // Display an alert to confirm before removing the item
+    if (window.confirm("Are you sure you want to delete this item?")) {
+      const updatedCartItems = cartItems.filter((item) => item.food_id !== itemId);
+      setCartItems(updatedCartItems);
+      sessionStorage.removeItem('cart');
+      sessionStorage.setItem('cart', JSON.stringify(updatedCartItems));
+    }
   };
 
   function calculateTotal(cartItems) {
@@ -154,14 +158,13 @@ const CartPage = () => {
               <td>{item.food_name}</td>
               <td>RS. {item.food_price.toFixed(2)}</td>
               <td>
-              <input
-  type="number"
-  min="1"
-  value={item.quantity || 1}
-  onChange={(e) => updateprice(item.food_id, e.target.value, item.food_price.toFixed(2), item)}
-  style={{ width: '50px' }}
-/>
-
+                <input
+                  type="number"
+                  min="1"
+                  value={item.quantity || 1}
+                  onChange={(e) => updateprice(item.food_id, e.target.value, item.food_price.toFixed(2), item)}
+                  style={{ width: '50px' }}
+                />
               </td>
               <td id={item.food_id}>RS. {(item.food_price * item.quantity || item.food_price * 1).toFixed(2)}</td>
               <td>
