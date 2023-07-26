@@ -19,11 +19,37 @@ function Profile() {
   const { email } = useParams();
   const [admins, setAdmins] = useState([]);
   const [editingAdmin, setEditingAdmin] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({});
 
   const [systemusers, setSystemusers] = useState([]);
 
   const { sysusr_name, sysusr_email, sysusr_password, role } = systemusers;
   const [isUpdated, setIsUpdated] = useState(false);
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!sysusr_name.trim()) {
+      newErrors.sysusr_name = " Name is required";
+    }
+
+    if (!sysusr_email.trim()){
+      newErrors.sysusr_email = "Email is required";
+    } else if (!/^\S+@\S+\.\S+$/.test(sysusr_email)){
+      newErrors.sysusr_email = "Invalid email format";
+    }
+
+    if (!sysusr_password.trim()) {
+      newErrors.sysusr_password = "Password is required";
+    } else if (sysusr_password.length < 6){
+      newErrors.sysusr_password = "Password must be at least 6 characters";
+    }
+    
+    setValidationErrors(newErrors);
+
+    // Return true if there are no errors, false otherwise
+    return Object.keys(newErrors).length === 0;
+  }
 
   const onInputChange = (e) => {
     setSystemusers({ ...systemusers, [e.target.name]: e.target.value });
@@ -59,9 +85,20 @@ function Profile() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`http://localhost:5000/admin/${cookies.email}`, systemusers);
-    setIsUpdated(true); 
+    if (validateForm()) {
+    try {
+      await axios.put(`http://localhost:5000/admin/${cookies.email}`, systemusers);
+      setIsUpdated(true);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   };
+  // const onSubmit = async (e) => {
+  //   e.preventDefault();
+  //   await axios.put(`http://localhost:5000/admin/${cookies.email}`, systemusers);
+  //   setIsUpdated(true); 
+  // };
 
   const handleClose = () => {
     setIsUpdated(false);
@@ -128,6 +165,8 @@ function Profile() {
                   name="sysusr_name"
                   value={systemusers.sysusr_name}
                   onChange={(e) => onInputChange(e)}
+                  error={Boolean(validationErrors.sysusr_name)}
+                  helperText={validationErrors.sysusr_name}
                   fullWidth
                 />
               </div>
@@ -142,6 +181,8 @@ function Profile() {
                   name="sysusr_email"
                   value={systemusers.sysusr_email}
                   onChange={(e) => onInputChange(e)}
+                  error={Boolean(validationErrors.sysusr_email)}
+                  helperText={validationErrors.sysusr_email}
                   fullWidth
                 />
               </div>
@@ -156,6 +197,8 @@ function Profile() {
                   name="sysusr_password"
                   value={systemusers.sysusr_password}
                   onChange={(e) => onInputChange(e)}
+                  error={Boolean(validationErrors.sysusr_password)}
+                  helperText={validationErrors.sysusr_password}
                   fullWidth
                 />
               </div>

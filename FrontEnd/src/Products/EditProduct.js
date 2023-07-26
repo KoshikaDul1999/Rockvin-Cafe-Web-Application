@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { TextField, Button, Typography, Container } from '@material-ui/core';
+import { TextField, Button, Typography, Container, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
+import { FaCheckCircle } from 'react-icons/fa';
 
 export default function EditFood() {
   let navigate = useNavigate();
   const { product_id } = useParams();
+  const [isUpdated, setIsUpdated] = useState(false);
+  //const [validationErrors, setValidationErrors] = useState({});
 
   const [food, setFood] = useState({
-    food_id: '',
     food_name: '',
     food_price: '',
     food_img: null,
@@ -16,23 +18,52 @@ export default function EditFood() {
     food_cat_id: '',
   });
 
-  const { food_id, food_name, food_price, food_img, food_desc, food_cat_id } = food;
+  const { food_name, food_price, food_img, food_desc, food_cat_id } = food;
 
   const onInputChange = (e) => {
     if (e.target.name === 'food_img') {
       setFood({ ...food, [e.target.name]: e.target.files[0] });
+    } else if (e.target.name === 'food_price') {
+      setFood({ ...food, [e.target.name]: parseInt(e.target.value).toString() });
     } else {
       setFood({ ...food, [e.target.name]: e.target.value });
     }
   };
+  
+  // const validateForm = () => {
+  //   const newErrors = {};
+
+  //   if (!food_name.trim()) {
+  //     newErrors.food_name = "Food Name is required";
+  //   }
+
+  //   if (!food_price.trim()) {
+  //     newErrors.food_price = "Price is required";
+  //   }else if (!Number.isInteger(Number(food_price))) {
+  //       newErrors.food_price = "Invalid price format. Please enter a valid integer.";
+  //     }
+    
+  //   if (!food_desc.trim()) {
+  //     newErrors.food_desc = "Description is required";
+  //   }
+
+  //   if (!food_cat_id || !food_cat_id.trim()) {
+  //     newErrors.food_cat_id = "Must be selected";
+  //   }
+
+  //   setValidationErrors(newErrors);
+
+  //   // Return true if there are no errors, false otherwise
+  //   return Object.keys(newErrors).length === 0;
+  // }
 
   useEffect(() => {
     loadFood();
   }, []);
 
+  
   const onSubmit = async (e) => {
     e.preventDefault();
-
     const formData = new FormData();
     formData.append('food_name', food.food_name);
     formData.append('food_price', food.food_price);
@@ -46,11 +77,36 @@ export default function EditFood() {
           'Content-Type': 'multipart/form-data',
         },
       });
+      setIsUpdated(true);
       navigate('/menu');
     } catch (error) {
       console.log(error);
     }
   };
+
+  // const onSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (validateForm()) {
+  //   const formData = new FormData();
+  //   formData.append('food_name', food.food_name);
+  //   formData.append('food_price', food.food_price);
+  //   formData.append('food_desc', food.food_desc);
+  //   formData.append('food_cat_id', food.food_cat_id);
+  //   formData.append('food_img', food.food_img);
+
+  //   try {
+  //     await axios.put(`http://localhost:5000/foods/${product_id}`, formData, {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //     });
+  //     setIsUpdated(true);
+  //     navigate('/menu');
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+  // };
 
   const loadFood = async () => {
     try {
@@ -61,6 +117,12 @@ export default function EditFood() {
     }
   };
 
+  const handleClose = () => {
+    setIsUpdated(false);
+    navigate('/category');
+  };
+
+
   return (
     <Container maxWidth="sm">
       <Typography variant="h4" align="center" gutterBottom>
@@ -68,21 +130,14 @@ export default function EditFood() {
       </Typography>
       <form onSubmit={onSubmit}>
         <TextField
-          label="Food ID"
-          variant="outlined"
-          fullWidth
-          name="food_id"
-          value={food_id}
-          onChange={onInputChange}
-          margin="normal"
-        />
-        <TextField
           label="Food Name"
           variant="outlined"
           fullWidth
           name="food_name"
           value={food_name}
           onChange={onInputChange}
+          // error={Boolean(validationErrors.food_name)}
+          // helperText={validationErrors.food_name}
           margin="normal"
         />
         <TextField
@@ -92,6 +147,8 @@ export default function EditFood() {
           name="food_price"
           value={food_price}
           onChange={onInputChange}
+          // error={Boolean(validationErrors.food_price)}
+          // helperText={validationErrors.food_price}
           margin="normal"
         />
         <input type="file" name="food_img" onChange={onInputChange} />
@@ -110,6 +167,8 @@ export default function EditFood() {
           name="food_desc"
           value={food_desc}
           onChange={onInputChange}
+          // error={Boolean(validationErrors.food_desc)}
+          // helperText={validationErrors.food_desc}
           margin="normal"
         />
         <TextField
@@ -119,6 +178,8 @@ export default function EditFood() {
           name="food_cat_id"
           value={food_cat_id}
           onChange={onInputChange}
+          // error={Boolean(validationErrors.food_cat_id)}
+          // helperText={validationErrors.food_cat_id}
           margin="normal"
         />
         <Button type="submit" variant="contained" color="primary">
@@ -128,6 +189,20 @@ export default function EditFood() {
           Cancel
         </Button>
       </form>
+      <Dialog open={isUpdated} onClose={handleClose}>
+        <DialogTitle>Success</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1" align="center">
+            <FaCheckCircle style={{ marginRight: 5 }} />
+            Successfully updated.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 }
