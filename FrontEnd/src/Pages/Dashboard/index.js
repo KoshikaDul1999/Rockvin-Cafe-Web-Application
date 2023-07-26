@@ -167,7 +167,7 @@ function Dashboard() {
                         value={customers} 
                     />
 
-                    <DashboardCard icon={
+                    {/* <DashboardCard icon={
                         <DollarCircleOutlined 
                             style={{ 
                                 color: "blue", 
@@ -184,11 +184,10 @@ function Dashboard() {
                             </Typography.Text>
                         } 
                         value={booking} 
-                    />  
+                    />   */}
                 </Space>
                 <Space>
                     <RecentOrders />
-                    <DashboardChart />
                 </Space>
             </Space>
 
@@ -309,56 +308,56 @@ function RecentOrders() {
         );
 }
 
-function DashboardChart(){
+// function DashboardChart(){
 
-    const [revenueData, setRevenueData] = useState({
-        labels:[],
-        datasets:[],
-    });
+//     const [revenueData, setRevenueData] = useState({
+//         labels:[],
+//         datasets:[],
+//     });
 
-    useEffect(() => {
-        getRevenue().then((res) => {
-            const labels = res.carts.map((cart) => {
-                return `User-${cart.userId}`;
-            });
-            const data = res.carts.map((cart) => {
-                return cart.discountedTotal;
-            });
+//     useEffect(() => {
+//         getRevenue().then((res) => {
+//             const labels = res.carts.map((cart) => {
+//                 return `User-${cart.userId}`;
+//             });
+//             const data = res.carts.map((cart) => {
+//                 return cart.discountedTotal;
+//             });
 
-            const dataSource = {
-                labels,
-                datasets: [
-                  {
-                    label: "Revenue",
-                    data: data,
-                    backgroundColor: "rgba(255, 0, 0, 1 )",
-                  },
-                ],
-              };
+//             const dataSource = {
+//                 labels,
+//                 datasets: [
+//                   {
+//                     label: "Revenue",
+//                     data: data,
+//                     backgroundColor: "rgba(255, 0, 0, 1 )",
+//                   },
+//                 ],
+//               };
 
-              setRevenueData(dataSource);
+//               setRevenueData(dataSource);
 
-        });
-    }, []);
+//         });
+//     }, []);
 
-    const options = {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'bottom'
-          },
-          title: {
-            display: true,
-            text: 'Order Revenue',
-          },
-        },
-      };
+//     const options = {
+//         responsive: true,
+//         plugins: {
+//           legend: {
+//             position: 'bottom'
+//           },
+//           title: {
+//             display: true,
+//             text: 'Order Revenue',
+//           },
+//         },
+//       };
 
-    return (
-        <Card style={{width: 500, height:350}}>
-            <Bar options={options} data={revenueData} />;
-        </Card>
-    );
-}
+//     return (
+//         <Card style={{width: 500, height:350}}>
+//             <Bar options={options} data={revenueData} />;
+//         </Card>
+//     );
+// }
 
 export default Dashboard;
