@@ -18,6 +18,36 @@ export default function AddAdmin() {
   const [isAdded, setIsAdded] = useState(false);
 
   const { sysusr_name, sysusr_email, sysusr_password, role } = systemusers;
+  const [validationErrors, setValidationErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!sysusr_name.trim()) {
+      newErrors.sysusr_name = " Name is required";
+    }
+
+    if (!sysusr_email.trim()){
+      newErrors.sysusr_email = "Email is required";
+    } else if (!/^\S+@\S+\.\S+$/.test(sysusr_email)){
+      newErrors.sysusr_email = "Invalid email format";
+    }
+
+    if (!sysusr_password.trim()) {
+      newErrors.sysusr_password = "Password is required";
+    } else if (sysusr_password.length < 6){
+      newErrors.sysusr_password = "Password must be at least 6 characters";
+    }
+    
+    if (!role.trim()) {
+      newErrors.role = "Role is required";
+    }
+
+    setValidationErrors(newErrors);
+
+    // Return true if there are no errors, false otherwise
+    return Object.keys(newErrors).length === 0;
+  }
 
   const onInputChange = (e) => {
     setSystemusers({ ...systemusers, [e.target.name]: e.target.value });
@@ -25,8 +55,15 @@ export default function AddAdmin() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('http://localhost:5000/admin', systemusers);
-    setIsAdded(true);
+    const isFormValid = validateForm();
+    if (isFormValid) {
+      try {
+        await axios.post('http://localhost:5000/admin', systemusers)
+        setIsAdded(true);
+      } catch (error) {
+        console.error('Error submitting form:', error);
+      }
+    }
   };
 
   const handleClose = () => {
@@ -61,6 +98,8 @@ export default function AddAdmin() {
                 name="sysusr_name"
                 value={sysusr_name}
                 onChange={(e) => onInputChange(e)}
+                error={Boolean(validationErrors.sysusr_name)}
+                helperText={validationErrors.sysusr_name}
                 margin="normal"
               />
 
@@ -71,6 +110,8 @@ export default function AddAdmin() {
                 name="sysusr_email"
                 value={sysusr_email}
                 onChange={(e) => onInputChange(e)}
+                error={Boolean(validationErrors.sysusr_email)}
+                helperText={validationErrors.sysusr_email}
                 margin="normal"
               />
 
@@ -81,6 +122,8 @@ export default function AddAdmin() {
                 name="sysusr_password"
                 value={sysusr_password}
                 onChange={(e) => onInputChange(e)}
+                error={Boolean(validationErrors.sysusr_password)}
+                helperText={validationErrors.sysusr_password}
                 margin="normal"
               />
 
@@ -91,6 +134,8 @@ export default function AddAdmin() {
                 name="role"
                 value={role}
                 onChange={(e) => onInputChange(e)}
+                error={Boolean(validationErrors.role)}
+                helperText={validationErrors.role}
                 margin="normal"
               />
 

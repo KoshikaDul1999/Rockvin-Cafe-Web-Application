@@ -61,25 +61,14 @@ function SideMenu(){
                     icon: <UserOutlined />,
                     key:'/customers',
                 },
-                {
-                    label: "Table Details",
-                    icon: <ProjectOutlined />,
-                    key:'/tables',
-                },{
-                    label: "Booking Details",
-                    icon: <FormOutlined />,
-                    key:'/booking',
-                },
-
                 // {
-                //     label: "Recomended Foods",
-                //     icon: <ShopOutlined />,
-                //     key:'/recomendedfoods',
-                // },
-                // {
-                //     label: "Offer Foods",
-                //     icon: <CoffeeOutlined />,
-                //     key:'/offerfoods',
+                //     label: "Table Details",
+                //     icon: <ProjectOutlined />,
+                //     key:'/tables',
+                // },{
+                //     label: "Booking Details",
+                //     icon: <FormOutlined />,
+                //     key:'/booking',
                 // },
                 {
                     label: "Reports",
