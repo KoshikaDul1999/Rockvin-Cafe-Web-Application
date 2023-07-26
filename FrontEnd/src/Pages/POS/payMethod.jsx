@@ -39,12 +39,12 @@ const POSDashboard = () => {
         >
           Cash Payment
         </button></a>
-        <button
+        {/* <button
           className={selectedTab === 'card' ? 'active' : ''}
           onClick={() => handleTabChange('card')}
         >
           Card Payment
-        </button>
+        </button> */}
         <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
       </div>
 
