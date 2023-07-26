@@ -84,7 +84,7 @@ const ProductView = () => {
     setCartItems((prevCartItems) => [...prevCartItems, product]);
   };
 
-  // Filter foods by food_cat_id === 2
+  // Filter foods by food_cat_id === 1
   const filteredFoods = foods.filter((product) => product.food_cat_id === 1);
 
   return (
