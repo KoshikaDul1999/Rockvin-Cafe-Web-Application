@@ -5,10 +5,9 @@ const db = new Sequelize('rockvincafe','root','',{
     dialect: 'mysql',
 });
 
-
-// const db = new Sequelize('u812963415_caferockvin','u812963415_caferockvin','S4iko>BTA*',{
-//     host: '191.96.56.1',
-//     dialect: 'mysql'
+// const db = new Sequelize('rockvinw_cafe','rockvinw_admin','Rockvin99@admin',{
+//     host: 'http://188.40.133.160/~rockvinw/',
+//     dialect: 'mysql',
 // });
 
 export default db;
