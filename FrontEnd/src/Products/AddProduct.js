@@ -29,12 +29,20 @@ const ProductUploadForm = () => {
 
     if (!food_price.trim()) {
       newErrors.food_price = "Price is required";
-    // } else if (!/^\d+(\.\d{1,2})?$/.test(food_price)) {
-    //   newErrors.food_price = "Invalid price format. Use decimal form (e.g., 10.99)";
-    }
+    }else if (!Number.isInteger(Number(food_price))) {
+        newErrors.food_price = "Invalid price format. Please enter a valid integer.";
+      }
     
     if (!food_desc.trim()) {
       newErrors.food_desc = "Description is required";
+    }
+
+    if (!food_image) {
+      newErrors.food_image = "Image is required";
+    }
+
+    if (!food_cat_id.trim()) {
+      newErrors.food_cat_id = "Must be selected";
     }
 
     setValidationErrors(newErrors);
@@ -141,6 +149,8 @@ const ProductUploadForm = () => {
               type="file"
               accept="image/*"
               onChange={handleFileChange}
+              error={Boolean(validationErrors.food_image)}
+              helperText={validationErrors.food_image}
             />
           </Box>
           <TextField
@@ -159,6 +169,8 @@ const ProductUploadForm = () => {
               labelId="category-label"
               value={food_cat_id}
               onChange={(e) => setFoodCategory(e.target.value)}
+              error={Boolean(validationErrors.food_cat_id)}
+              helperText={validationErrors.food_cat_id}
             >
               {categories.map((category) => (
                 <MenuItem key={category.cate_id} value={category.cate_name}>

@@ -106,7 +106,19 @@ function App() {
           <Route path="/cheforders" element={<ChefOrders />}></Route>
           <Route path="/chefprofile" element={<ChefProfile />}></Route>
 
-          <Route exact path='/addnewadmin' element={<AddAdmin />} />
+          <Route path='/productview' element={<ProductView />} />
+          <Route path='/lunchView' element={<LunchView />} />
+
+          <Route path='/viewcart' element={<CartPage />} />
+          <Route path='/dinnerView' element={<DinnerView />} />
+          <Route path='/beveragesView' element={<BeveragesView />} />
+          <Route path='/payMethod' element={<PayMethod />} />
+          <Route path='/cashPay' element={<CashPay />} />
+
+        </Routes>
+
+        <Routes>
+        <Route exact path='/addnewadmin' element={<AddAdmin />} />
           <Route exact path='/editadmin/:sysusr_id ' element={<EditAdmin />} />
           <Route exact path='/viewadmin/:sysusr_id ' element={<ViewAdmin />} />
 
@@ -140,18 +152,6 @@ function App() {
           <Route exact path="/addnewofferfoodproduct" element={<AddOfferProduct />} />
 
           <Route exact path="/addnewrecomendedproduct" element={<AddRecomendedProduct />}></Route>
-
-          <Route path='/productview' element={<ProductView />} />
-          <Route path='/lunchView' element={<LunchView />} />
-
-          <Route path='/viewcart' element={<CartPage />} />
-          <Route path='/dinnerView' element={<DinnerView />} />
-          <Route path='/beveragesView' element={<BeveragesView />} />
-          <Route path='/payMethod' element={<PayMethod />} />
-          <Route path='/cashPay' element={<CashPay />} />
-
-          <Route></Route>
-
         </Routes>
        <AppFooter />
     </div>

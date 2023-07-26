@@ -10,7 +10,7 @@ const User = db.define('users',{
         primaryKey: true,
     },
     phoneno: {
-        type:DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull:false,
     },
     fname: {

@@ -101,11 +101,11 @@ function Booking() {
                                                 View
                                             </Link> */}
 
-                                            <Link className='btn btn-outline-primary mx-2'
+                                            {/* <Link className='btn btn-outline-primary mx-2'
                                             to={`/editbooking/${tablebooking.booking_id}`}
                                             >
                                                 Edit
-                                            </Link>
+                                            </Link> */}
 
                                             <button className='btn btn-danger mx-2'
                                                 onClick={() => deleteBooking(tablebooking.booking_id)}
