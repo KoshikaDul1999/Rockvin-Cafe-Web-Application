@@ -87,7 +87,7 @@ const CashPaymentReceipt = () => {
       // Loop through each product and send its order details to the backend
       temp.forEach((item) => {
         const dataToSend = {
-          user_id: 4,
+          user_id: "u1",
           food_id: item.food_id,
           food_name: item.food_name,
           price: item.food_price.toFixed(2),
