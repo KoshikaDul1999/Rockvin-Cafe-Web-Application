@@ -134,8 +134,10 @@ const CashPaymentReceipt = () => {
             <thead>
               <tr>
                 <th>Item</th>
-                <th>Price</th>
+                <th>Unit Price</th>
                 <th>Qty</th>
+                <th>Price</th>
+                
               </tr>
             </thead>
             <tbody>
@@ -144,6 +146,7 @@ const CashPaymentReceipt = () => {
                   <td className="product-name">{item.food_name}</td>
                   <td className="product-price">Rs. {item.food_price.toFixed(2)}</td>
                   <td className="product-quantity">{item.quantity || 1}</td>
+                  <td className="product-quantity">{item.quantity*item.food_price.toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
